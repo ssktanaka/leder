@@ -3,7 +3,7 @@
     <h1>Notes</h1>
 
 	<ion-list>
-      <ion-item ng-repeat="note in notes">
+      <ion-item ng-repeat="note in notes" href="#/app/projects/{{project.title}}/outline">
         <h2>{{note.name}}</h2>
         <p>{{note.snippet}}</p>
       </ion-item>
@@ -11,11 +11,4 @@
 
   </ion-content>
 </ion-view>
-<!-- 
-  .state('app.single', {
-    url: "/projects/:ProjectId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/project.html",
-        controller: 'ProjectCtrl'
-      } -->
+

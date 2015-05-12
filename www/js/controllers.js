@@ -44,6 +44,10 @@ angular.module('leder.controllers', [])
   ];
 })
 
+.controller('OutlineCtrl', function($scope) {
+  //nothing yet
+}
+
 .controller('ProjectCtrl', function($scope, $stateParams) {
   $scope.notes = [
     {
@@ -76,6 +80,5 @@ angular.module('leder.controllers', [])
         "name": "Karen Bail", 
         "snippet": "Are they common in your market? They are very common but the utility company is discouraging it some. When you produce, it goes back into the grid and at night, you take from the grid.  They say they run the AC at night. Utilities are so high here. We’re four times the national average. They’re running it at night and still only pay $60 a month. There’s a $25 a month fee. What’s happening right now is teh energy company is worried about the grid. They were supposed to give us up to 20% in the grid, and they stopped that at 10% because they want to make sure that the solar places don’t destablisze the grid."
     } 
-];
-
+  ];
 });
