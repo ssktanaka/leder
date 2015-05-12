@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('leder', ['ionic', 'leder.controllers'])
+angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
+
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
