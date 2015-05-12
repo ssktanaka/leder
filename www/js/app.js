@@ -59,7 +59,7 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
     })
 
   .state('app.single', {
-    url: "/projects/:ProjectTitle",
+    url: "/projects/:ProjectId",
     views: {
       'menuContent': {
         templateUrl: "templates/project.html",
@@ -69,7 +69,7 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
   })
 
   .state('app.outline', {
-    url: "/projects/:ProjectTitle/outline",
+    url: "/projects/:ProjectId/outline",
     views: {
       'menuContent': {
         templateUrl: "templates/outline.html",

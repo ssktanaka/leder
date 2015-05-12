@@ -33,23 +33,17 @@ angular.module('leder.controllers', [])
   };
 })
 
-.controller('ProjectsCtrl', function($scope) {
-  $scope.projects = [
-    { title: 'Maya Angelou', id: 1 },
-    { title: 'Downtown Crossing', id: 2 },
-    { title: 'Penthouses', id: 3 },
-    { title: 'Lucky Numbers', id: 4 },
-    { title: 'Luxury Auctions', id: 5 },
-    { title: 'Grammar', id: 6 }
-  ];
+.controller('ProjectsCtrl', function($scope, Notes) {
+  $scope.notes = Notes.all();
+
 })
 
 .controller('OutlineCtrl', function($scope) {
   //nothing yet
 })
 
-.controller('ProjectCtrl', function($scope, Notes) {
-    $scope.notes = Notes.all();
+.controller('ProjectCtrl', function($scope, Notes, $stateParams) {
+    $scope.notes = Notes.getSourcesForProject($stateParams.ProjectId); // TODO pass in project id
     $scope.remove = function(note) {
       Notes.remove(note);
     }

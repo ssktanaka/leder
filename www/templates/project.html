@@ -1,12 +1,12 @@
 <ion-view view-title="Project">
   <ion-content>
-    <h1>Notes</h1>
+    <h1>Source Notes</h1>
 
 	<ion-list>
-      <ion-item ng-repeat="note in notes" href="#/app/projects/{{project.title}}/outline">
-        <h2>{{note.name}}</h2>
-        <p>{{note.snippet}}</p>
-   		  <ion-option-button class="button-assertive" ng-click="remove(noote)">
+      <ion-item ng-repeat="(key, value) in notes" href="#/app/projects/{{project.title}}/outline">
+        <h2>{{value.name}}</h2>
+        <p>{{value.snippet}}</p>
+   		  <ion-option-button class="button-assertive" ng-click="remove(note)">
           Delete
         </ion-option-button>
 
