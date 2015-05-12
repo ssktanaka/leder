@@ -1,7 +1,21 @@
 <ion-view view-title="Project">
   <ion-content>
-    <h1>Project</h1>
-    <h2>Project title is: {{project.title}}</h2>
+    <h1>Notes</h1>
+
+	<ion-list>
+      <ion-item ng-repeat="note in notes">
+        <h2>{{note.name}}</h2>
+        <p>{{note.snippet}}</p>
+      </ion-item>
+    </ion-list>
+
   </ion-content>
 </ion-view>
-
+<!-- 
+  .state('app.single', {
+    url: "/projects/:ProjectId",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/project.html",
+        controller: 'ProjectCtrl'
+      } -->
