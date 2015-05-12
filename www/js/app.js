@@ -59,16 +59,6 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
     })
 
   .state('app.single', {
-    url: "/projects/:ProjectId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/project.html",
-        controller: 'ProjectCtrl'
-      }
-    }
-  })
-
-  .state('app.outline', {
     url: "/projects/:ProjectId/outline",
     views: {
       'menuContent': {
@@ -76,7 +66,17 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
         controller: 'OutlineCtrl'
       }
     }
-  });
+  })
+
+   .state('app.projectNotes', {
+      url: "/projects/:ProjectId/notes",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/notes.html",
+          controller: 'NotesCtrl'
+        }
+      }
+    });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/projects');
 });

@@ -1,8 +1,45 @@
 <ion-view view-title="Outline">
+
+<!--  button for right panel to hold notes -->
+      <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="right">
+        </button>
+      </ion-nav-buttons>
+  
+
   <ion-content>
-    <h1>Outline</h1>
+    <h1>Source Notes</h1>
+
+	<ion-list>
+      <ion-item ng-repeat="(key, value) in notes">
+        <h2>{{value.name}}</h2>
+        <p>{{value.snippet}}</p>
+   		  <ion-option-button class="button-assertive" ng-click="remove(note)">
+          Delete
+        </ion-option-button>
+
+      </ion-item>
+    </ion-list>
+
   </ion-content>
 </ion-view>
 
+        <!--   right-hand content -->
+    <ion-side-menu side="right">
+     <ion-header-bar class="bar-stable">
+        <h1 class="title">Source Notes</h1>
+      </ion-header-bar>
 
-   
+      <ion-content>
+        <ion-list>
+
+         <ion-item ng-repeat="(key, value) in notes" href="#/app/projects/{{project.title}}/outline">
+            <h2>{{value.name}}</h2>
+            <p>{{value.snippet}}</p>
+            <ion-option-button class="button-assertive" ng-click="remove(note)">
+              Delete
+            </ion-option-button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>

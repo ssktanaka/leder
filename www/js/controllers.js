@@ -39,10 +39,10 @@ angular.module('leder.controllers', [])
 })
 
 .controller('OutlineCtrl', function($scope) {
-  //nothing yet
+  //empty
 })
 
-.controller('ProjectCtrl', function($scope, Notes, $stateParams) {
+.controller('NotesCtrl', function($scope, Notes, $stateParams) {
     $scope.notes = Notes.getSourcesForProject($stateParams.ProjectId); // TODO pass in project id
     $scope.remove = function(note) {
       Notes.remove(note);
