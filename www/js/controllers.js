@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('leder.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -33,16 +33,16 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
+.controller('ProjectsCtrl', function($scope) {
+  $scope.projects = [
+    { title: 'Maya Angelou', id: 1 },
+    { title: 'Downtown Crossing', id: 2 },
+    { title: 'Penthouses', id: 3 },
+    { title: 'Lucky Numbers', id: 4 },
+    { title: 'Luxury Auctions', id: 5 },
+    { title: 'Grammar', id: 6 }
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('ProjectCtrl', function($scope, $stateParams) {
 });
