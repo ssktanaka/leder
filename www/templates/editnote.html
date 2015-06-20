@@ -9,7 +9,7 @@
     	</div>
 	</ion-header-bar>
 	<ion-content scroll="false"> 
-    	<div detect-gestures gesture-type="touchstart" gesture-type="touchmove" gesture-type="touchend">
+    	<div detect-gestures gesture-type="touch">
           <span ng-class="{highlighted: word.isHighlighted}" ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index"> {{word.text}} </span>
         </div>
  

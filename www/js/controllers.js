@@ -5,10 +5,8 @@ angular.module('leder.controllers', [])
     restrict :  'A',
 
     link : function(scope, elem, attrs) {
-      $ionicGesture.on('touchstart', scope.onTouch, elem);
-      $ionicGesture.on('touchmove', scope.onMove, elem);
-      $ionicGesture.on('touchend', scope.onRelease, elem);
-
+      $ionicGesture.on('touch', scope.getHTMLObject, elem);
+      $ionicGesture.on('release', scope.onRelease, elem);
     }
   }
 })
@@ -93,54 +91,35 @@ angular.module('leder.controllers', [])
   
 
  //function to set first and last word IDs
-  $scope.onTouch = function dragTest(e) {
-    e.preventDefault(); 
-
-    // if (e.target.nodeName == "SPAN") {
-      if (!firstWordID) {
-        firstWordID = e.srcElement.id;
-        console.log(firstWordID + ", the first word has been tagged");
-      }
-    // }
-    lastWordID = e.srcElement.id;       
-    console.log(lastWordID + ", the last word has been tagged ONCE");
-
-  };
-
-  //release function to clear IDs
-  $scope.onMove = function moveTest(e) {      
-    e.preventDefault(); 
-
-    lastWordID = e.target.id;
-    console.log(lastWordID + ", the last word has been tagged TWICE");
+  $scope.onDrag = function dragTest(htmlID) {
+    if (!firstWordID) {
+      firstWordID = htmlID;
+      console.log(firstWordID + ", the first word has been tagged");
+    }
+    lastWordID = htmlID;
+    console.log(lastWordID + ", the last word has been tagged");
 
     //iterate through object array.
     for (var i = 0; i < $scope.words.length; i++){
       //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
+        console.log($scope.words[i].isHighlighted);
       } 
     };
+
   };
 
-    //release function to clear IDs
-  $scope.onRelease = function releaseTest(e) {
+
+
+  $scope.getHTMLObject = function htmlTest(e){
     e.preventDefault(); 
 
-    lastWordID = e.target.id;
-    console.log(lastWordID + ", the last word has been tagged THREE TIMES");
-
-    //iterate through object array.
-    for (var i = 0; i < $scope.words.length; i++){
-      //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
-      if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
-        $scope.words[i].isHighlighted = true;
-      } 
-    };
+    var htmlID = e.srcElement.id;
+    $scope.onDrag(htmlID);
     firstWordID = null;
     lastWordID = null;
-  };
-
+  }
 
 
 
