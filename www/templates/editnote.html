@@ -9,20 +9,20 @@
     	</div>
 	</ion-header-bar>
 	<ion-content scroll="false"> 
-    	<div detect-gestures gesture-type="touch">
-          <span ng-class="{highlighted: word.isHighlighted}" ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index"> {{word.text}} </span>
+    	<div detect-gestures gesture-type="touch" gesture-type="release" >
+          <span ng-class="highlighted" ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index"> {{word.text}}</span>
         </div>
  
        <button ng-click="clearHighlightedWords()">Clear Highlighting Markup</button>
         <br/><br/>
         <button ng-click="parseHighlightedWords()">I'm done. Show me the quotes</button>
         <br/><br/>
-        <h4 ng-repeat="quoteArray in highlightedWords"> 
+        <h6 ng-repeat="quoteArray in highlightedWords"> 
            Quote:
            <span ng-repeat="quoteObject in quoteArray"> 
             {{quoteObject.text}}
           </span>
-        </h4>
+        </h6>
 
 
 

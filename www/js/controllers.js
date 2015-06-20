@@ -5,7 +5,7 @@ angular.module('leder.controllers', [])
     restrict :  'A',
 
     link : function(scope, elem, attrs) {
-      $ionicGesture.on('touch', scope.getHTMLObject, elem);
+      $ionicGesture.on('touch', scope.onTouch, elem);
       $ionicGesture.on('release', scope.onRelease, elem);
     }
   }
@@ -61,6 +61,9 @@ angular.module('leder.controllers', [])
 
     // parse source text into array 
     $scope.noteText = $scope.parseNoteText($scope.noteText);
+
+    quoteArray = [];
+
   };
 
 
@@ -88,41 +91,57 @@ angular.module('leder.controllers', [])
   //set two variables for first and last word IDs
   var firstWordID = null;
   var lastWordID = null;
-  
+  var dragging = false;
 
  //function to set first and last word IDs
-  $scope.onDrag = function dragTest(htmlID) {
+  $scope.onTouch = function touchTest(e) {
+    firstWordID = null;
+    lastWordID = null;
+    
+    e.preventDefault(); 
+    //if firstWordID doesn't exist yet, save it to the current span
     if (!firstWordID) {
-      firstWordID = htmlID;
-      console.log(firstWordID + ", the first word has been tagged");
-    }
-    lastWordID = htmlID;
-    console.log(lastWordID + ", the last word has been tagged");
+      if (e.target.nodeName == "SPAN"){
+        firstWordID = e.srcElement.id;
+        console.log("The first word with ID " + firstWordID + " has been tagged");
+        dragging = true;
+      } 
+    } else {
+      //do nothing
+    };
+    if (dragging) {
+      lastWordID = e.target.id;
+      console.log("We are updating the last word to " + lastWordID);
+    } else {
+      //do nothing
+    };
 
+
+  };
+
+  $scope.onRelease = function releaseTest(e) {
+    e.preventDefault(); 
+    if (e.gesture.target.localName == "span"){
+      dragging = false;
+      lastWordID = e.gesture.target.id;
+      console.log(e.gesture.target);
+    }
+
+    //save and continuously update lastWordID with current span
+    console.log("The last word is " + lastWordID);
+    console.log("The first word is still " + firstWordID);
+    
     //iterate through object array.
     for (var i = 0; i < $scope.words.length; i++){
       //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
-        console.log($scope.words[i].isHighlighted);
       } 
-    };
+    }; 
+  };  
 
-  };
-
-
-
-  $scope.getHTMLObject = function htmlTest(e){
-    e.preventDefault(); 
-
-    var htmlID = e.srcElement.id;
-    $scope.onDrag(htmlID);
-    firstWordID = null;
-    lastWordID = null;
-  }
-
-
-
+  //highlighted words into an array of quote arrays of objects
+  $scope.highlightedWords = [];
 
   //function to clear highlighted words
   $scope.clearHighlightedWords = function() {
@@ -134,12 +153,8 @@ angular.module('leder.controllers', [])
     };
   };
 
-  //highlighted words into an array of quote arrays of objects
-  $scope.highlightedWords = [];
-
   //function to parse highlighted words
   $scope.parseHighlightedWords = function() {
-    $scope.highlightedWords = [];
     var quoteArray = [];
 
     for (var i = 0; i < $scope.words.length; i++){
@@ -150,6 +165,7 @@ angular.module('leder.controllers', [])
       //once the iteration hits a non-highlighted word, push to array if quote exists
       else if (quoteArray.length > 0) {
         $scope.highlightedWords.push(quoteArray);
+        //clear quoteArray to start again
         quoteArray = [];
       } 
     };
