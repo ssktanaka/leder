@@ -44,24 +44,38 @@ angular.module('leder.services', [])
 	    { title: 'Luxury Auctions', id: 5, sources: [] },
 	    { title: 'Grammar', id: 6, sources: [] }
   ];
+
   return {
-    all: function() {
-      return notes;
-    },
 
-    getSourcesForProject: function(projectId) {
-		var notes = this.all();
-		for (var i=0; i<notes.length; i++) {
-			if (notes[i].id == projectId) {
-				return notes[i].sources;
+	    all: function() {
+	      return notes;
+	    },
+
+	    getSourcesForProject: function(projectId) {
+			var notes = this.all();
+			for (var i=0; i<notes.length; i++) {
+				if (notes[i].id == projectId) {
+					return notes[i].sources;
+				}
 			}
-		}
-		return null;
-    },
+			return null;
+	    },
 
-    remove: function(note) {
-      notes.splice(notes.indexOf(note), 1);
-    },
+	   getNoteText: function(noteID) {
+	   		//get text of source note
+			var notes = this.all();
+			for (var i=0; i<notes.length; i++) {
+				for (var j=0; j<notes[i].sources.length; j++) {	
+					if (notes[i].sources[j].id == noteID) {
+						return notes[i].sources[j].snippet;
+					}
+				}
+			}
+			return null;
+	   },
 
-  };
+	};
+
 });
+
+

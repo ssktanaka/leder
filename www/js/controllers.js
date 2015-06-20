@@ -1,6 +1,19 @@
 angular.module('leder.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.directive('detectGestures', function($ionicGesture) {
+  return {
+    restrict :  'A',
+
+    link : function(scope, elem, attrs) {
+      $ionicGesture.on('touchstart', scope.onTouch, elem);
+      $ionicGesture.on('touchmove', scope.onMove, elem);
+      $ionicGesture.on('touchend', scope.onRelease, elem);
+
+    }
+  }
+})
+
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, Notes, $stateParams) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -31,20 +44,197 @@ angular.module('leder.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+
+  // Create the edit note modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/editnote.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.editModal = modal;
+  });
+
+  //open edit model to edit notes
+  $scope.editNote = function(noteID) {
+    $scope.editModal.show();
+
+    //populate edit screen with source text
+    $scope.noteText = Notes.getNoteText(noteID); 
+
+    // parse source text into array 
+    $scope.noteText = $scope.parseNoteText($scope.noteText);
+  };
+
+
+  //function to split string for display
+  $scope.parseNoteText = function(noteText) {
+    //split the string into individual words
+    var noteText = noteText.split(" ");
+
+    //empty array to hold my word objects
+    $scope.words = [];
+
+    //function to loop through string array and create an array of objects
+    for (var i = 0; i < noteText.length; i++) {
+      var obj = {};
+      obj.text = noteText[i];
+      obj.isHighlighted = false; 
+      obj.id = i;
+      $scope.words.push(obj);
+    }
+    return $scope.words;
+  };
+
+//highlighting function
+
+  //set two variables for first and last word IDs
+  var firstWordID = null;
+  var lastWordID = null;
+  
+
+ //function to set first and last word IDs
+  $scope.onTouch = function dragTest(e) {
+    e.preventDefault(); 
+
+    // if (e.target.nodeName == "SPAN") {
+      if (!firstWordID) {
+        firstWordID = e.srcElement.id;
+        console.log(firstWordID + ", the first word has been tagged");
+      }
+    // }
+    lastWordID = e.srcElement.id;       
+    console.log(lastWordID + ", the last word has been tagged ONCE");
+
+  };
+
+  //release function to clear IDs
+  $scope.onMove = function moveTest(e) {      
+    e.preventDefault(); 
+
+    lastWordID = e.target.id;
+    console.log(lastWordID + ", the last word has been tagged TWICE");
+
+    //iterate through object array.
+    for (var i = 0; i < $scope.words.length; i++){
+      //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
+      if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
+        $scope.words[i].isHighlighted = true;
+      } 
+    };
+  };
+
+    //release function to clear IDs
+  $scope.onRelease = function releaseTest(e) {
+    e.preventDefault(); 
+
+    lastWordID = e.target.id;
+    console.log(lastWordID + ", the last word has been tagged THREE TIMES");
+
+    //iterate through object array.
+    for (var i = 0; i < $scope.words.length; i++){
+      //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
+      if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
+        $scope.words[i].isHighlighted = true;
+      } 
+    };
+    firstWordID = null;
+    lastWordID = null;
+  };
+
+
+
+
+
+  //function to clear highlighted words
+  $scope.clearHighlightedWords = function() {
+    $scope.highlightedWords = [];
+    for (var i = 0; i < $scope.words.length; i++){
+      if ($scope.words[i].isHighlighted){
+        $scope.words[i].isHighlighted = false;
+      } 
+    };
+  };
+
+  //highlighted words into an array of quote arrays of objects
+  $scope.highlightedWords = [];
+
+  //function to parse highlighted words
+  $scope.parseHighlightedWords = function() {
+    $scope.highlightedWords = [];
+    var quoteArray = [];
+
+    for (var i = 0; i < $scope.words.length; i++){
+      //if word is highlighted, push to array
+      if ($scope.words[i].isHighlighted){
+        quoteArray.push($scope.words[i]);
+      } 
+      //once the iteration hits a non-highlighted word, push to array if quote exists
+      else if (quoteArray.length > 0) {
+        $scope.highlightedWords.push(quoteArray);
+        quoteArray = [];
+      } 
+    };
+
+    //check once more for final quote, then push to quote array
+    if (quoteArray.length > 0) {
+        $scope.highlightedWords.push(quoteArray);
+    }
+
+  };
+
+
+
+
+  $scope.closeEditNote = function() {
+    $scope.editModal.hide();
+
+  };
+
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.editModal.remove();
+  });
+
+  // Execute action on hide modal
+  $scope.$on('editModal.hidden', function() {
+    // Execute action
+  });
+
+  // Execute action on remove modal
+  $scope.$on('editModal.removed', function() {
+    // Execute action
+  });
+
+
+
 })
 
-.controller('ProjectsCtrl', function($scope, Notes) {
+.controller('ProjectsCtrl', function($scope, Notes, $stateParams) {
   $scope.notes = Notes.all();
 
 })
 
-.controller('OutlineCtrl', function($scope) {
-  //empty
+.controller('ProjectPageCtrl', function($scope, Notes, $stateParams) {
+  //get project ID and set in url
+  $scope.projectID = $stateParams.ProjectId;
+
 })
 
-.controller('NotesCtrl', function($scope, Notes, $stateParams) {
-    $scope.notes = Notes.getSourcesForProject($stateParams.ProjectId); // TODO pass in project id
-    $scope.remove = function(note) {
-      Notes.remove(note);
-    }
+.controller('NotesCtrl', function($scope, Notes, $stateParams, $ionicModal) {
+  $scope.notes = Notes.getSourcesForProject($stateParams.ProjectId); 
+
+
+
+
+
+})
+
+.controller('OutlineCtrl', function($scope, Notes, $stateParams) {
+
+  
+})
+
+.controller('EditNoteCtrl', function($scope, Notes, $stateParams) {
+
+
 })

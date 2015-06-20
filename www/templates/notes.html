@@ -1,8 +1,15 @@
 <ion-view view-title="Notes">
+	
+<ion-content>
+	<ion-list>
+	 <ion-item ng-repeat="(key, value) in notes" ng-click="editNote(value.id)" >
+	    <h2>{{value.name}}</h2>
+	    <p>{{value.snippet}}</p>
+	  </ion-item>
+	</ion-list>
+</ion-content>
 
 
 
 
-
-   </ion-view>
-
+</ion-view>

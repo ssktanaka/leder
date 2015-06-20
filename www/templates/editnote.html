@@ -1,0 +1,32 @@
+<ion-modal-view>
+	<ion-header-bar >
+		<div class="buttons">
+     	 	<button class="button button-clear button-positive" ng-click="closeEditNote()">Cancel</button>
+    	</div>
+		<h1 class="title">Editing Note</h1>
+		<div class="buttons">
+     	 	<button class="button button-clear button-positive" ng-click="closeEditNote()">Save</button>
+    	</div>
+	</ion-header-bar>
+	<ion-content scroll="false"> 
+    	<div detect-gestures gesture-type="touchstart" gesture-type="touchmove" gesture-type="touchend">
+          <span ng-class="{highlighted: word.isHighlighted}" ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index"> {{word.text}} </span>
+        </div>
+ 
+       <button ng-click="clearHighlightedWords()">Clear Highlighting Markup</button>
+        <br/><br/>
+        <button ng-click="parseHighlightedWords()">I'm done. Show me the quotes</button>
+        <br/><br/>
+        <h4 ng-repeat="quoteArray in highlightedWords"> 
+           Quote:
+           <span ng-repeat="quoteObject in quoteArray"> 
+            {{quoteObject.text}}
+          </span>
+        </h4>
+
+
+
+	</ion-content>
+</ion-modal-view>
+
+
