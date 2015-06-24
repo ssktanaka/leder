@@ -88,6 +88,17 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
       }
     })
 
+   .state('app.projectEditNotes', {
+      url: "/projects/:ProjectId/projectpage/notes/editnotes",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/editnote.html",
+          controller: 'EditNoteCtrl'
+        }
+      }
+    })
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/projects');

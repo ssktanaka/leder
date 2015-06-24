@@ -2,7 +2,7 @@
 	
 <ion-content>
 	<ion-list>
-	 <ion-item ng-repeat="(key, value) in notes" ng-click="editNote(value.id)" >
+	 <ion-item ng-repeat="(key, value) in notes" href="#/app/projects/{{value.id}}/projectpage/notes/editnotes">
 	    <h2>{{value.name}}</h2>
 	    <p>{{value.snippet}}</p>
 	  </ion-item>

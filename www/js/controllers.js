@@ -1,12 +1,12 @@
 angular.module('leder.controllers', [])
 
+//detect gestures
 .directive('detectGestures', function($ionicGesture) {
   return {
     restrict :  'A',
 
     link : function(scope, elem, attrs) {
       $ionicGesture.on('touch', scope.onTouch, elem);
-      $ionicGesture.on('release', scope.onRelease, elem);
     }
   }
 })
@@ -43,29 +43,54 @@ angular.module('leder.controllers', [])
     }, 1000);
   };
 
-
-  // Create the edit note modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/editnote.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.editModal = modal;
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.editModal.remove();
   });
 
-  //open edit model to edit notes
-  $scope.editNote = function(noteID) {
-    $scope.editModal.show();
+  // Execute action on hide modal
+  $scope.$on('editModal.hidden', function() {
+    // Execute action
+  });
 
-    //populate edit screen with source text
-    $scope.noteText = Notes.getNoteText(noteID); 
+  // Execute action on remove modal
+  $scope.$on('editModal.removed', function() {
+    // Execute action
+  });
 
-    // parse source text into array 
-    $scope.noteText = $scope.parseNoteText($scope.noteText);
 
-    quoteArray = [];
+})
 
-  };
+.controller('ProjectsCtrl', function($scope, Notes, $stateParams) {
+  $scope.notes = Notes.all();
 
+})
+
+.controller('ProjectPageCtrl', function($scope, Notes, $stateParams) {
+  //get project ID and set in url
+  $scope.projectID = $stateParams.ProjectId;
+
+})
+
+.controller('NotesCtrl', function($scope, Notes, $stateParams, $ionicModal) {
+  $scope.notes = Notes.getSourcesForProject($stateParams.ProjectId); 
+
+})
+
+.controller('OutlineCtrl', function($scope, Notes, Quotes, $stateParams) {
+ //highlighted words into an array of quote arrays of objects
+  $scope.highlightedWords = Quotes.getHighlightedWords(); 
+  $scope.quoteArray = Quotes.getQuoteArray();
+  console.log($scope.quoteArray);
+  console.log($scope.highlightedWords);
+
+  
+})
+
+.controller('EditNoteCtrl', function($scope, Notes, Quotes, $stateParams) {
+
+  //populate edit screen with source text
+  $scope.noteText = Notes.getNoteText($stateParams.ProjectId); 
 
   //function to split string for display
   $scope.parseNoteText = function(noteText) {
@@ -86,150 +111,116 @@ angular.module('leder.controllers', [])
     return $scope.words;
   };
 
-//highlighting function
+  // parse source text into array 
+  $scope.noteText = $scope.parseNoteText($scope.noteText);
+
+  //HIGHLIGHTING FUNCTIONS
 
   //set two variables for first and last word IDs
-  var firstWordID = null;
-  var lastWordID = null;
-  var dragging = false;
+
+  $scope.highlightMode = false;
+  $scope.firstWordID = null;
+  $scope.lastWordID = null;
 
  //function to set first and last word IDs
-  $scope.onTouch = function touchTest(e) {
-    firstWordID = null;
-    lastWordID = null;
-    
-    e.preventDefault(); 
-    //if firstWordID doesn't exist yet, save it to the current span
-    if (!firstWordID) {
-      if (e.target.nodeName == "SPAN"){
-        firstWordID = e.srcElement.id;
-        console.log("The first word with ID " + firstWordID + " has been tagged");
-        dragging = true;
-      } 
-    } else {
-      //do nothing
-    };
-    if (dragging) {
-      lastWordID = e.target.id;
-      console.log("We are updating the last word to " + lastWordID);
-    } else {
-      //do nothing
-    };
+  $scope.onTouch = function detectTouch(e) {   
 
+    //good practice
+    e.preventDefault(); 
+
+    //if nodename is a SPAN element
+    if (e.target.nodeName == "SPAN"){
+
+      //if user is in highlight mode, save the ID to the last word
+      if ($scope.highlightMode) {
+        $scope.lastWordID = e.srcElement.id;
+        //apply highlighting 
+        $scope.applyHighlight($scope.firstWordID, $scope.lastWordID);
+      } 
+    //if user is not in highlight mode, save the ID to the first word
+      else {
+        $scope.firstWordID = e.srcElement.id;
+        //set highlight mode to true so next touch will register as final word
+        $scope.highlightMode = true;
+      };
+
+    };
 
   };
 
-  $scope.onRelease = function releaseTest(e) {
-    e.preventDefault(); 
-    if (e.gesture.target.localName == "span"){
-      dragging = false;
-      lastWordID = e.gesture.target.id;
-      console.log(e.gesture.target);
-    }
 
-    //save and continuously update lastWordID with current span
-    console.log("The last word is " + lastWordID);
-    console.log("The first word is still " + firstWordID);
-    
+  $scope.applyHighlight = function highlightTest(firstWordID, lastWordID) {
+
     //iterate through object array.
     for (var i = 0; i < $scope.words.length; i++){
       //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
-      } 
-    }; 
+      }; 
+    };
+    //ensure highlighting applies
+    $scope.$apply();
+
+    //set highlight mode to false so a new touch can register
+    $scope.highlightMode = false;
+
   };  
 
+
   //highlighted words into an array of quote arrays of objects
-  $scope.highlightedWords = [];
+  $scope.highlightedWords = Quotes.getHighlightedWords(); 
+  $scope.quoteArray = Quotes.getQuoteArray();
+
 
   //function to clear highlighted words
   $scope.clearHighlightedWords = function() {
+    //ensure highlighted words array is empty
     $scope.highlightedWords = [];
+
+    //iterate through array of quote arrays of objects
     for (var i = 0; i < $scope.words.length; i++){
+      //if isHighlighted attribute is true, set it to false 
       if ($scope.words[i].isHighlighted){
         $scope.words[i].isHighlighted = false;
       } 
     };
+
   };
+
 
   //function to parse highlighted words
   $scope.parseHighlightedWords = function() {
-    var quoteArray = [];
+    //ensure highlighted words array is empty
+    $scope.highlightedWords = [];
 
+    //iterate through array of quote arrays of objects
     for (var i = 0; i < $scope.words.length; i++){
+
       //if word is highlighted, push to array
       if ($scope.words[i].isHighlighted){
-        quoteArray.push($scope.words[i]);
+        $scope.quoteArray.push($scope.words[i]);
       } 
       //once the iteration hits a non-highlighted word, push to array if quote exists
-      else if (quoteArray.length > 0) {
-        $scope.highlightedWords.push(quoteArray);
+      else if ($scope.quoteArray.length > 0) {
+        $scope.highlightedWords.push($scope.quoteArray);
         //clear quoteArray to start again
-        quoteArray = [];
-      } 
+        $scope.quoteArray = [];
+      } else {
+        //do nothing
+      };
+
     };
 
     //check once more for final quote, then push to quote array
-    if (quoteArray.length > 0) {
-        $scope.highlightedWords.push(quoteArray);
+    if ($scope.quoteArray.length > 0) {
+        $scope.highlightedWords.push($scope.quoteArray);
+        //clear quoteArray to start again
+        $scope.quoteArray = [];
     }
 
-  };
-
-
-
-
-  $scope.closeEditNote = function() {
-    $scope.editModal.hide();
+    console.log($scope.highlightedWords);
 
   };
-
-  //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.editModal.remove();
-  });
-
-  // Execute action on hide modal
-  $scope.$on('editModal.hidden', function() {
-    // Execute action
-  });
-
-  // Execute action on remove modal
-  $scope.$on('editModal.removed', function() {
-    // Execute action
-  });
-
-
-
-})
-
-.controller('ProjectsCtrl', function($scope, Notes, $stateParams) {
-  $scope.notes = Notes.all();
-
-})
-
-.controller('ProjectPageCtrl', function($scope, Notes, $stateParams) {
-  //get project ID and set in url
-  $scope.projectID = $stateParams.ProjectId;
-
-})
-
-.controller('NotesCtrl', function($scope, Notes, $stateParams, $ionicModal) {
-  $scope.notes = Notes.getSourcesForProject($stateParams.ProjectId); 
-
-
-
-
-
-})
-
-.controller('OutlineCtrl', function($scope, Notes, $stateParams) {
-
-  
-})
-
-.controller('EditNoteCtrl', function($scope, Notes, $stateParams) {
 
 
 })

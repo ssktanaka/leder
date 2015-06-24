@@ -1,6 +1,6 @@
-angular.module('leder.services', [])
+var ledermodule = angular.module('leder.services', [])
 
-.factory('Notes', function() {
+ledermodule.factory('Notes', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data notes[1].title
@@ -21,7 +21,7 @@ angular.module('leder.services', [])
 		    }, 
 		    {
 		        "age": 2, 
-		        "carrier": "denisegannalo", 
+		        "id": "denisegannalo", 
 		        "name": "Denise Gannalo ", 
 		        "snippet": "1.  Are they more common? NO, there are not at all. They are very uncommong here. Homeowners in Conn are looking for you’ll find geotrhermal. Tnhe owners of this house were very interested in building an eco-family house. They have systems on the roof. As they were building it, it’s very very forward-thinking in terms of energy reduction. It’s a very tight house. The house is made out of a lot of recycled and organic materials. There’s al ot of vegetable gardens and orchards. It cost her very very little for electricity. It would probably not cost her anything had she not have a heated swimming pool and spa. There is central air in the summer. If you add the heat and pool and AC, the electric bill is very little. Less than $100 per month, which is amazing for this"
 		    }, 
@@ -75,6 +75,25 @@ angular.module('leder.services', [])
 	   },
 
 	};
+
+});
+
+ledermodule.factory('Quotes', function() {
+  //highlighted words into an array of quote arrays of objects
+  var highlightedWords = [];
+  var quoteArray = [];
+
+  return {
+
+	getHighlightedWords: function() {
+      	return highlightedWords;
+    },
+
+	getQuoteArray: function() {
+      	return quoteArray;
+    },
+
+   };
 
 });
 

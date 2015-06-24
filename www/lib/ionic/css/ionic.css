@@ -2561,9 +2561,9 @@ body, .ionic-body {
   padding: 0;
   color: #000;
   word-wrap: break-word;
-  font-size: 14px;
+  font-size: 1.2em;
   font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
-  line-height: 20px;
+  line-height:  1.5em;
   text-rendering: optimizeLegibility;
   -webkit-backface-visibility: hidden;
   -webkit-user-drag: none;

@@ -1,6 +1,41 @@
 <ion-view view-title="Outline">
   <ion-content>
-	  Outline goes here.
+
+	<ion-list show-delete="shouldShowDelete"
+	          show-reorder="shouldShowReorder"
+	          can-swipe="listCanSwipe">
+	  <ion-item ng-repeat="quote in quoteArray track by $index"
+	            class="item-thumbnail-left">
+
+<!-- 
+   <h6 ng-repeat="quoteArray in highlightedWords track by $index"> 
+       Quote: 
+        <span ng-repeat="quoteObject in quoteArray track by $index"> 
+        {{quoteObject.text}}
+        </span>
+    </h6> -->
+
+<!-- 	    <img ng-src="{{item.img}}">
+ -->	    <h2>quote</h2>
+	    <p>{{quote.text}}</p>
+	    <ion-option-button class="button-positive"
+	                       ng-click="share(quoteObject)">
+	      Share
+	    </ion-option-button>
+	    <ion-option-button class="button-info"
+	                       ng-click="edit(quoteObject)">
+	      Edit
+	    </ion-option-button>
+	    <ion-delete-button class="ion-minus-circled"
+	                       ng-click="quoteArray.splice($index, 1)">
+	    </ion-delete-button>
+	    <ion-reorder-button class="ion-navicon"
+	                        on-reorder="reorderItem(quoteObject, $fromIndex, $toIndex)">
+	    </ion-reorder-button>
+
+	  </ion-item>
+	</ion-list>
+
   </ion-content>
 </ion-view>
 
