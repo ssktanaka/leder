@@ -77,14 +77,29 @@ angular.module('leder.controllers', [])
 
 })
 
-.controller('OutlineCtrl', function($scope, Notes, Quotes, $stateParams) {
+.controller('OutlineCtrl', function($scope, Notes, Quotes, $stateParams, $ionicListDelegate) {
  //highlighted words into an array of quote arrays of objects
   $scope.highlightedWords = Quotes.getHighlightedWords(); 
   $scope.quoteArray = Quotes.getQuoteArray();
-  console.log($scope.quoteArray);
-  console.log($scope.highlightedWords);
 
-  
+  $scope.shouldShowReorder = false;
+  $scope.listCanSwipe = true;
+
+
+
+  $scope.reorderItem = function(item, fromIndex, toIndex) {
+      //Move the item in the array
+    $scope.highlightedWords.splice(fromIndex, 1);
+    $scope.highlightedWords.splice(toIndex, 0, item);
+  };
+
+  $scope.delete = function(item) {
+    $scope.highlightedWords.splice($scope.highlightedWords.indexOf(item), 1);
+    //close swipe button
+    $ionicListDelegate.$getByHandle('outline-list').closeOptionButtons();
+
+  };
+
 })
 
 .controller('EditNoteCtrl', function($scope, Notes, Quotes, $stateParams) {
@@ -217,8 +232,8 @@ angular.module('leder.controllers', [])
         //clear quoteArray to start again
         $scope.quoteArray = [];
     }
-
-    console.log($scope.highlightedWords);
+    //update service variable
+    Quotes.setHighlightedWords($scope.highlightedWords);
 
   };
 

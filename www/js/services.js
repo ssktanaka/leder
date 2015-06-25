@@ -1,6 +1,6 @@
 var ledermodule = angular.module('leder.services', [])
 
-ledermodule.factory('Notes', function() {
+ledermodule.service('Notes', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data notes[1].title
@@ -78,7 +78,7 @@ ledermodule.factory('Notes', function() {
 
 });
 
-ledermodule.factory('Quotes', function() {
+ledermodule.service('Quotes', function() {
   //highlighted words into an array of quote arrays of objects
   var highlightedWords = [];
   var quoteArray = [];
@@ -91,6 +91,10 @@ ledermodule.factory('Quotes', function() {
 
 	getQuoteArray: function() {
       	return quoteArray;
+    },
+
+    setHighlightedWords: function(value){
+    	highlightedWords = value;
     },
 
    };

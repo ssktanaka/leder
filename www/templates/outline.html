@@ -1,41 +1,39 @@
 <ion-view view-title="Outline">
-  <ion-content>
 
-	<ion-list show-delete="shouldShowDelete"
-	          show-reorder="shouldShowReorder"
-	          can-swipe="listCanSwipe">
-	  <ion-item ng-repeat="quote in quoteArray track by $index"
-	            class="item-thumbnail-left">
+	<!-- subhead with reorder button -->
+	<ion-header-bar class="bar-light bar-subheader">
+  		<h1 class="title"></h1>
+  		<div class="buttons">
+    		<button class="button" ng-click="shouldShowReorder = !shouldShowReorder">Reorder</button>
+  		</div>
+	</ion-header-bar>
 
-<!-- 
-   <h6 ng-repeat="quoteArray in highlightedWords track by $index"> 
-       Quote: 
-        <span ng-repeat="quoteObject in quoteArray track by $index"> 
-        {{quoteObject.text}}
-        </span>
-    </h6> -->
+  <ion-content class="has-subheader">
+	  <ion-list 
+	      show-delete="shouldShowDelete"
+	      show-reorder="shouldShowReorder"
+	      can-swipe="listCanSwipe"
+	      delegate-handle="outline-list">
 
-<!-- 	    <img ng-src="{{item.img}}">
- -->	    <h2>quote</h2>
-	    <p>{{quote.text}}</p>
-	    <ion-option-button class="button-positive"
-	                       ng-click="share(quoteObject)">
-	      Share
-	    </ion-option-button>
-	    <ion-option-button class="button-info"
-	                       ng-click="edit(quoteObject)">
-	      Edit
-	    </ion-option-button>
-	    <ion-delete-button class="ion-minus-circled"
-	                       ng-click="quoteArray.splice($index, 1)">
-	    </ion-delete-button>
-	    <ion-reorder-button class="ion-navicon"
-	                        on-reorder="reorderItem(quoteObject, $fromIndex, $toIndex)">
-	    </ion-reorder-button>
+	    <ion-item ng-repeat="quoteArray in highlightedWords track by $index" 
+	              item="item"
+	              class="item-remove-animate item-text-wrap">
+	              <h3>Quote</h3>
+	    	<span ng-repeat="item in quoteArray track by $index">{{ item.text }} </span>
 
-	  </ion-item>
-	</ion-list>
+	    	<!-- button options -->
+	    	<!-- swipeable delete -->
+		    <ion-option-button class="button-assertive"
+		                       ng-click="delete(quoteArray)">
+		      Remove
+		    </ion-option-button>
 
-  </ion-content>
+	    	<!-- reorder -->
+		    <ion-reorder-button class="ion-navicon"
+		                        on-reorder="reorderItem(quoteArray, $fromIndex, $toIndex)">
+		    </ion-reorder-button>
+
+    	</ion-item>
+	 </ion-list>
+   </ion-content>
 </ion-view>
-
