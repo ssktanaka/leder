@@ -11,7 +11,9 @@ angular.module('leder.controllers', [])
   }
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Notes, $stateParams) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, Notes, $stateParams, Evernote) {
+
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -34,13 +36,7 @@ angular.module('leder.controllers', [])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    Evernote.loginWithEvernote();
   };
 
   //Cleanup the modal when we're done with it!
@@ -149,28 +145,40 @@ angular.module('leder.controllers', [])
       //if user is in highlight mode, save the ID to the last word
       if ($scope.highlightMode) {
         $scope.lastWordID = e.srcElement.id;
+        console.log("Last word is " + $scope.lastWordID);
         //apply highlighting 
         $scope.applyHighlight($scope.firstWordID, $scope.lastWordID);
       } 
     //if user is not in highlight mode, save the ID to the first word
       else {
         $scope.firstWordID = e.srcElement.id;
+
+        //highlight first word
+        $scope.words[$scope.firstWordID].isHighlighted = true;
+        console.log($scope.words[$scope.firstWordID]);
+
+        //ensure highlighting applies
+        $scope.$apply();
         //set highlight mode to true so next touch will register as final word
         $scope.highlightMode = true;
       };
 
     };
 
+
   };
 
 
   $scope.applyHighlight = function highlightTest(firstWordID, lastWordID) {
+
+    console.log("Highlighting called");
 
     //iterate through object array.
     for (var i = 0; i < $scope.words.length; i++){
       //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
+        console.log($scope.words[i].isHighlighted);
       }; 
     };
     //ensure highlighting applies

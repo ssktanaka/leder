@@ -48,6 +48,16 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
       }
     }
   })
+
+  .state('app.oauth', {
+    url: "/oauth",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/gotOAuth.html"
+      }
+    }
+  })
+
     .state('app.projects', {
       url: "/projects",
       views: {

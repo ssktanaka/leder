@@ -1,7 +1,11 @@
 .highlighted {
 	background-color: yellow;
+
 }
-.normal {
+.normal{
 	color:#000000;
 }
 
+#editNote span {
+	padding: 3px;
+};
