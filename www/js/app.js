@@ -53,7 +53,7 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
     url: "/oauth",
     views: {
       'menuContent': {
-        templateUrl: "templates/gotOAuth.html"
+        controller: 'AuthCtrl'
       }
     }
   })

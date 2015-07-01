@@ -104,18 +104,16 @@ ledermodule.service('Quotes', function() {
 
 ledermodule.service('Evernote', function() {
 
-	// consumerKey = 'ssktanaka';
-	// consumerSecret = 'f6f5a67e61182174';
-	evernoteHostName = 'https://sandbox.evernote.com';
-
-
+	var evernoteHostName = 'https://sandbox.evernote.com';
+	var internalCallback = 'http://localhost:8100/#/app/oauth';
 
     var success = function(data) {
         var isCallBackConfirmed = false;
         var token = '';
         var vars = data.text.split("&");
+        
         for (var i = 0; i < vars.length; i++) {
-            var y = vars[i].split('=');
+            var y = vars[i].split('=');	
             if(y[0] === 'oauth_token')  {
                 token = y[1];
             }
@@ -131,76 +129,132 @@ ledermodule.service('Evernote', function() {
         if(isCallBackConfirmed) {
 
             // step 2
+            console.log('sending user to the evernote oauth page')
             ref = window.open(evernoteHostName + '/OAuth.action?oauth_token=' + token, '_blank');
 
             ref.addEventListener('loadstart',
                 function(event) {
-                	console.log("Listener is called");
                     var loc = event.url;
-                    console.log("THIS IS LOC");
-                    console.log(loc);
-                    if (loc.indexOf(evernoteHostName + '/Home.action?gotOAuth.html?') >= 0) {
-              
-                    	console.log("This step is running");
-                       var index, verifier = '';
+                    
+                    console.log('loading url in inAppBrowser:', loc);
+
+                    // if we have been redirected back to our own callback url
+					if (loc.indexOf(internalCallback) >= 0) {
+						console.log('we have been redirected to our internal cb')
+
+                       	var index, verifier = '';
                         var got_oauth = '';
                         var params = loc.substr(loc.indexOf('?') + 1);
-
-
                         params = params.split('&');
+                        
                         for (var i = 0; i < params.length; i++) {
                             var y = params[i].split('=');
                             if(y[0] === 'oauth_verifier') {
                                 verifier = y[1];
-                            }
+                            } else if(y[0] === 'oauth_token') {
+		                        got_oauth = y[1];
+		                    }
                         }
-                    } else if(y[0] === 'gotOAuth.html?oauth_token') {
-                        got_oauth = y[1];
-                    }
 
-                 	console.log("Step 3");
+	                 	console.log("Step 3");
+	                 	console.log('now we have the verifier: ', verifier, 'and oauth_token', got_oauth)
+	                    
+	                    // step 3
+	                    oauth.setVerifier(verifier);
+	                    oauth.setAccessToken([got_oauth, localStorage.getItem("oauth_token_secret")]);
+	 
+	                    var getData = {'oauth_verifier':verifier};
+	                    ref.close();
 
-                    // step 3
-                    oauth.setVerifier(verifier);
-                    oauth.setAccessToken([got_oauth, localStorage.getItem("oauth_token_secret")]);
- 
-                    var getData = {'oauth_verifier':verifier};
-                    ref.close();
-                    oauth.request({'method': 'GET', 'url': evernoteHostName + '/oauth',
-                        'success': success, 'failure': failure});
- 
+	                    // now make the final request to evernote to get the access token
+	                    oauth.request({'method': 'GET', 'url': evernoteHostName + '/oauth',
+	                        'success': success, 'failure': failure});
+	 
+                	}
                 }
             );
         } else {
 
-         	console.log("Step 4");
-
-
             // Step 4 : Get the final token
-            var querystring = getQueryParams(data.text);
-            var authTokenEvernote = querystring.oauth_token;
-            // authTokenEvernote can now be used to send request to the Evernote Cloud API
-            
+            console.log("Step 4");
+
+   //          var authTokenEvernote = null;
+   //          var noteStoreURL = null;
+
+			// var vars = data.text.split("&");
+   //      	for (var i = 0; i < vars.length; i++) {
+	  //           var y = vars[i].split('=');	
+	  //           if(y[0] === 'oauth_token')  {
+	  //               authTokenEvernote = decodeURIComponent(y[1]);
+	  //           } else if (y[0] === 'edam_noteStoreUrl') {
+	  //           	noteStoreURL = decodeURIComponent(y[1]);
+	  //           }
+			// }
+
+   //          // authTokenEvernote can now be used to send request to the Evernote Cloud API
+   //          console.log('full url: ', data.text)
+   //          console.log('got access token:', authTokenEvernote)
+   //          console.log('got notestore url:', noteStoreURL)
+
+
+			var getQueryParams = function(queryParams) {
+				var i, query_array,
+			    query_array_length, key_value, decode = OAuth.urlDecode,querystring = {};
+			    // split string on '&'
+			    query_array = queryParams.split('&');
+			    // iterate over each of the array items
+			    for (i = 0, query_array_length = query_array.length; i < query_array_length; i++) {
+			        // split on '=' to get key, value
+			        key_value = query_array[i].split('=');
+			        if (key_value[0] != "") {
+			            querystring[key_value[0]] = decode(key_value[1]);
+			        }
+			    }
+			    return querystring;
+			}
+
+	         var querystring = getQueryParams(data.text);
+	         var noteStoreURL = querystring.edam_noteStoreUrl;
+	         var noteStoreTransport = new Thrift.BinaryHttpTransport(noteStoreURL);
+	         var noteStoreProtocol = new Thrift.BinaryProtocol(noteStoreTransport);
+	         var noteStore = new NoteStoreClient(noteStoreProtocol);
+	         var authTokenEvernote = querystring.oauth_token; 
+	         noteStore.listNotebooks(authTokenEvernote, function (notebooks) {
+                 console.log('success!')
+                 console.log(notebooks);
+             },
+         	    function onerror(error) {
+         	    console.log('errror :(')
+        	     console.log(error);
+             });
+
+
+            // TODO store the authTokenEvernote for this user, so we can use it in the future without
+            // going through the whole oauth flow
+                    
             // Here, we connect to the Evernote Cloud API and get a list of all of the
             // notebooks in the authenticated user's account:
-            var noteStoreURL = querystring.edam_noteStoreUrl;
-            var noteStoreTransport = new Thrift.BinaryHttpTransport(noteStoreURL);
+            var noteStoreTransport = new Thrift.BinaryHttpTransport("noteStoreURL");
             var noteStoreProtocol = new Thrift.BinaryProtocol(noteStoreTransport);
             var noteStore = new NoteStoreClient(noteStoreProtocol);
-            noteStore.listNotebooks(authTokenEvernote, function (notebooks) {
-                console.log(notebooks);
-            })
-        };
 
-        function onerror(error) {
-            console.log(error);
-        };
- 
+	        noteStore.listNotebooks(authTokenEvernote, function (notebooks) {
+                console.log('success!! : ');
+                console.log(notebooks);
+			
+			}, function onerror(error) {
+                console.log('error:')
+                console.log(error);         		
+	        });        
+
+        }; 
     };
+    
     
     var failure = function(error) {
         console.log('error ' + error.text);
     };
+
 
 
 	return {	
@@ -208,16 +262,16 @@ ledermodule.service('Evernote', function() {
 	  loginWithEvernote: function() {
 	  	console.log("Working");
 	    options = {
-	        consumerKey: "ssktanaka",
-	        consumerSecret: "f6f5a67e61182174",
+	        consumerKey: "ssktanaka-8134",
+	        consumerSecret: "ccd528cbed56377d",
 	        callbackUrl : "http://localhost:8100/#/app/oauth", // this filename doesn't matter in this example. eventually redirect to correct part in app
 	        signatureMethod : "HMAC-SHA1",
 	    };
 	    oauth = OAuth(options);
-	    // OAuth Step 1: Get request token
+	    
+	    // OAuth Step 1: Get temporaryrequest token
 	    oauth.request({'method': 'GET', 'url': 'https://sandbox.evernote.com' + '/oauth', 'success': success, 'failure': failure});
-	  },
+	  }
 
     };
 });
-
