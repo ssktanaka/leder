@@ -1,4 +1,4 @@
-angular.module('leder.controllers', [])
+angular.module('leder.editSourceController', [])
 
 //detect gestures
 .directive('detectGestures', function($ionicGesture) {
@@ -11,110 +11,35 @@ angular.module('leder.controllers', [])
   }
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Notes, $stateParams, Evernote) {
+
+.controller('EditSourceCtrl', function($scope, Sources, Quotes, $stateParams, Evernote, $localstorage) {
 
 
-  // Form data for the login modal
-  $scope.loginData = {};
+  $scope.authTokenEvernote = Evernote.getAuthTokenTESTING();
+  console.log($scope.authTokenEvernote);
+  console.log("Auth working");
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    Evernote.loginWithEvernote();
-  };
-
-  //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.editModal.remove();
-  });
-
-  // Execute action on hide modal
-  $scope.$on('editModal.hidden', function() {
-    // Execute action
-  });
-
-  // Execute action on remove modal
-  $scope.$on('editModal.removed', function() {
-    // Execute action
-  });
-
-
-})
-
-.controller('ProjectsCtrl', function($scope, Notes, $stateParams) {
-  $scope.notes = Notes.all();
-
-})
-
-.controller('ProjectPageCtrl', function($scope, Notes, $stateParams) {
-  //get project ID and set in url
-  $scope.projectID = $stateParams.ProjectId;
-
-})
-
-.controller('NotesCtrl', function($scope, Notes, $stateParams, $ionicModal) {
-  $scope.notes = Notes.getSourcesForProject($stateParams.ProjectId); 
-
-})
-
-.controller('OutlineCtrl', function($scope, Notes, Quotes, $stateParams, $ionicListDelegate) {
- //highlighted words into an array of quote arrays of objects
-  $scope.highlightedWords = Quotes.getHighlightedWords(); 
-  $scope.quoteArray = Quotes.getQuoteArray();
-
-  $scope.shouldShowReorder = false;
-  $scope.listCanSwipe = true;
-
-
-
-  $scope.reorderItem = function(item, fromIndex, toIndex) {
-      //Move the item in the array
-    $scope.highlightedWords.splice(fromIndex, 1);
-    $scope.highlightedWords.splice(toIndex, 0, item);
-  };
-
-  $scope.delete = function(item) {
-    $scope.highlightedWords.splice($scope.highlightedWords.indexOf(item), 1);
-    //close swipe button
-    $ionicListDelegate.$getByHandle('outline-list').closeOptionButtons();
-
-  };
-
-})
-
-.controller('EditNoteCtrl', function($scope, Notes, Quotes, $stateParams) {
+  // var client = new Evernote.Client({token: $scope.authTokenEvernote});
+  // var noteStore = client.getNoteStore();
+  // notebooks = noteStore.listNotebooks(function(err, notebooks) {
+  //     console.log(notebooks);
+  // });
 
   //populate edit screen with source text
-  $scope.noteText = Notes.getNoteText($stateParams.ProjectId); 
+  $scope.sourceText = Sources.getSourceText($stateParams.ProjectId); 
 
   //function to split string for display
-  $scope.parseNoteText = function(noteText) {
+  $scope.parseSourceText = function(sourceText) {
     //split the string into individual words
-    var noteText = noteText.split(" ");
+    var sourceText = sourceText.split(" ");
 
     //empty array to hold my word objects
     $scope.words = [];
 
     //function to loop through string array and create an array of objects
-    for (var i = 0; i < noteText.length; i++) {
+    for (var i = 0; i < sourceText.length; i++) {
       var obj = {};
-      obj.text = noteText[i];
+      obj.text = sourceText[i];
       obj.isHighlighted = false; 
       obj.id = i;
       $scope.words.push(obj);
@@ -123,7 +48,7 @@ angular.module('leder.controllers', [])
   };
 
   // parse source text into array 
-  $scope.noteText = $scope.parseNoteText($scope.noteText);
+  $scope.sourceText = $scope.parseSourceText($scope.sourceText);
 
   //HIGHLIGHTING FUNCTIONS
 
@@ -247,9 +172,3 @@ angular.module('leder.controllers', [])
 
 
 })
-
-.controller('AuthCtrl', function($scope, Evernote){
-    console.log('in auth ctrl, yo DOES THIS EVEN DO ANYTHING', $scope)
-})
-
-

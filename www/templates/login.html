@@ -8,16 +8,9 @@
   <ion-content>
     <form>
       <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
+        <p>Give Leder access to Evernote to populate your app.</p>
         <label class="item">
-          <button class="button button-block button-positive" type="submit" on-touch="doLogin()">Log in</button>
+          <button class="button button-block button-positive" type="submit" on-touch="accessEvernote()">Give Access</button>
         </label>
       </div>
     </form>

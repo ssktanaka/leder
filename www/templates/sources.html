@@ -1,0 +1,12 @@
+<ion-view view-title="Sources">
+	
+<ion-content>
+	<ion-list>
+	 <ion-item ng-repeat="(key, value) in sources" href="#/app/projects/{{value.id}}/projectpage/sources/editsources">
+	    <h2>{{value.name}}</h2>
+	    <p>{{value.snippet}}</p>
+	  </ion-item>
+	</ion-list>
+</ion-content>
+
+</ion-view>

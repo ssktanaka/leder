@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
+angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.sourcesController', 'leder.outlineController', 'leder.services', 'leder.evernoteService', 'ionic.utils'])
 
 
 .run(function($ionicPlatform) {
@@ -53,6 +53,7 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
     url: "/oauth",
     views: {
       'menuContent': {
+        templateUrl: "templates/oauth.html",
         controller: 'AuthCtrl'
       }
     }
@@ -78,12 +79,12 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
     }
   })
 
-   .state('app.projectNotes', {
-      url: "/projects/:ProjectId/projectpage/notes",
+   .state('app.projectSources', {
+      url: "/projects/:ProjectId/projectpage/sources",
       views: {
         'menuContent': {
-          templateUrl: "templates/notes.html",
-          controller: 'NotesCtrl'
+          templateUrl: "templates/sources.html",
+          controller: 'SourcesCtrl'
         }
       }
     })
@@ -98,15 +99,16 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.services'])
       }
     })
 
-   .state('app.projectEditNotes', {
-      url: "/projects/:ProjectId/projectpage/notes/editnotes",
+   .state('app.projectEditSources', {
+      url: "/projects/:ProjectId/projectpage/sources/editsources",
       views: {
         'menuContent': {
-          templateUrl: "templates/editnote.html",
-          controller: 'EditNoteCtrl'
+          templateUrl: "templates/editsource.html",
+          controller: 'EditSourceCtrl'
         }
       }
     })
+
 
 
 
