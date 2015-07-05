@@ -7,7 +7,7 @@
 angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.sourcesController', 'leder.outlineController', 'leder.services', 'leder.evernoteService', 'ionic.utils'])
 
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $localstorage, EvernoteOAuth) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,6 +18,10 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    console.log("Notestore on app working");
+    EvernoteOAuth.initializeNoteStore();
+
   });
 })
 

@@ -12,31 +12,19 @@ angular.module('leder.editSourceController', [])
 })
 
 
-.controller('EditSourceCtrl', function($scope, Sources, Quotes, $stateParams, Evernote, $localstorage) {
+.controller('EditSourceCtrl', function($scope, Sources, Quotes, $stateParams) {
 
 
-  $scope.authTokenEvernote = Evernote.getAuthTokenTESTING();
-  console.log($scope.authTokenEvernote);
-  console.log("Auth working");
-
-  // var client = new Evernote.Client({token: $scope.authTokenEvernote});
-  // var noteStore = client.getNoteStore();
-  // notebooks = noteStore.listNotebooks(function(err, notebooks) {
-  //     console.log(notebooks);
-  // });
-
-  //populate edit screen with source text
+  //set variable $scope.sourceText to string of text
   $scope.sourceText = Sources.getSourceText($stateParams.ProjectId); 
 
-  //function to split string for display
+  //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
-    //split the string into individual words
     var sourceText = sourceText.split(" ");
 
-    //empty array to hold my word objects
+    //declare empty array to hold word objects
     $scope.words = [];
-
-    //function to loop through string array and create an array of objects
+    //loop through array of strings and create array of objects
     for (var i = 0; i < sourceText.length; i++) {
       var obj = {};
       obj.text = sourceText[i];
@@ -98,15 +86,16 @@ angular.module('leder.editSourceController', [])
 
     console.log("Highlighting called");
 
-    //iterate through object array.
+    //iterate through each object in $scope.words
     for (var i = 0; i < $scope.words.length; i++){
-      //if current element is greater than first word ID and less than last word ID, then change isHighlighted to true
+      //if current element is greater than the ID of the first word and less than the ID of the last word, 
+      //then change isHighlighted attribute to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
         console.log($scope.words[i].isHighlighted);
-      }; 
-    };
-    //ensure highlighting applies
+      } 
+    }
+    //ensure CSS highlighting reflects changed attribute
     $scope.$apply();
 
     //set highlight mode to false so a new touch can register
