@@ -155,19 +155,21 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         var self = this;
         //get notebooks, pass callback 
         this.getNotebooks(function(error, notebooks) {
+            // TODO what if error?
 
             //get all notebook GUIDS
             var guidsArray = self.getNotebookGUIDS(notebooks);
 
             //get notemetadata, pass callback
-            self.getNoteMetaData(guidsArray, function(error, noteMetadatas){
-
+            self.getNoteMetaData(guidsArray, function(error, noteMetaDataArray){
+                // TODO what if error?
                 //get all note GUIDS
-                var noteGuidsArray = self.getNoteGUIDS(noteMetadatas.notes);
-
+                var noteGuidsArray = self.getNoteGUIDS(noteMetaDataArray);
                 //get all note content in ENML
                 self.getNoteContent(noteGuidsArray, function(error, noteContent) {
+                    // TODO what if error?
                     var noteContentAsString = self.getNoteContentAsString(noteContent);
+                    console.log(noteContentAsString);
                 });
             });
         });
@@ -194,6 +196,9 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
       },
 
       getNoteMetaData: function (notebookGUIDSarray, callback) {
+        var self = this;
+
+
         var filter = new NoteFilter();
         filter.ascending = true;
 
@@ -203,54 +208,77 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         resultSpec.includeCreated = true;
         resultSpec.includeNotebookGuid = true;
 
-        for (i=0; i<notebookGUIDSarray.length; i++){
-            filter.notebookGuid = notebookGUIDSarray[i]
-            this.noteStore.findNotesMetadata(this.authToken, filter, 0, 10, resultSpec, function (noteMetadata) {
-                callback(null, noteMetadata);
+        var noteMetaDataArray = [];
+
+        notebookGUIDSarray.forEach(function(currentValue, index, array){
+            filter.notebookGuid = currentValue;
+            self.noteStore.findNotesMetadata(self.authToken, filter, 0, 10, resultSpec, function (noteMetadata) {
+                noteMetaDataArray.push(noteMetadata);
+                if (index == notebookGUIDSarray.length-1) {
+                    callback(null, noteMetaDataArray);
+                }
             },
             function onerror(error) {
                 callback(error);
             });    
-        };
+        })
+
       },
 
-      getNoteGUIDS: function(notesArray) {
+      getNoteGUIDS: function(noteMetaDataArray) {
         var noteGUIDarray = [];
-        for (i=0; i<notesArray.length; i++){
-            noteGUIDarray.push(notesArray[i].guid);
-        }
+
+        noteMetaDataArray.forEach(function(currentValue, index, array){
+            for (i=0; i<currentValue.notes.length; i++){
+                noteGUIDarray.push(currentValue.notes[i].guid);
+            };
+        });
+
+      
         return noteGUIDarray;
       },
 
       getNoteContent: function(noteGUIDarray, callback) {
-        for (i=0; i<noteGUIDarray.length; i++){
-            this.noteStore.getNoteContent(this.authToken, noteGUIDarray[i], function (noteContent) {
-                callback(null, noteContent);
+        var self = this;
+
+        var allNotesArray = [];
+        var counter = 1;
+        noteGUIDarray.forEach(function(currentValue, index, array) {
+            self.noteStore.getNoteContent(self.authToken, currentValue, function (noteContent) {              
+                if (counter == noteGUIDarray.length){
+                    allNotesArray.push(noteContent);;
+                    callback(null, allNotesArray);
+                }
+                allNotesArray.push(noteContent);
+                counter = counter + 1;
 
             },
             function onerror(error) {
+                if (error.errorCode == Errors.EDAMErrorCode.RATE_LIMIT_REACHED) {
+                    console.log("Rate limit reached");
+                    console.log("Retry your request in" + e.rateLimitDuration);
+                };
                 console.log('Error- ' + JSON.stringify(error));
                 callback(error);
             });        
 
-        }
+        });
+         
       },
 
-      getNoteContentAsString: function(noteContent){
-            console.log(noteContent);
-                  // var textArray = [];
-                  //   var text = noteContent || '';
-                  //   text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
-                  //   text = text.replace(/(<(li)>)/ig," - ");
-                  //   text = text.replace(/(<([^>]+)>)/ig,"");
-                  //   text = text.replace(/(\r\n|\n|\r)/gm," ");
-                  //   text = text.replace(/(\s+)/gm," ");
-                  //   console.log(text);
-                  //   textArray.push(text);
-                  //   console.log(textArray);
-                  //   return textArray;
-
-      },
+      getNoteContentAsString: function(noteContentArray){
+            var textArray = [];
+            for (i=0; i<noteContentArray.length; i++){
+                var text = noteContentArray[i];
+                text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
+                text = text.replace(/(<(li)>)/ig," - ");
+                text = text.replace(/(<([^>]+)>)/ig,"");
+                text = text.replace(/(\r\n|\n|\r)/gm," ");
+                text = text.replace(/(\s+)/gm," ");
+                textArray.push(text);
+            };
+            return textArray;
+        },
 
       getAuthTokenTESTING: function() {
         var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";
