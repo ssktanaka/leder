@@ -15,7 +15,6 @@ Project
 		Array of note GUIDS 
 		Saved Quote Array 
 
-
 Source Note 
 		Note GUID 
 		Note Title (name of the source)

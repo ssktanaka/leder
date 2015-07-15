@@ -7,7 +7,7 @@
 angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.sourcesController', 'leder.outlineController', 'leder.services', 'leder.evernoteService', 'leder.projectService', 'ionic.utils'])
 
 
-.run(function($ionicPlatform, $localstorage, EvernoteOAuth) {
+.run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,6 +21,13 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
 
     console.log("Notestore on app working");
     EvernoteOAuth.initializeNoteStore();
+
+    //initialize database
+    ProjectService.initDB();
+    console.log("Database working");
+
+
+
 
   });
 })

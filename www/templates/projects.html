@@ -3,10 +3,20 @@
   	<button class="button button-clear button-full button-positive" ng-click="showPopup()">
   Create a Project
 	</button>
+
+
     <ion-list>
-      <ion-item ng-repeat="source in sources" href="#/app/projects/{{source.id}}/projectpage">
+<!--       <ion-item ng-repeat="source in sources" href="#/app/projects/{{source.id}}/projectpage">
         {{source.title}}
+      </ion-item> -->
+
+      <ion-item ng-repeat="project in projects">
+        {{project.title}}
+          <ion-option-button class="ion-minus-circled" ng-click="deleteProject(project)">
+          Delete
+          </ion-option-button>
       </ion-item>
+
     </ion-list>
   </ion-content>
 </ion-view>

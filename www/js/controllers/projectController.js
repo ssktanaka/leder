@@ -1,9 +1,17 @@
 angular.module('leder.projectController', [])
 
 
-.controller('ProjectsCtrl', function($scope, Sources, $stateParams, $ionicPopup, $timeout) {
-  $scope.sources = Sources.all();
- 
+.controller('ProjectsCtrl', function($scope, Sources, $stateParams, $ionicPopup, $timeout, ProjectService) {
+  // $scope.sources = Sources.all();
+
+
+    // Get all project records from the database.
+	ProjectService.getAllProjects().then(function(projects) {
+		 $scope.projects = projects;
+
+	});
+
+
   //get project name from user
   $scope.showPopup = function() {
   	  $scope.data = {}
@@ -31,7 +39,23 @@ angular.module('leder.projectController', [])
 	  });
 	  myPopup.then(function(res) {
 	  	//res the project name
+	  	ProjectService.addProject(res);
 	    console.log('Tapped!', res);
 	  });
 	 };
+
+
+   // $scope.getProjects = function() {
+		 //    // Get all project records from the database.
+	  //   ProjectService.getAllProjects().then(function(projects) {
+	  //       $scope.projects = projects;
+	  //   });
+   // };
+
+   $scope.deleteProject = function(project) {
+		console.log(project);
+
+        ProjectService.deleteProject(project);           
+   };
+	
 })
