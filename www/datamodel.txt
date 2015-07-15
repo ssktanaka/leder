@@ -1,0 +1,37 @@
+
+
+Array of all projects
+
+
+
+Objects
+
+
+
+Project
+		ID
+		Date created
+		Date last modified
+		Array of note GUIDS 
+		Saved Quote Array 
+
+
+Source Note 
+		Note GUID 
+		Note Title (name of the source)
+		Original Note string
+
+		Date last modified 
+		Project ID
+
+Quote
+		Note GUID
+		//Note Title (name of the source)
+		Quote string
+
+
+//Filler Quote
+		//String
+
+//Outline 
+		//Outline (array or string) that can be sent to Evernote
