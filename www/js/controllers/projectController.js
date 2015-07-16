@@ -37,10 +37,13 @@ angular.module('leder.projectController', [])
 	      }
 	    ]
 	  });
-	  myPopup.then(function(res) {
-	  	//res the project name
-	  	ProjectService.addProject(res);
-	    console.log('Tapped!', res);
+	  myPopup.then(function(newProject) {
+	  	//if project name exists, add it to the database
+	  	if (newProject) {
+		  	//res the project name
+		  	ProjectService.addProject(newProject);
+		    console.log('Tapped!', newProject);	  		
+	  	}
 	  });
 	 };
 

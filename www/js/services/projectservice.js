@@ -28,8 +28,8 @@ ledermodule.service('ProjectService', function($q) {
 
 		_db.post({
 		  title: project,
-		  dateCreated: "",
-		  dateLastModified: "",
+		  dateCreated: new Date(),
+		  dateLastModified: new Date(),
 		  notes: [],
 		  quotes: []
 		}).then(function (response) {

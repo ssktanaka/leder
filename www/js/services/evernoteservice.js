@@ -175,6 +175,34 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         });
       },
 
+    getAllNoteTitles: function(callback) {
+        //save a reference to self
+        var self = this;
+        var noteTitleArray = [];
+
+        //filter by ascending date
+        var filter = new NoteFilter;
+
+        //set parameters
+        var resultSpec = new NotesMetadataResultSpec;
+        resultSpec.includeTitle  = true;
+        resultSpec.includeContentLength = true;
+        resultSpec.includeCreated = true;
+        resultSpec.includeNotebookGuid = true;
+          
+        //filter to first 50 notes
+        self.noteStore.findNotesMetadata(self.authToken, filter, 0, 50, resultSpec, function (noteMetadata, error) {
+            if (error) {
+                callback(error);
+            }
+            else {
+            //log the number of notes found in the default notebook
+                callback(null, noteMetadata.notes);
+            }
+        });  
+
+      },
+
       getNotebooks: function(callback) {
         this.noteStore.listNotebooks(this.authToken, function (notebooks) {
             callback(null, notebooks);
@@ -279,6 +307,25 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             };
             return textArray;
         },
+
+      checkLogin: function() {
+        // var authToken = $localstorage.get('authTokenEvernote');
+
+         //normally, use localstorage to get auth token
+        var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";
+  
+        // //delete! for testing purposes.
+        // var authToken = "";
+        this.authToken = authToken;
+
+        if (authToken) {
+            console.log(authToken);
+            return true;
+        } else {
+            return false;
+        }
+
+      },
 
       getAuthTokenTESTING: function() {
         var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";

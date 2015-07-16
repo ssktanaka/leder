@@ -2,13 +2,14 @@
 
   <!-- main page content -->
   <ion-content>
-    <p>
-      <a class="button icon icon-right ion-chevron-right" href="#/app/projects/{{projectID}}/projectpage/sources">Sources</a>
-    </p>
-    <p>
-      <a class="button icon icon-right ion-chevron-right" href="#/app/projects/{{projectID}}/projectpage/outline">Outline</a>
-    </p>
+    <div class="button-bar">
+	  <a class="button button-outline button-calm" href="#/app/projects/{{projectID}}/projectpage/sources">Source Notes</a>
+	  <a class="button button-outline button-calm" href="#/app/projects/{{projectID}}/projectpage/outline">Outline</a>
+	</div>
+	<h4 class="padding">Looks like you need some source notes.</h4>
+	<button class="button button-large button-light" on-touch="checkLogin()">
+  	Add Source Notes
+	</button>
   </ion-content>
 
 </ion-view>
-

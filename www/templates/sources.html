@@ -2,9 +2,13 @@
 	
 <ion-content>
 	<ion-list>
-	 <ion-item ng-repeat="(key, value) in sources" href="#/app/projects/{{value.id}}/projectpage/sources/editsources">
-	    <h2>{{value.name}}</h2>
-	    <p>{{value.snippet}}</p>
+	 <div class="item item-divider">
+    Select Notes for your Project
+  	</div>
+	 <ion-item ng-repeat="sourceNote in sourceNotes | orderBy: '-created' track by $index" href="#/app/projects/{{value.id}}/projectpage/sources/editsources">
+	    <h2>{{sourceNote.title}}</h2>
+	    <p>{{sourceNote.created | date: 'mediumDate'}} |  {{sourceNote.contentLength}} words</p>
+
 	  </ion-item>
 	</ion-list>
 </ion-content>

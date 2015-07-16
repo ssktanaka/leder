@@ -2,10 +2,7 @@ angular.module('leder.outlineController', [])
 
 .controller('OutlineCtrl', function($scope, Sources, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q) {
  
-  // console.log($scope.noteStore);
-  console.log('calling getNoteList from outside')
-  $scope.allNotes = EvernoteOAuth.getAllNotes();
-  console.log($scope.allNotes);
+
 
  //highlighted words into an array of quote arrays of objects
   $scope.highlightedWords = Quotes.getHighlightedWords(); 
