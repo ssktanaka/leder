@@ -13,6 +13,8 @@ ledermodule.service('ProjectService', function($q) {
         // We'll add these later.
         getAllProjects: getAllProjects,
         addProject: addProject,
+        updateProjectObject: updateProjectObject,
+
         // updateBirthday: updateBirthday,
         deleteProject: deleteProject
     };
@@ -58,6 +60,22 @@ ledermodule.service('ProjectService', function($q) {
     // function updateproject(project) {
     //     return $q.when(_db.put(project));
     // };
+
+    function updateProjectObject(projectID, noteArray) {
+        console.log("updating!");
+        //update project object with new note array
+        _db.get(projectID).then(function(doc) {
+          return _db.put({
+            _id: projectID,
+            _rev: doc._rev,
+            notes: noteArray
+          });
+        }).then(function(response) {
+          console.log("Project has been updated");
+        }).catch(function (err) {
+          console.log(err);
+        });
+    };
 
     function deleteProject(project) {
         return $q.when(_db.remove(project));

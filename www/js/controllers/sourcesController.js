@@ -1,24 +1,28 @@
 angular.module('leder.sourcesController', [])
 
-.controller('SourcesCtrl', function($scope, Sources, $stateParams, $ionicModal, EvernoteOAuth) {
+.controller('SourcesCtrl', function($scope, Sources, $stateParams, $ionicModal, EvernoteOAuth, ProjectService) {
  
-  // $scope.sources = Sources.getSourcesForProject($stateParams.ProjectId); 
-  console.log($stateParams);
   EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
+      //populate page with source notes
   		$scope.sourceNotes = notetitles;
   });
 
+  //function save source notes is called when user clicks "import notes"
   $scope.saveSourceNotes = function() {
-  	console.log("working");
-  	for (var i=0; i < $scope.sourceNotes.length; i++) {
+    $scope.sourceArray = [];
 
+  	for (var i=0; i < $scope.sourceNotes.length; i++) {
+      //if the "touched" attribute of the div is true
   		if ($scope.sourceNotes[i].touched) {
   			console.log("Note has been tagged");
-  			console.log($scope.sourceNotes[i]);
+        $scope.sourceArray.push($scope.sourceNotes[i]);
   		} else {
-  			console.log("not tagged :(");
+  			//do nothing
   		}
   	};
+
+    //update project object with cnew source array
+    ProjectService.updateProjectObject($stateParams.ProjectId, $scope.sourceArray);
   }
 
 })
