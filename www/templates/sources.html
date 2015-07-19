@@ -1,3 +1,32 @@
+<ion-modal-view>
+	<ion-header-bar >
+		<div class="buttons">
+     	 	<button class="button button-clear button-positive" on-touch="closeSourceNote()">Cancel</button>
+    	</div>
+		<h1 class="title">Select Notes</h1>
+		<div class="buttons">
+     	 	<button class="button button-clear button-positive"  on-touch="saveSourceNotes()">Save</button>
+    	</div>
+	</ion-header-bar>
+	<ion-content> 
+		<ion-list>
+		 <ion-item 
+		 	ng-repeat="sourceNote in sourceNotes | orderBy: '-created' track by $index" 
+		 	ng-init="sourceNote.touched=false"
+		 	on-touch="sourceNote.touched = !sourceNote.touched"
+	        ng-class="{ overlay : sourceNote.touched }">
+		    <h2>{{sourceNote.title}}</h2>
+		    <p>{{sourceNote.created | date: 'mediumDate'}} |  {{sourceNote.contentLength}} words</p>
+		  </ion-item>
+		</ion-list>
+  
+
+	</ion-content>
+</ion-modal-view>
+
+<!-- 
+
+
 <ion-view view-title="Sources">
 	
 <ion-content>
@@ -22,6 +51,6 @@
 	</ion-list>
 </ion-content>
 
-</ion-view>
+</ion-view> -->
 
 <!-- href="#/app/projects/{{value.id}}/projectpage/sources/editsources" -->

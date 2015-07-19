@@ -5,9 +5,10 @@ angular.module('leder.projectController', [])
   // $scope.sources = Sources.all();
 
 
-    // Get all project records from the database.
+	// Get all project records from the database.
 	ProjectService.getAllProjects().then(function(projects) {
 		 $scope.projects = projects;
+		 console.log($scope.projects);
 
 	});
 

@@ -12,6 +12,7 @@ ledermodule.service('ProjectService', function($q) {
         initDB: initDB,
         // We'll add these later.
         getAllProjects: getAllProjects,
+        getProject: getProject,
         addProject: addProject,
         updateProjectObject: updateProjectObject,
 
@@ -26,7 +27,6 @@ ledermodule.service('ProjectService', function($q) {
 
 
     function addProject(project) {
-    	console.log("posted!");
 
 		_db.post({
 		  title: project,
@@ -39,43 +39,24 @@ ledermodule.service('ProjectService', function($q) {
 		}).catch(function (err) {
 		  console.log(err);
 		});
-        // return $q.when(_db.post(project));
     };
 
-  //   function getProject(project) {
-  //   	console.log("gotten!");
-
-		// _db.allDocs({
-		//   include_docs: true, 
-		//   attachments: true
-		// }).then(function (result) {
-		//   console.log("yeahhh");
-		//   console.log(result);
-		// }).catch(function (err) {
-		//   console.log(err);
-		// });
-
-  //   };
-
-    // function updateproject(project) {
-    //     return $q.when(_db.put(project));
-    // };
 
     function updateProjectObject(projectID, noteArray) {
         console.log("updating!");
         //update project object with new note array
-        _db.get(projectID).then(function(doc) {
-          return _db.put({
-            _id: projectID,
-            _rev: doc._rev,
-            notes: noteArray
-          });
+        return _db.get(projectID)
+        .then(function(doc) {
+            doc.notes = noteArray;
+            return _db.put(doc);
         }).then(function(response) {
-          console.log("Project has been updated");
+          console.log("NoteArray has been updated!");
+          return _db.get(projectID);
         }).catch(function (err) {
           console.log(err);
         });
     };
+
 
     function deleteProject(project) {
         return $q.when(_db.remove(project));
@@ -108,8 +89,11 @@ ledermodule.service('ProjectService', function($q) {
         }
     };
 
+    function getProject(projectID) {
+        return _db.get(projectID);
+    };
+
     function onDatabaseChange(change) {
-    	console.log("Database changing!");
         var index = findIndex(_projects, change.id);
         var project = _projects[index];
 

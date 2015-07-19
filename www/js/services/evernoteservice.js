@@ -319,7 +319,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         this.authToken = authToken;
 
         if (authToken) {
-            console.log(authToken);
             return true;
         } else {
             return false;

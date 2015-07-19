@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.sourcesController', 'leder.outlineController', 'leder.services', 'leder.evernoteService', 'leder.projectService', 'ionic.utils'])
+angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.outlineController', 'leder.services', 'leder.evernoteService', 'leder.projectService', 'ionic.utils'])
 
 
 .run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService) {
@@ -18,13 +18,12 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    console.log("Notestore on app working");
+    
+    //initialize NoteStore
     EvernoteOAuth.initializeNoteStore();
 
     //initialize database
     ProjectService.initDB();
-    console.log("Database working");
 
 
 
@@ -89,16 +88,6 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
       }
     }
   })
-
-   .state('app.projectSources', {
-      url: "/projects/:ProjectId/projectpage/sources",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/sources.html",
-          controller: 'SourcesCtrl'
-        }
-      }
-    })
 
    .state('app.projectOutline', {
       url: "/projects/:ProjectId/projectpage/outline",
