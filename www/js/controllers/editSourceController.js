@@ -13,14 +13,24 @@ angular.module('leder.editSourceController', [])
 
 
 .controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService) {
-
+  //set note title
+  $scope.noteTitle = $stateParams.notetitle;
   //get note content
-  EvernoteOAuth.getSingleNoteContent($stateParams.note, function(noteContent) {
+  EvernoteOAuth.getSingleNoteContent($stateParams.noteguid, function(noteContent) {
       // parse source text into array 
       //set variable $scope.sourceText to string of text
     $scope.sourceText = $scope.parseSourceText(noteContent);
+
   });
 
+
+  // EvernoteOAuth.getNoteTitle($stateParamsfunction(error, notetitles) {
+  //   //populate page with source notes
+  //   $scope.sourceNotes = notetitles;
+  //   //update sources.html to fill page
+  //   $scope.$apply($scope.sourceNotes);
+
+  //  });
 
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
@@ -34,6 +44,7 @@ angular.module('leder.editSourceController', [])
       obj.text = sourceText[i];
       obj.isHighlighted = false; 
       obj.id = i;
+      obj.noteTitle = $scope.noteTitle;
       $scope.words.push(obj);
     }
     return $scope.words;

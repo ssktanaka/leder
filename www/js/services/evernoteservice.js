@@ -203,6 +203,29 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 
       },
 
+      getNote: function(guid, callback) {
+        //save a reference to self
+        var self = this;
+        var noteTitleArray = [];
+
+        //set parameters
+        var resultSpec = new NotesMetadataResultSpec;
+        resultSpec.includeContentLength = true;
+        resultSpec.includeResourcesData = true;
+          
+        //filter to first 50 notes
+        self.noteStore.findNotesMetadata(self.authToken, guid, resultSpec, function (noteMetadata, error) {
+            if (error) {
+                callback(error);
+            }
+            else {
+            //log the number of notes found in the default notebook
+                callback(null, noteMetadata);
+            }
+        });  
+
+      },
+
       getNotebooks: function(callback) {
         this.noteStore.listNotebooks(this.authToken, function (notebooks) {
             callback(null, notebooks);
@@ -223,35 +246,35 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         return notebookGUIDSarray;
       },
 
-      getNoteMetaData: function (notebookGUIDSarray, callback) {
-        var self = this;
+      // getNoteMetaData: function (notebookGUIDSarray, callback) {
+      //   var self = this;
 
 
-        var filter = new NoteFilter();
-        filter.ascending = true;
+      //   var filter = new NoteFilter();
+      //   filter.ascending = true;
 
-        var resultSpec = new NotesMetadataResultSpec();
-        resultSpec.includeTitle  = true;
-        resultSpec.includeContentLength = true;
-        resultSpec.includeCreated = true;
-        resultSpec.includeNotebookGuid = true;
+      //   var resultSpec = new NotesMetadataResultSpec();
+      //   resultSpec.includeTitle  = true;
+      //   resultSpec.includeContentLength = true;
+      //   resultSpec.includeCreated = true;
+      //   resultSpec.includeNotebookGuid = true;
 
-        var noteMetaDataArray = [];
+      //   var noteMetaDataArray = [];
 
-        notebookGUIDSarray.forEach(function(currentValue, index, array){
-            filter.notebookGuid = currentValue;
-            self.noteStore.findNotesMetadata(self.authToken, filter, 0, 10, resultSpec, function (noteMetadata) {
-                noteMetaDataArray.push(noteMetadata);
-                if (index == notebookGUIDSarray.length-1) {
-                    callback(null, noteMetaDataArray);
-                }
-            },
-            function onerror(error) {
-                callback(error);
-            });    
-        })
+      //   notebookGUIDSarray.forEach(function(currentValue, index, array){
+      //       filter.notebookGuid = currentValue;
+      //       self.noteStore.findNotesMetadata(self.authToken, filter, 0, 10, resultSpec, function (noteMetadata) {
+      //           noteMetaDataArray.push(noteMetadata);
+      //           if (index == notebookGUIDSarray.length-1) {
+      //               callback(null, noteMetaDataArray);
+      //           }
+      //       },
+      //       function onerror(error) {
+      //           callback(error);
+      //       });    
+      //   })
 
-      },
+      // },
 
       getNoteGUIDS: function(noteMetaDataArray) {
         var noteGUIDarray = [];

@@ -9,7 +9,7 @@
     <h4 class="padding">Looks like you need some source notes.</h4>
 
   	<ion-list>
-  	  <ion-item ng-repeat="note in project.notes | orderBy : '-dateLastModified'" href="#/app/projects/{{project._id}}/projectpage/{{note.guid}}/editsource" >
+  	  <ion-item ng-repeat="note in project.notes | orderBy : '-dateLastModified'" href="#/app/projects/{{project._id}}/projectpage/{{note.guid}}/{{note.title}}/editsource" >
           {{note.title}}
             <span class="item-note">
             {{project.dateLastModified | date: 'shortDate'}}

@@ -100,7 +100,7 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
     })
 
    .state('app.projectEditSource', {
-      url: "/projects/:ProjectId/projectpage/:note/editsource",
+      url: "/projects/:ProjectId/projectpage/:noteguid/:notetitle/editsource",
       views: {
         'menuContent': {
           templateUrl: "templates/editsource.html",
