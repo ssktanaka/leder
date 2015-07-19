@@ -1,7 +1,7 @@
 angular.module('leder.projectController', [])
 
 
-.controller('ProjectsCtrl', function($scope, Sources, $stateParams, $ionicPopup, $timeout, ProjectService) {
+.controller('ProjectsCtrl', function($scope, $stateParams, $ionicPopup, $timeout, ProjectService) {
   // $scope.sources = Sources.all();
 
 

@@ -266,20 +266,40 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         return noteGUIDarray;
       },
 
-      getNoteContent: function(noteGUIDarray, callback) {
-        var self = this;
+      //deprecated because Array!!!
+      // getNoteContent: function(noteGUIDarray, callback) {
+      //   var self = this;
 
-        var allNotesArray = [];
-        var counter = 1;
-        noteGUIDarray.forEach(function(currentValue, index, array) {
-            self.noteStore.getNoteContent(self.authToken, currentValue, function (noteContent) {              
-                if (counter == noteGUIDarray.length){
-                    allNotesArray.push(noteContent);;
-                    callback(null, allNotesArray);
-                }
-                allNotesArray.push(noteContent);
-                counter = counter + 1;
+      //   var allNotesArray = [];
+      //   var counter = 1;
+      //   noteGUIDarray.forEach(function(currentValue, index, array) {
+      //       self.noteStore.getNoteContent(self.authToken, currentValue, function (noteContent) {              
+      //           if (counter == noteGUIDarray.length){
+      //               allNotesArray.push(noteContent);;
+      //               callback(null, allNotesArray);
+      //           }
+      //           allNotesArray.push(noteContent);
+      //           counter = counter + 1;
 
+      //       },
+      //       function onerror(error) {
+      //           if (error.errorCode == Errors.EDAMErrorCode.RATE_LIMIT_REACHED) {
+      //               console.log("Rate limit reached");
+      //               console.log("Retry your request in" + e.rateLimitDuration);
+      //           };
+      //           console.log('Error- ' + JSON.stringify(error));
+      //           callback(error);
+      //       });        
+
+      //   });
+         
+      // },
+
+       getSingleNoteContent: function(noteGUID, callback) {
+            var self = this;
+            //get note content and convert it to a string
+            self.noteStore.getNoteContent(self.authToken, noteGUID, function (noteContent) {
+                callback(self.getNoteContentAsString(noteContent));                  
             },
             function onerror(error) {
                 if (error.errorCode == Errors.EDAMErrorCode.RATE_LIMIT_REACHED) {
@@ -289,24 +309,35 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
                 console.log('Error- ' + JSON.stringify(error));
                 callback(error);
             });        
+             
+          },
 
-        });
-         
+
+      getNoteContentAsString: function(noteContent){
+            var text = noteContent;
+            text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
+            text = text.replace(/(<(li)>)/ig," - ");
+            text = text.replace(/(<([^>]+)>)/ig,"");
+            text = text.replace(/(\r\n|\n|\r)/gm," ");
+            text = text.replace(/(\s+)/gm," ");
+
+            return text;
       },
 
-      getNoteContentAsString: function(noteContentArray){
-            var textArray = [];
-            for (i=0; i<noteContentArray.length; i++){
-                var text = noteContentArray[i];
-                text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
-                text = text.replace(/(<(li)>)/ig," - ");
-                text = text.replace(/(<([^>]+)>)/ig,"");
-                text = text.replace(/(\r\n|\n|\r)/gm," ");
-                text = text.replace(/(\s+)/gm," ");
-                textArray.push(text);
-            };
-            return textArray;
-        },
+        //deprecated because Arrray!!!
+      // getNoteContentAsString: function(noteContentArray){
+      //       var textArray = [];
+      //       for (i=0; i<noteContentArray.length; i++){
+      //           var text = noteContentArray[i];
+      //           text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
+      //           text = text.replace(/(<(li)>)/ig," - ");
+      //           text = text.replace(/(<([^>]+)>)/ig,"");
+      //           text = text.replace(/(\r\n|\n|\r)/gm," ");
+      //           text = text.replace(/(\s+)/gm," ");
+      //           textArray.push(text);
+      //       };
+      //       return textArray;
+      //   },
 
       checkLogin: function() {
         // var authToken = $localstorage.get('authTokenEvernote');

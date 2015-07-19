@@ -1,33 +1,34 @@
 <ion-view><ion-nav-title>{{project.title}}</ion-nav-title>
   <!-- main page content -->
   <ion-content>
-    <div class="button-bar">
-	  <a class="button button-outline" ng-model="isActive=true" ng-class="{'button-positive': isActive}">Source Notes</a>
-	  <a class="button button-outline" ng-click="setActive(false)" ng-class="{'button-calm': !isActive}" href="#/app/projects/{{project._id}}/projectpage/outline">Outline</a>
-<!--     href="#/app/projects/{{project._ID}}/projectpage/sources" -->
+    <div class="button-bar" >
+	  <a class="button button-outline button-positive">Source Notes</a>
+	  <a class="button button-outline" href="#/app/projects/{{project._id}}/projectpage/outline">Outline</a>
+<!--     href="#/app/projects/{{project._id}}/projectpage/sources" -->
 	</div>
-	<h4 class="padding">Looks like you need some source notes.</h4>
+    <h4 class="padding">Looks like you need some source notes.</h4>
 
-	<ion-list>
-	  <ion-item ng-repeat="note in project.notes | orderBy : '-dateLastModified'">
-        {{note.title}}
-          <span class="item-note">
-          {{project.dateLastModified | date: 'shortDate'}}
-          <br/>
-          {{project.dateLastModified | date: 'shortTime'}}
-          </span>
+  	<ion-list>
+  	  <ion-item ng-repeat="note in project.notes | orderBy : '-dateLastModified'" href="#/app/projects/{{project._id}}/projectpage/{{note.guid}}/editsource" >
+          {{note.title}}
+            <span class="item-note">
+            {{project.dateLastModified | date: 'shortDate'}}
+            <br/>
+            {{project.dateLastModified | date: 'shortTime'}}
+            </span>
 
-          <ion-option-button class="ion-minus-circled" on-touch="deleteNote(note)">
-          Delete
-          </ion-option-button>
+            <ion-option-button class="ion-minus-circled" on-touch="deleteNote(note)">
+            Delete
+            </ion-option-button>
 
-      </ion-item>
-	</ion-list>
+        </ion-item>
+  	</ion-list>
 
 
-	<button class="button button-large button-light" on-touch="checkLogin()">
-  	Add Source Notes
-	</button>
-  </ion-content>
+  	<button class="button button-large button-light" on-touch="checkLogin()">
+    	Add Source Notes
+  	</button>
+    </ion-content>
+
 
 </ion-view>

@@ -1,12 +1,9 @@
 angular.module('leder.projectPageController', [])
 
 
-.controller('ProjectPageCtrl', function($scope, Sources, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService) {
+.controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes) {
 
     // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
-  $scope.setActive = function(attribute) {
-    attribute = !attribute;
-  };
 
   //set up asynchronous project promise
   var projectPromise = ProjectService.getProject($stateParams.ProjectId);
@@ -112,8 +109,6 @@ angular.module('leder.projectPageController', [])
   });
 
 
-
-
  $scope.showAlert = function() {
    var alertPopup = $ionicPopup.alert({
      title: 'Need Evernote Access',
@@ -123,5 +118,6 @@ angular.module('leder.projectPageController', [])
      console.log('Failed');
    });
  };
+
 
 })

@@ -12,11 +12,15 @@ angular.module('leder.editSourceController', [])
 })
 
 
-.controller('EditSourceCtrl', function($scope, Sources, Quotes, $stateParams) {
+.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService) {
 
+  //get note content
+  EvernoteOAuth.getSingleNoteContent($stateParams.note, function(noteContent) {
+      // parse source text into array 
+      //set variable $scope.sourceText to string of text
+    $scope.sourceText = $scope.parseSourceText(noteContent);
+  });
 
-  //set variable $scope.sourceText to string of text
-  $scope.sourceText = Sources.getSourceText($stateParams.ProjectId); 
 
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
@@ -34,9 +38,6 @@ angular.module('leder.editSourceController', [])
     }
     return $scope.words;
   };
-
-  // parse source text into array 
-  $scope.sourceText = $scope.parseSourceText($scope.sourceText);
 
   //HIGHLIGHTING FUNCTIONS
 
@@ -154,9 +155,18 @@ angular.module('leder.editSourceController', [])
         //clear quoteArray to start again
         $scope.quoteArray = [];
     }
+
+
     //update service variable
     Quotes.setHighlightedWords($scope.highlightedWords);
 
+    //update project object with cnew quote array
+    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $scope.highlightedWords)
+    .then(function(updatedProject){
+      $scope.project = updatedProject
+      console.log($scope.project);
+    });
+ 
   };
 
 

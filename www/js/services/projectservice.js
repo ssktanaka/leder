@@ -15,6 +15,7 @@ ledermodule.service('ProjectService', function($q) {
         getProject: getProject,
         addProject: addProject,
         updateProjectObject: updateProjectObject,
+        updateProjectObjectWithQuotes: updateProjectObjectWithQuotes,
 
         // updateBirthday: updateBirthday,
         deleteProject: deleteProject
@@ -51,6 +52,21 @@ ledermodule.service('ProjectService', function($q) {
             return _db.put(doc);
         }).then(function(response) {
           console.log("NoteArray has been updated!");
+          return _db.get(projectID);
+        }).catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    function updateProjectObjectWithQuotes(projectID, quoteArray) {
+        console.log("updating!");
+        //update project object with new note array
+        return _db.get(projectID)
+        .then(function(doc) {
+            doc.quotes = quoteArray;
+            return _db.put(doc);
+        }).then(function(response) {
+          console.log("quoteArray has been updated!");
           return _db.get(projectID);
         }).catch(function (err) {
           console.log(err);

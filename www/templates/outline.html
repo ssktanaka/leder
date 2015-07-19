@@ -3,15 +3,15 @@
 	<!-- subhead with reorder button -->
 	<ion-header-bar class="bar-light bar-subheader">
   		<h1 class="title"></h1>
-  		<div class="buttons">
+  	<!-- 	<div class="buttons">
     		<button class="button" ng-click="shouldShowReorder = !shouldShowReorder">Reorder</button>
-  		</div>
+  		</div> -->
 	</ion-header-bar>
 
   <ion-content class="has-subheader">
 	  <ion-list 
 	      show-delete="shouldShowDelete"
-	      show-reorder="shouldShowReorder"
+	      show-reorder="shouldShowReorder = true"
 	      can-swipe="listCanSwipe"
 	      delegate-handle="outline-list">
 
