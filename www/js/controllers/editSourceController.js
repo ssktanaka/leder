@@ -135,7 +135,9 @@ angular.module('leder.editSourceController', [])
   $scope.parseHighlightedWords = function() {
     //ensure highlighted words array is empty
     $scope.highlightedWords = [];
+    $scope.quoteArray = [];
 
+    console.log($scope.highlightedWords);
     //iterate through array of quote arrays of objects
     for (var i = 0; i < $scope.words.length; i++){
 
@@ -146,6 +148,7 @@ angular.module('leder.editSourceController', [])
       //once the iteration hits a non-highlighted word, push to array if quote exists
       else if ($scope.quoteArray.length > 0) {
         $scope.highlightedWords.push($scope.quoteArray);
+
         //clear quoteArray to start again
         $scope.quoteArray = [];
       } else {
@@ -161,10 +164,16 @@ angular.module('leder.editSourceController', [])
         $scope.quoteArray = [];
     }
 
+    console.log("Before service");
+    console.log($scope.highlightedWords);
 
     //update service variable
     $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle);
+    console.log("After service");
     console.log($scope.highlightedWords);
+
+    //TODO: Get project, get quote array, push each array element individually to quote array, save new quote array
+    //back to the database
 
     //update project object with new quote array
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $scope.highlightedWords)

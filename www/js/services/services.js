@@ -20,7 +20,7 @@ ledermodule.service('Quotes', function() {
 
 	    setHighlightedWords: function(value, sourceTitle) {
 
-	    	var newQuoteArray = []
+	    	var newQuoteArray = [];
 	    	for (var i=0; i < value.length; i++){
 	    		var object = {};
 	    		var newQuoteTemp = [];
