@@ -10,10 +10,9 @@
     <button ng-click="parseHighlightedWords()">I'm done. Show me the quotes</button>
     <br/><br/>
     
-    <h6 ng-repeat="quoteArray in highlightedWords track by $index"> 
+    <h6 ng-repeat="quote in highlightedWords track by $index"> 
        Quote: 
-        <span ng-repeat="quoteObject in quoteArray track by $index"> 
-        {{quoteObject.text}}
+        {{quote.text}}
         </span>
     </h6>
 

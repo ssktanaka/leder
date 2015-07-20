@@ -44,7 +44,6 @@ angular.module('leder.editSourceController', [])
       obj.text = sourceText[i];
       obj.isHighlighted = false; 
       obj.id = i;
-      obj.noteTitle = $scope.noteTitle;
       $scope.words.push(obj);
     }
     return $scope.words;
@@ -70,7 +69,6 @@ angular.module('leder.editSourceController', [])
       //if user is in highlight mode, save the ID to the last word
       if ($scope.highlightMode) {
         $scope.lastWordID = e.srcElement.id;
-        console.log("Last word is " + $scope.lastWordID);
         //apply highlighting 
         $scope.applyHighlight($scope.firstWordID, $scope.lastWordID);
       } 
@@ -80,7 +78,6 @@ angular.module('leder.editSourceController', [])
 
         //highlight first word
         $scope.words[$scope.firstWordID].isHighlighted = true;
-        console.log($scope.words[$scope.firstWordID]);
 
         //ensure highlighting applies
         $scope.$apply();
@@ -96,15 +93,12 @@ angular.module('leder.editSourceController', [])
 
   $scope.applyHighlight = function highlightTest(firstWordID, lastWordID) {
 
-    console.log("Highlighting called");
-
     //iterate through each object in $scope.words
     for (var i = 0; i < $scope.words.length; i++){
       //if current element is greater than the ID of the first word and less than the ID of the last word, 
       //then change isHighlighted attribute to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
-        console.log($scope.words[i].isHighlighted);
       } 
     }
     //ensure CSS highlighting reflects changed attribute
@@ -169,12 +163,13 @@ angular.module('leder.editSourceController', [])
 
 
     //update service variable
-    Quotes.setHighlightedWords($scope.highlightedWords);
+    $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle);
+    console.log($scope.highlightedWords);
 
-    //update project object with cnew quote array
+    //update project object with new quote array
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $scope.highlightedWords)
     .then(function(updatedProject){
-      $scope.project = updatedProject
+      $scope.project = updatedProject;
       console.log($scope.project);
     });
  

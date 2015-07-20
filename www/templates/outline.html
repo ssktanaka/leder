@@ -15,12 +15,11 @@
 	      can-swipe="listCanSwipe"
 	      delegate-handle="outline-list">
 
-	    <ion-item ng-repeat="quoteArray in highlightedWords track by $index" 
+	    <ion-item ng-repeat="quote in highlightedWords track by $index" 
 	              item="item"
 	              class="item-remove-animate item-text-wrap">
-	              <h3>QUote</h3>
-	    	<span ng-repeat="item in quoteArray track by $index">{{ item.text }} </span>
-	    	//{{item.noteTitle}}
+	              <h3>{{quote.source}}</h3>
+	    	<span>{{quote.text}} </span>
 	    	<!-- button options -->
 	    	<!-- swipeable delete -->
 		    <ion-option-button class="button-assertive"
