@@ -5,11 +5,8 @@ angular.module('leder.projectPageController', [])
 
     // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
 
-  //set up asynchronous project promise
-  var projectPromise = ProjectService.getProject($stateParams.ProjectId);
-
-  // Get all project records from the database.
-  projectPromise.then(function(project) {
+  //get current project
+  ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
   });
 

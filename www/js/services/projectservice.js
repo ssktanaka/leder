@@ -8,8 +8,11 @@ ledermodule.service('ProjectService', function($q) {
     // We'll need this later.
     var _projects;
 
+    var project;
+
     return {
         initDB: initDB,
+
         // We'll add these later.
         getAllProjects: getAllProjects,
         getProject: getProject,

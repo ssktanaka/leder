@@ -23,6 +23,15 @@ angular.module('leder.editSourceController', [])
 
   });
 
+  //get project
+
+  //set up asynchronous project promise
+  var projectPromise = ProjectService.getProject($stateParams.ProjectId);
+  // Get all project records from the database.
+  projectPromise.then(function(project) {
+    $scope.project = project;
+  });
+
 
   // EvernoteOAuth.getNoteTitle($stateParamsfunction(error, notetitles) {
   //   //populate page with source notes
@@ -34,7 +43,14 @@ angular.module('leder.editSourceController', [])
 
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
+    console.log("sourceText");
+    // var originalSourceText = sourceText;
+    // console.log(originalSourceText);
+  
+    //split by new line or comma
+    // var sourceText = sourceText.split(/[\n ]+/);
     var sourceText = sourceText.split(" ");
+
 
     //declare empty array to hold word objects
     $scope.words = [];
@@ -168,7 +184,7 @@ angular.module('leder.editSourceController', [])
     console.log($scope.highlightedWords);
 
     //update service variable
-    $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle);
+    $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle, $scope.project.quotes);
     console.log("After service");
     console.log($scope.highlightedWords);
 

@@ -4,16 +4,14 @@ angular.module('leder.outlineController', [])
    console.log($stateParams);
 
 
-  $scope.shouldShowReorder = false;
-  $scope.listCanSwipe = true;
+  $scope.shouldShowDelete = false;
+  $scope.shouldShowReorder = true;
+
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
-
-  //highlighted words into an array of quote arrays of objects
+    //highlighted words into an array of quote arrays of objects
     $scope.highlightedWords = $scope.project.quotes; 
     // $scope.quoteArray = Quotes.getQuoteArray();
-    console.log($scope.highlightedWords);
-
 
   });
 
@@ -21,39 +19,17 @@ angular.module('leder.outlineController', [])
       //Move the item in the array
     $scope.highlightedWords.splice(fromIndex, 1);
     $scope.highlightedWords.splice(toIndex, 0, item);
+
   };
 
   $scope.delete = function(item) {
     $scope.highlightedWords.splice($scope.highlightedWords.indexOf(item), 1);
-    //close swipe button
-    $ionicListDelegate.$getByHandle('outline-list').closeOptionButtons();
-
   };
 
 
-
-
- // //highlighted words into an array of quote arrays of objects
- //  $scope.highlightedWords = Quotes.getHighlightedWords(); 
- //  $scope.quoteArray = Quotes.getQuoteArray();
-
- //  $scope.shouldShowReorder = false;
- //  $scope.listCanSwipe = true;
-
-
-
-
- //  $scope.reorderItem = function(item, fromIndex, toIndex) {
- //      //Move the item in the array
- //    $scope.highlightedWords.splice(fromIndex, 1);
- //    $scope.highlightedWords.splice(toIndex, 0, item);
- //  };
-
- //  $scope.delete = function(item) {
- //    $scope.highlightedWords.splice($scope.highlightedWords.indexOf(item), 1);
- //    //close swipe button
- //    $ionicListDelegate.$getByHandle('outline-list').closeOptionButtons();
-
- //  };
+  $scope.saveProject = function(highlightedWords) {
+    //update project object with new array
+    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, highlightedWords);
+  };
 
 })

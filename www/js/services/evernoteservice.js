@@ -343,8 +343,21 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             text = text.replace(/(<([^>]+)>)/ig,"");
             text = text.replace(/(\r\n|\n|\r)/gm," ");
             text = text.replace(/(\s+)/gm," ");
-
             return text;
+
+            //IF I DO DECIDE TO SPLIT BY LINE
+            // // added in break
+            // text = text.replace(/(<br[^>]*>)/gi,"\n");
+
+            // text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
+
+            // text = text.replace(/(<(li)>)/ig," - ");
+            // text = text.replace(/(<([^>]+)>)/ig,"");
+
+            // //changed to new line, not space
+            // text = text.replace(/(\r\n|\n|\r)/gm,"\n");
+            // //took this out
+            // // text = text.replace(/(\s+)/gm," ");
       },
 
         //deprecated because Arrray!!!

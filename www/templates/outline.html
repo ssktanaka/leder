@@ -1,38 +1,39 @@
 <ion-view view-title="Outline">
 
-	<!-- subhead with reorder button -->
-	<ion-header-bar class="bar-light bar-subheader">
-  		<h1 class="title"></h1>
-  	<!-- 	<div class="buttons">
-    		<button class="button" ng-click="shouldShowReorder = !shouldShowReorder">Reorder</button>
-  		</div> -->
-	</ion-header-bar>
+	<ion-content>
 
-  <ion-content class="has-subheader">
-	  <ion-list 
-	      show-delete="shouldShowDelete"
-	      show-reorder="shouldShowReorder = true"
-	      can-swipe="listCanSwipe"
-	      delegate-handle="outline-list">
+    	<ion-toggle ng-model="shouldShowDelete" on-touch="shouldShowReorder = !shouldShowReorder">
+  			Show Delete?
+		</ion-toggle>
 
-	    <ion-item ng-repeat="quoteArray in highlightedWords track by $index" 
+	  	<ion-list 
+		      show-delete="shouldShowDelete"
+		      show-reorder="shouldShowReorder"
+		      can-swipe="listCanSwipe"
+		      delegate-handle="outline-list">
+
+		    <ion-item ng-repeat="quoteObject in highlightedWords" 
 	              item="item"
 	              class="item-remove-animate item-text-wrap">
-	              <h3>{{quote.source}}</h3>
-	    	<span ng-repeat="quote in quoteArray track by $index">{{quote.text}} </span>
-	    	<!-- button options -->
-	    	<!-- swipeable delete -->
-		    <ion-option-button class="button-assertive"
-		                       ng-click="delete(quoteArray)">
-		      Remove
-		    </ion-option-button>
+		    	<h3>{{quoteObject.source}}</h3>
+		    	<span>{{quoteObject.text}} </span>
 
-	    	<!-- reorder -->
-		    <ion-reorder-button class="ion-navicon"
-		                        on-reorder="reorderItem(quote, $fromIndex, $toIndex)">
-		    </ion-reorder-button>
+		    	<!-- button options -->
+		    	<!-- swipeable delete -->
+	  		    <ion-delete-button class="ion-minus-circled" on-touch="delete(quoteObject)">
+	  		    </ion-delete-button>
 
-    	</ion-item>
-	 </ion-list>
+		    	<!-- reorder -->
+			    <ion-reorder-button class="ion-navicon"
+                	on-reorder="reorderItem(quoteObject, $fromIndex, $toIndex)">
+			    </ion-reorder-button>
+
+    		</ion-item>
+		</ion-list>
+		<button class="button button-block button-outline button-positive" on-touch="saveProject(highlightedWords)">
+		  Save
+		</button>
+
+
    </ion-content>
 </ion-view>

@@ -2,33 +2,35 @@
   <!-- main page content -->
   <ion-content>
     <div class="button-bar" >
-	  <a class="button button-outline button-positive">Source Notes</a>
-	  <a class="button button-outline" href="#/app/projects/{{project._id}}/projectpage/outline">Outline</a>
+	    <a class="button button-outline button-positive">Source Notes</a>
+	    <a class="button button-outline" href="#/app/projects/{{project._id}}/projectpage/outline">Outline</a>
 <!--     href="#/app/projects/{{project._id}}/projectpage/sources" -->
-	</div>
+	  </div>
+    
     <h4 class="padding">Looks like you need some source notes.</h4>
 
   	<ion-list>
-  	  <ion-item ng-repeat="note in project.notes | orderBy : '-dateLastModified'" href="#/app/projects/{{project._id}}/projectpage/{{note.guid}}/{{note.title}}/editsource" >
-          {{note.title}}
-            <span class="item-note">
-            {{project.dateLastModified | date: 'shortDate'}}
-            <br/>
-            {{project.dateLastModified | date: 'shortTime'}}
-            </span>
+  	  <ion-item 
+        ng-repeat="note in project.notes | orderBy : '-dateLastModified'" 
+        href="#/app/projects/{{project._id}}/projectpage/{{note.guid}}/{{note.title}}/editsource" >
+        
+        {{note.title}}
+        <span class="item-note">
+          {{project.dateLastModified | date: 'shortDate'}}
+          <br/>
+          {{project.dateLastModified | date: 'shortTime'}}
+        </span>
 
-            <ion-option-button class="ion-minus-circled" on-touch="deleteNote(note)">
-            Delete
-            </ion-option-button>
+        <ion-option-button class="ion-minus-circled" on-touch="deleteNote(note)">
+          Delete
+        </ion-option-button>
 
-        </ion-item>
+      </ion-item>
   	</ion-list>
-
 
   	<button class="button button-large button-light" on-touch="checkLogin()">
     	Add Source Notes
   	</button>
-    </ion-content>
 
-
+  </ion-content>
 </ion-view>

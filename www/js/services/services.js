@@ -18,31 +18,30 @@ ledermodule.service('Quotes', function() {
 	      	return quoteArray;
 	    },
 
-	    setHighlightedWords: function(value, sourceTitle) {
+	    setHighlightedWords: function(quoteArray, sourceTitle, currentQuotes) {
 
-	    	var newQuoteArray = [];
-	    	for (var i=0; i < value.length; i++){
+	    	for (var i=0; i < quoteArray.length; i++){
 	    		var object = {};
 	    		var newQuoteTemp = [];
-	    		for (var j=0; j < value[i].length; j++){
+	    		for (var j=0; j < quoteArray[i].length; j++){
 	    			if (j == 0) {
 	    				//add starting ID
-	    				object.idStart = value[i][j].id;
+	    				object.idStart = quoteArray[i][j].id;
 	    				//add source ID
 	    				object.source = sourceTitle;
-	    				newQuoteTemp.push(value[i][j].text);
-	    			} else if (j == value[i].length -1) {
-	    				newQuoteTemp.push(value[i][j].text);
+	    				newQuoteTemp.push(quoteArray[i][j].text);
+	    			} else if (j == quoteArray[i].length -1) {
+	    				newQuoteTemp.push(quoteArray[i][j].text);
 	    				//add end ID
-    					object.idEnd = value[i][j].id;
+    					object.idEnd = quoteArray[i][j].id;
 	    			} else {
-	    				newQuoteTemp.push(value[i][j].text);
+	    				newQuoteTemp.push(quoteArray[i][j].text);
 	    			}
 	    		}
 	    		object.text = newQuoteTemp.join(" ");
-	    		newQuoteArray.push(object);
+	    		currentQuotes.push(object);
 	    	}
-	    	return newQuoteArray;
+	    	return currentQuotes;
 	    },
 
 	};
