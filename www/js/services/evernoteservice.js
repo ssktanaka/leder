@@ -375,6 +375,52 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
       //       return textArray;
       //   },
 
+      exportNote: function(highlightedWordsArray, projectTitle){
+        var self = this;
+
+        console.log(highlightedWordsArray);
+        var stringArray = [];
+        for (i=0; i<highlightedWordsArray.length; i++){
+          stringArray.push("<h6>");
+          stringArray.push(highlightedWordsArray[i].source);
+          stringArray.push("</h6><p>");
+          stringArray.push(highlightedWordsArray[i].text);
+          stringArray.push("</p>");
+        }
+        stringArray = stringArray.join(" ");
+        self.makeNote(projectTitle, stringArray);
+
+
+      },
+
+      makeNote: function(noteTitle, noteBody, callback) {
+ 
+        var self = this;
+
+        var nBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+        nBody += "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">";
+        nBody += "<en-note>" + noteBody + "</en-note>";
+       
+        // Create note object
+        var ourNote = new Evernote.Note();
+        ourNote.title = noteTitle;
+        ourNote.content = nBody;
+       
+       
+        // Attempt to create note in Evernote account
+        noteStore.createNote(ourNote, function(err, note) {
+          if (err) {
+            // Something was wrong with the note data
+            // See EDAMErrorCode enumeration for error code explanation
+            // http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
+            console.log(err);
+          } else {
+            callback(note);
+          }
+        });
+       
+      },
+
       checkLogin: function() {
         // var authToken = $localstorage.get('authTokenEvernote');
 

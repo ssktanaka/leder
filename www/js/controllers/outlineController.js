@@ -32,4 +32,10 @@ angular.module('leder.outlineController', [])
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, highlightedWords);
   };
 
+  $scope.exportProject = function(highlightedWords) {
+    //update project object with new array
+    $scope.saveProject(highlightedWords);
+    EvernoteOAuth.exportNote(highlightedWords, $scope.project.title); 
+  };
+
 })
