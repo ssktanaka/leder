@@ -388,7 +388,9 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
           stringArray.push("</p>");
         }
         stringArray = stringArray.join(" ");
-        self.makeNote(projectTitle, stringArray);
+        self.makeNote(projectTitle, stringArray, function(result){
+          console.log(result);
+        });
 
 
       },
@@ -402,18 +404,19 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         nBody += "<en-note>" + noteBody + "</en-note>";
        
         // Create note object
-        var ourNote = new Evernote.Note();
+        var ourNote = new Note();
         ourNote.title = noteTitle;
         ourNote.content = nBody;
        
-       
+        console.log(ourNote);
+
         // Attempt to create note in Evernote account
-        noteStore.createNote(ourNote, function(err, note) {
-          if (err) {
-            // Something was wrong with the note data
-            // See EDAMErrorCode enumeration for error code explanation
-            // http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
-            console.log(err);
+        self.noteStore.createNote(self.authToken, ourNote, function(note, error) {
+          if (error) {
+        //     // Something was wrong with the note data
+        //     // See EDAMErrorCode enumeration for error code explanation
+        //     // http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
+              callback(error);
           } else {
             callback(note);
           }
