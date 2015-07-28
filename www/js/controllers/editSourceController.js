@@ -23,7 +23,6 @@ angular.module('leder.editSourceController', [])
 
   });
 
-  console.log($stateParams);
 
   //get project
 
@@ -179,7 +178,7 @@ angular.module('leder.editSourceController', [])
     }
 
     //update service variable
-    $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle, $scope.project.quotes);
+    $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle, $scope.project);
 
 
     //update project object with new quote array

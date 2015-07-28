@@ -18,7 +18,14 @@ ledermodule.service('Quotes', function() {
 	      	return quoteArray;
 	    },
 
-	    setHighlightedWords: function(quoteArray, sourceTitle, currentQuotes) {
+	    setHighlightedWords: function(quoteArray, sourceTitle, currentProject) {
+	    	//first check if quote array exists in project
+	    	if (currentProject.quotes) {
+	    		//do nothing
+	    	} else {
+	    		//create quote attribute
+	    		currentProject.quotes = [];
+	    	}
 
 	    	for (var i=0; i < quoteArray.length; i++){
 	    		var object = {};
@@ -39,9 +46,9 @@ ledermodule.service('Quotes', function() {
 	    			}
 	    		}
 	    		object.text = newQuoteTemp.join(" ");
-	    		currentQuotes.push(object);
+	    		currentProject.quotes.push(object);
 	    	}
-	    	return currentQuotes;
+	    	return currentProject.quotes;
 	    },
 
 	};

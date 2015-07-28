@@ -46,10 +46,20 @@ angular.module('leder.projectPageController', [])
   $scope.saveSourceNotes = function() {
     //get current state of project notes
     var sourceArray = $scope.project.notes;
+    console.log($scope.project.notes);
 
     for (var i=0; i < $scope.sourceNotes.length; i++) {
       //if the "touched" attribute of the div is true
       if ($scope.sourceNotes[i].touched) {
+
+        for (var prop in $scope.project.notes) {
+          if($scope.project.notes[prop].guid == $scope.sourceNotes[i].guid) {
+            console.log("We got a match! ");
+            console.log($scope.project.notes[prop].guid);
+            console.log($scope.sourceNotes[i].guid);
+          } 
+        }
+
         //add last date modified in 'updated' field
         $scope.sourceNotes[i].updated = new Date();
         console.log($scope.sourceNotes[i]);
