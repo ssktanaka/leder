@@ -26,8 +26,6 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
     ProjectService.initDB();
 
 
-
-
   });
 })
 
@@ -99,8 +97,8 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
       }
     })
 
-   .state('app.projectEditSources', {
-      url: "/projects/:ProjectId/projectpage/sources/editsources",
+   .state('app.projectEditSource', {
+      url: "/projects/:ProjectId/projectpage/:noteguid/:notetitle/editsource",
       views: {
         'menuContent': {
           templateUrl: "templates/editsource.html",
@@ -108,8 +106,6 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
         }
       }
     })
-
-
 
 
   // if none of the above states are matched, use this as the fallback

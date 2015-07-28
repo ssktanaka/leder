@@ -8,13 +8,17 @@ ledermodule.service('ProjectService', function($q) {
     // We'll need this later.
     var _projects;
 
+    var project;
+
     return {
         initDB: initDB,
+
         // We'll add these later.
         getAllProjects: getAllProjects,
         getProject: getProject,
         addProject: addProject,
         updateProjectObject: updateProjectObject,
+        updateProjectObjectWithQuotes: updateProjectObjectWithQuotes,
 
         // updateBirthday: updateBirthday,
         deleteProject: deleteProject
@@ -31,7 +35,7 @@ ledermodule.service('ProjectService', function($q) {
 		_db.post({
 		  title: project,
 		  dateCreated: new Date(),
-		  dateLastModified: new Date(),
+    		  dateLastModified: new Date(),
 		  notes: [],
 		  quotes: []
 		}).then(function (response) {
@@ -43,15 +47,40 @@ ledermodule.service('ProjectService', function($q) {
 
 
     function updateProjectObject(projectID, noteArray) {
-        console.log("updating!");
+        console.log("updating! note array");
         //update project object with new note array
         return _db.get(projectID)
         .then(function(doc) {
             doc.notes = noteArray;
+            //update last date modified
+            doc.dateLastModified = new Date();
             return _db.put(doc);
         }).then(function(response) {
           console.log("NoteArray has been updated!");
           return _db.get(projectID);
+        }).catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    function updateProjectObjectWithQuotes(projectid, noteguid, quoteArray) {
+        console.log("updating! quote array");
+        //update project object with new note array
+        return _db.get(projectid)
+        .then(function(doc) {
+            doc.quotes = quoteArray;
+            //update last date modified
+            doc.dateLastModified = new Date();
+            //update note's date last modified
+            for (var i = 0; i < doc.notes.length; i++){
+                if (doc.notes[i].guid == noteguid) {
+                    doc.notes[i].updated = new Date();
+                }
+            }
+            return _db.put(doc);
+        }).then(function(response) {
+          console.log("quoteArray has been updated!");
+          return _db.get(projectid);
         }).catch(function (err) {
           console.log(err);
         });

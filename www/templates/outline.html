@@ -1,39 +1,42 @@
 <ion-view view-title="Outline">
 
-	<!-- subhead with reorder button -->
-	<ion-header-bar class="bar-light bar-subheader">
-  		<h1 class="title"></h1>
-  		<div class="buttons">
-    		<button class="button" ng-click="shouldShowReorder = !shouldShowReorder">Reorder</button>
-  		</div>
-	</ion-header-bar>
+	<ion-content>
 
-  <ion-content class="has-subheader">
-	  <ion-list 
-	      show-delete="shouldShowDelete"
-	      show-reorder="shouldShowReorder"
-	      can-swipe="listCanSwipe"
-	      delegate-handle="outline-list">
+    	<ion-toggle ng-model="shouldShowDelete" on-touch="shouldShowReorder = !shouldShowReorder">
+  			Show Delete?
+		</ion-toggle>
 
-	    <ion-item ng-repeat="quoteArray in highlightedWords track by $index" 
+	  	<ion-list 
+		      show-delete="shouldShowDelete"
+		      show-reorder="shouldShowReorder"
+		      can-swipe="listCanSwipe"
+		      delegate-handle="outline-list">
+
+		    <ion-item ng-repeat="quoteObject in highlightedWords" 
 	              item="item"
 	              class="item-remove-animate item-text-wrap">
-	              <h3>Quote</h3>
-	    	<span ng-repeat="item in quoteArray track by $index">{{ item.text }} </span>
+		    	<h3>{{quoteObject.source}}</h3>
+		    	<span>{{quoteObject.text}} </span>
 
-	    	<!-- button options -->
-	    	<!-- swipeable delete -->
-		    <ion-option-button class="button-assertive"
-		                       ng-click="delete(quoteArray)">
-		      Remove
-		    </ion-option-button>
+		    	<!-- button options -->
+		    	<!-- swipeable delete -->
+	  		    <ion-delete-button class="ion-minus-circled" on-touch="delete(quoteObject)">
+	  		    </ion-delete-button>
 
-	    	<!-- reorder -->
-		    <ion-reorder-button class="ion-navicon"
-		                        on-reorder="reorderItem(quoteArray, $fromIndex, $toIndex)">
-		    </ion-reorder-button>
+		    	<!-- reorder -->
+			    <ion-reorder-button class="ion-navicon"
+                	on-reorder="reorderItem(quoteObject, $fromIndex, $toIndex)">
+			    </ion-reorder-button>
 
-    	</ion-item>
-	 </ion-list>
+    		</ion-item>
+		</ion-list>
+		<button class="button button-block button-outline button-positive" on-touch="saveProject(highlightedWords)">
+		  Save
+		</button>
+		<button class="button button-block button-outline button-energized" on-touch="exportProject(highlightedWords)">
+		  Save and Export
+		</button>
+
+
    </ion-content>
 </ion-view>

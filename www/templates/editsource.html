@@ -1,7 +1,9 @@
-<ion-view view-title="Edit Source">
+<ion-view><ion-nav-title>{{noteTitle}}</ion-nav-title>
+
   <ion-content>
     <div id="editSource" detect-gestures gesture-type="touch">
-      <span ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{highlighted: word.isHighlighted}"> {{word.text}}</span>
+      <span ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{highlighted: word.isHighlighted}"> {{word.text}}
+      </span>
     </div>
 
     <button ng-click="clearHighlightedWords()">Clear Highlighting Markup</button>
@@ -9,11 +11,9 @@
     <button ng-click="parseHighlightedWords()">I'm done. Show me the quotes</button>
     <br/><br/>
     
-    <h6 ng-repeat="quoteArray in highlightedWords track by $index"> 
+    <h6 ng-repeat="quote in highlightedWords track by $index"> 
        Quote: 
-        <span ng-repeat="quoteObject in quoteArray track by $index"> 
-        {{quoteObject.text}}
-        </span>
+        {{quote.text}}
     </h6>
 
   </ion-content>

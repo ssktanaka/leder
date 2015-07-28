@@ -1,33 +1,33 @@
-
 <ion-view view-title="Projects">
   <ion-content>
   
   	<button class="button button-clear button-full button-positive" ng-click="showPopup()">
-  Create a Project
-	</button>
-
+      Create a Project
+	  </button>
 
     <ion-list>
 <!--       <ion-item ng-repeat="source in sources" href="#/app/projects/{{source.id}}/projectpage">
         {{source.title}}
       </ion-item> -->
 
-      <ion-item ng-repeat="project in projects | orderBy : '-dateLastModified'" href="#/app/projects/{{project._id}}/projectpage">
+      <ion-item 
+        ng-repeat="project in projects | orderBy : '-dateLastModified'" 
+        href="#/app/projects/{{project._id}}/projectpage">
+        
         {{project.title}}
 
-          <span class="item-note">
-          {{project.dateLastModified | date: 'shortDate'}}
-          <br/>
-          {{project.dateLastModified | date: 'shortTime'}}
-          </span>
+        <span class="item-note">
+          {{project.dateLastModified}} 
+        </span>
 
-          <ion-option-button class="ion-minus-circled" ng-click="deleteProject(project)">
+        <ion-option-button class="ion-minus-circled" ng-click="deleteProject(project)">
           Delete
-          </ion-option-button>
+        </ion-option-button>
 
       </ion-item>
 
     </ion-list>
+
   </ion-content>
 </ion-view>
 

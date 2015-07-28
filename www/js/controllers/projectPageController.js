@@ -1,18 +1,11 @@
 angular.module('leder.projectPageController', [])
 
 
-.controller('ProjectPageCtrl', function($scope, Sources, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService) {
+.controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes) {
 
     // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
-  $scope.setActive = function(attribute) {
-    attribute = !attribute;
-  };
-
-  //set up asynchronous project promise
-  var projectPromise = ProjectService.getProject($stateParams.ProjectId);
-
-  // Get all project records from the database.
-  projectPromise.then(function(project) {
+  //get current project
+  ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
   });
 
@@ -54,6 +47,9 @@ angular.module('leder.projectPageController', [])
     for (var i=0; i < $scope.sourceNotes.length; i++) {
       //if the "touched" attribute of the div is true
       if ($scope.sourceNotes[i].touched) {
+        //add last date modified in 'updated' field
+        $scope.sourceNotes[i].updated = new Date();
+        console.log($scope.sourceNotes[i]);
         sourceArray.push($scope.sourceNotes[i]);
       } else {
         //do nothing
@@ -112,8 +108,6 @@ angular.module('leder.projectPageController', [])
   });
 
 
-
-
  $scope.showAlert = function() {
    var alertPopup = $ionicPopup.alert({
      title: 'Need Evernote Access',
@@ -123,5 +117,6 @@ angular.module('leder.projectPageController', [])
      console.log('Failed');
    });
  };
+
 
 })

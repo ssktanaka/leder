@@ -169,7 +169,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
                 self.getNoteContent(noteGuidsArray, function(error, noteContent) {
                     // TODO what if error?
                     var noteContentAsString = self.getNoteContentAsString(noteContent);
-                    console.log(noteContentAsString);
                 });
             });
         });
@@ -203,6 +202,29 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 
       },
 
+      getNote: function(guid, callback) {
+        //save a reference to self
+        var self = this;
+        var noteTitleArray = [];
+
+        //set parameters
+        var resultSpec = new NotesMetadataResultSpec;
+        resultSpec.includeContentLength = true;
+        resultSpec.includeResourcesData = true;
+          
+        //filter to first 50 notes
+        self.noteStore.findNotesMetadata(self.authToken, guid, resultSpec, function (noteMetadata, error) {
+            if (error) {
+                callback(error);
+            }
+            else {
+            //log the number of notes found in the default notebook
+                callback(null, noteMetadata);
+            }
+        });  
+
+      },
+
       getNotebooks: function(callback) {
         this.noteStore.listNotebooks(this.authToken, function (notebooks) {
             callback(null, notebooks);
@@ -223,35 +245,35 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         return notebookGUIDSarray;
       },
 
-      getNoteMetaData: function (notebookGUIDSarray, callback) {
-        var self = this;
+      // getNoteMetaData: function (notebookGUIDSarray, callback) {
+      //   var self = this;
 
 
-        var filter = new NoteFilter();
-        filter.ascending = true;
+      //   var filter = new NoteFilter();
+      //   filter.ascending = true;
 
-        var resultSpec = new NotesMetadataResultSpec();
-        resultSpec.includeTitle  = true;
-        resultSpec.includeContentLength = true;
-        resultSpec.includeCreated = true;
-        resultSpec.includeNotebookGuid = true;
+      //   var resultSpec = new NotesMetadataResultSpec();
+      //   resultSpec.includeTitle  = true;
+      //   resultSpec.includeContentLength = true;
+      //   resultSpec.includeCreated = true;
+      //   resultSpec.includeNotebookGuid = true;
 
-        var noteMetaDataArray = [];
+      //   var noteMetaDataArray = [];
 
-        notebookGUIDSarray.forEach(function(currentValue, index, array){
-            filter.notebookGuid = currentValue;
-            self.noteStore.findNotesMetadata(self.authToken, filter, 0, 10, resultSpec, function (noteMetadata) {
-                noteMetaDataArray.push(noteMetadata);
-                if (index == notebookGUIDSarray.length-1) {
-                    callback(null, noteMetaDataArray);
-                }
-            },
-            function onerror(error) {
-                callback(error);
-            });    
-        })
+      //   notebookGUIDSarray.forEach(function(currentValue, index, array){
+      //       filter.notebookGuid = currentValue;
+      //       self.noteStore.findNotesMetadata(self.authToken, filter, 0, 10, resultSpec, function (noteMetadata) {
+      //           noteMetaDataArray.push(noteMetadata);
+      //           if (index == notebookGUIDSarray.length-1) {
+      //               callback(null, noteMetaDataArray);
+      //           }
+      //       },
+      //       function onerror(error) {
+      //           callback(error);
+      //       });    
+      //   })
 
-      },
+      // },
 
       getNoteGUIDS: function(noteMetaDataArray) {
         var noteGUIDarray = [];
@@ -266,20 +288,40 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         return noteGUIDarray;
       },
 
-      getNoteContent: function(noteGUIDarray, callback) {
-        var self = this;
+      //deprecated because Array!!!
+      // getNoteContent: function(noteGUIDarray, callback) {
+      //   var self = this;
 
-        var allNotesArray = [];
-        var counter = 1;
-        noteGUIDarray.forEach(function(currentValue, index, array) {
-            self.noteStore.getNoteContent(self.authToken, currentValue, function (noteContent) {              
-                if (counter == noteGUIDarray.length){
-                    allNotesArray.push(noteContent);;
-                    callback(null, allNotesArray);
-                }
-                allNotesArray.push(noteContent);
-                counter = counter + 1;
+      //   var allNotesArray = [];
+      //   var counter = 1;
+      //   noteGUIDarray.forEach(function(currentValue, index, array) {
+      //       self.noteStore.getNoteContent(self.authToken, currentValue, function (noteContent) {              
+      //           if (counter == noteGUIDarray.length){
+      //               allNotesArray.push(noteContent);;
+      //               callback(null, allNotesArray);
+      //           }
+      //           allNotesArray.push(noteContent);
+      //           counter = counter + 1;
 
+      //       },
+      //       function onerror(error) {
+      //           if (error.errorCode == Errors.EDAMErrorCode.RATE_LIMIT_REACHED) {
+      //               console.log("Rate limit reached");
+      //               console.log("Retry your request in" + e.rateLimitDuration);
+      //           };
+      //           console.log('Error- ' + JSON.stringify(error));
+      //           callback(error);
+      //       });        
+
+      //   });
+         
+      // },
+
+       getSingleNoteContent: function(noteGUID, callback) {
+            var self = this;
+            //get note content and convert it to a string
+            self.noteStore.getNoteContent(self.authToken, noteGUID, function (noteContent) {
+                callback(self.getNoteContentAsString(noteContent));                  
             },
             function onerror(error) {
                 if (error.errorCode == Errors.EDAMErrorCode.RATE_LIMIT_REACHED) {
@@ -289,24 +331,94 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
                 console.log('Error- ' + JSON.stringify(error));
                 callback(error);
             });        
+             
+          },
 
-        });
-         
+
+      getNoteContentAsString: function(noteContent){
+            var text = noteContent;
+            text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
+            text = text.replace(/(<(li)>)/ig," - ");
+            text = text.replace(/(<([^>]+)>)/ig,"");
+            text = text.replace(/(\r\n|\n|\r)/gm," ");
+            text = text.replace(/(\s+)/gm," ");
+            return text;
+
+            //IF I DO DECIDE TO SPLIT BY LINE
+            // // added in break
+            // text = text.replace(/(<br[^>]*>)/gi,"\n");
+
+            // text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
+
+            // text = text.replace(/(<(li)>)/ig," - ");
+            // text = text.replace(/(<([^>]+)>)/ig,"");
+
+            // //changed to new line, not space
+            // text = text.replace(/(\r\n|\n|\r)/gm,"\n");
+            // //took this out
+            // // text = text.replace(/(\s+)/gm," ");
       },
 
-      getNoteContentAsString: function(noteContentArray){
-            var textArray = [];
-            for (i=0; i<noteContentArray.length; i++){
-                var text = noteContentArray[i];
-                text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
-                text = text.replace(/(<(li)>)/ig," - ");
-                text = text.replace(/(<([^>]+)>)/ig,"");
-                text = text.replace(/(\r\n|\n|\r)/gm," ");
-                text = text.replace(/(\s+)/gm," ");
-                textArray.push(text);
-            };
-            return textArray;
-        },
+        //deprecated because Arrray!!!
+      // getNoteContentAsString: function(noteContentArray){
+      //       var textArray = [];
+      //       for (i=0; i<noteContentArray.length; i++){
+      //           var text = noteContentArray[i];
+      //           text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
+      //           text = text.replace(/(<(li)>)/ig," - ");
+      //           text = text.replace(/(<([^>]+)>)/ig,"");
+      //           text = text.replace(/(\r\n|\n|\r)/gm," ");
+      //           text = text.replace(/(\s+)/gm," ");
+      //           textArray.push(text);
+      //       };
+      //       return textArray;
+      //   },
+
+      exportNote: function(highlightedWordsArray, projectTitle){
+        var self = this;
+
+        var stringArray = [];
+        for (i=0; i<highlightedWordsArray.length; i++){
+          stringArray.push("<h6>");
+          stringArray.push(highlightedWordsArray[i].source);
+          stringArray.push("</h6><p>");
+          stringArray.push(highlightedWordsArray[i].text);
+          stringArray.push("</p>");
+        }
+        stringArray = stringArray.join(" ");
+        self.makeNote(projectTitle, stringArray, function(result){
+
+        });
+
+
+      },
+
+      makeNote: function(noteTitle, noteBody, callback) {
+ 
+        var self = this;
+
+        var nBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+        nBody += "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">";
+        nBody += "<en-note>" + noteBody + "</en-note>";
+       
+        // Create note object
+        var ourNote = new Note();
+        ourNote.title = noteTitle;
+        ourNote.content = nBody;
+       
+        // Attempt to create note in Evernote account
+        self.noteStore.createNote(self.authToken, ourNote, function(note, error) {
+          if (error) {
+        //     // Something was wrong with the note data
+        //     // See EDAMErrorCode enumeration for error code explanation
+        //     // http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
+              callback(error);
+          } else {
+            callback(note);
+          }
+        });
+       
+      },
 
       checkLogin: function() {
         // var authToken = $localstorage.get('authTokenEvernote');

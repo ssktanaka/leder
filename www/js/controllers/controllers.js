@@ -1,7 +1,7 @@
 angular.module('leder.controllers', [])
 
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Sources, $stateParams, EvernoteOAuth) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth) {
 
   
   // Form data for the login modal
@@ -43,6 +43,8 @@ angular.module('leder.controllers', [])
   $scope.$on('editModal.removed', function() {
     // Execute action
   });
+
+
 
 
 })

@@ -12,15 +12,44 @@ angular.module('leder.editSourceController', [])
 })
 
 
-.controller('EditSourceCtrl', function($scope, Sources, Quotes, $stateParams) {
+.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService) {
+  //set note title
+  $scope.noteTitle = $stateParams.notetitle;
+  //get note content
+  EvernoteOAuth.getSingleNoteContent($stateParams.noteguid, function(noteContent) {
+      // parse source text into array 
+      //set variable $scope.sourceText to string of text
+    $scope.sourceText = $scope.parseSourceText(noteContent);
+
+  });
+
+  console.log($stateParams);
+
+  //get project
+
+  //set up asynchronous project promise
+  var projectPromise = ProjectService.getProject($stateParams.ProjectId);
+  // Get all project records from the database.
+  projectPromise.then(function(project) {
+    $scope.project = project;
+  });
 
 
-  //set variable $scope.sourceText to string of text
-  $scope.sourceText = Sources.getSourceText($stateParams.ProjectId); 
+  // EvernoteOAuth.getNoteTitle($stateParamsfunction(error, notetitles) {
+  //   //populate page with source notes
+  //   $scope.sourceNotes = notetitles;
+  //   //update sources.html to fill page
+  //   $scope.$apply($scope.sourceNotes);
+
+  //  });
 
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
+
+    //split by new line or comma
+    // var sourceText = sourceText.split(/[\n ]+/);
     var sourceText = sourceText.split(" ");
+
 
     //declare empty array to hold word objects
     $scope.words = [];
@@ -34,9 +63,6 @@ angular.module('leder.editSourceController', [])
     }
     return $scope.words;
   };
-
-  // parse source text into array 
-  $scope.sourceText = $scope.parseSourceText($scope.sourceText);
 
   //HIGHLIGHTING FUNCTIONS
 
@@ -58,7 +84,6 @@ angular.module('leder.editSourceController', [])
       //if user is in highlight mode, save the ID to the last word
       if ($scope.highlightMode) {
         $scope.lastWordID = e.srcElement.id;
-        console.log("Last word is " + $scope.lastWordID);
         //apply highlighting 
         $scope.applyHighlight($scope.firstWordID, $scope.lastWordID);
       } 
@@ -68,7 +93,6 @@ angular.module('leder.editSourceController', [])
 
         //highlight first word
         $scope.words[$scope.firstWordID].isHighlighted = true;
-        console.log($scope.words[$scope.firstWordID]);
 
         //ensure highlighting applies
         $scope.$apply();
@@ -84,15 +108,12 @@ angular.module('leder.editSourceController', [])
 
   $scope.applyHighlight = function highlightTest(firstWordID, lastWordID) {
 
-    console.log("Highlighting called");
-
     //iterate through each object in $scope.words
     for (var i = 0; i < $scope.words.length; i++){
       //if current element is greater than the ID of the first word and less than the ID of the last word, 
       //then change isHighlighted attribute to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
-        console.log($scope.words[i].isHighlighted);
       } 
     }
     //ensure CSS highlighting reflects changed attribute
@@ -129,6 +150,7 @@ angular.module('leder.editSourceController', [])
   $scope.parseHighlightedWords = function() {
     //ensure highlighted words array is empty
     $scope.highlightedWords = [];
+    $scope.quoteArray = [];
 
     //iterate through array of quote arrays of objects
     for (var i = 0; i < $scope.words.length; i++){
@@ -140,6 +162,7 @@ angular.module('leder.editSourceController', [])
       //once the iteration hits a non-highlighted word, push to array if quote exists
       else if ($scope.quoteArray.length > 0) {
         $scope.highlightedWords.push($scope.quoteArray);
+
         //clear quoteArray to start again
         $scope.quoteArray = [];
       } else {
@@ -154,9 +177,17 @@ angular.module('leder.editSourceController', [])
         //clear quoteArray to start again
         $scope.quoteArray = [];
     }
-    //update service variable
-    Quotes.setHighlightedWords($scope.highlightedWords);
 
+    //update service variable
+    $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle, $scope.project.quotes);
+
+
+    //update project object with new quote array
+    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId,$stateParams.noteguid, $scope.highlightedWords)
+    .then(function(updatedProject){
+      $scope.project = updatedProject;
+    });
+ 
   };
 
 
