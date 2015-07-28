@@ -376,6 +376,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 
       exportNote: function(highlightedWordsArray, projectTitle){
         var self = this;
+<<<<<<< HEAD
 
         var stringArray = [];
         for (i=0; i<highlightedWordsArray.length; i++){
@@ -387,7 +388,21 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         }
         stringArray = stringArray.join(" ");
         self.makeNote(projectTitle, stringArray, function(result){
+=======
+>>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
 
+        console.log(highlightedWordsArray);
+        var stringArray = [];
+        for (i=0; i<highlightedWordsArray.length; i++){
+          stringArray.push("<h6>");
+          stringArray.push(highlightedWordsArray[i].source);
+          stringArray.push("</h6><p>");
+          stringArray.push(highlightedWordsArray[i].text);
+          stringArray.push("</p>");
+        }
+        stringArray = stringArray.join(" ");
+        self.makeNote(projectTitle, stringArray, function(result){
+          console.log(result);
         });
 
 
@@ -406,6 +421,11 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         ourNote.title = noteTitle;
         ourNote.content = nBody;
        
+<<<<<<< HEAD
+=======
+        console.log(ourNote);
+
+>>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
         // Attempt to create note in Evernote account
         self.noteStore.createNote(self.authToken, ourNote, function(note, error) {
           if (error) {

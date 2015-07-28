@@ -1,6 +1,10 @@
 angular.module('leder.outlineController', [])
 
 .controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService) {
+<<<<<<< HEAD
+=======
+   console.log($stateParams);
+>>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
 
 
   $scope.shouldShowDelete = false;
