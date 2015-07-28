@@ -11,22 +11,12 @@
 
   	<ion-list>
   	  <ion-item 
-<<<<<<< HEAD
         ng-repeat="note in project.notes | orderBy : '-updated'" 
-=======
-        ng-repeat="note in project.notes | orderBy : '-dateLastModified'" 
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
         href="#/app/projects/{{project._id}}/projectpage/{{note.guid}}/{{note.title}}/editsource" >
         
         {{note.title}}
         <span class="item-note">
-<<<<<<< HEAD
-          {{note.updated}}
-=======
-          {{project.dateLastModified | date: 'shortDate'}}
-          <br/>
-          {{project.dateLastModified | date: 'shortTime'}}
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
+          {{note.updated | date: 'shortTime'}} {{note.updated | date: 'shortDate'}}
         </span>
 
         <ion-option-button class="ion-minus-circled" on-touch="deleteNote(note)">

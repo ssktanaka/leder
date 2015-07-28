@@ -63,7 +63,6 @@ ledermodule.service('ProjectService', function($q) {
         });
     };
 
-<<<<<<< HEAD
     function updateProjectObjectWithQuotes(projectid, noteguid, quoteArray) {
         console.log("updating! quote array");
         //update project object with new note array
@@ -82,18 +81,6 @@ ledermodule.service('ProjectService', function($q) {
         }).then(function(response) {
           console.log("quoteArray has been updated!");
           return _db.get(projectid);
-=======
-    function updateProjectObjectWithQuotes(projectID, quoteArray) {
-        console.log("updating!");
-        //update project object with new note array
-        return _db.get(projectID)
-        .then(function(doc) {
-            doc.quotes = quoteArray;
-            return _db.put(doc);
-        }).then(function(response) {
-          console.log("quoteArray has been updated!");
-          return _db.get(projectID);
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
         }).catch(function (err) {
           console.log(err);
         });

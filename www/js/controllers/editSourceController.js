@@ -23,11 +23,8 @@ angular.module('leder.editSourceController', [])
 
   });
 
-<<<<<<< HEAD
   console.log($stateParams);
 
-=======
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
   //get project
 
   //set up asynchronous project promise
@@ -48,14 +45,7 @@ angular.module('leder.editSourceController', [])
 
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
-<<<<<<< HEAD
 
-=======
-    console.log("sourceText");
-    // var originalSourceText = sourceText;
-    // console.log(originalSourceText);
-  
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
     //split by new line or comma
     // var sourceText = sourceText.split(/[\n ]+/);
     var sourceText = sourceText.split(" ");
@@ -162,7 +152,6 @@ angular.module('leder.editSourceController', [])
     $scope.highlightedWords = [];
     $scope.quoteArray = [];
 
-    console.log($scope.highlightedWords);
     //iterate through array of quote arrays of objects
     for (var i = 0; i < $scope.words.length; i++){
 
@@ -188,7 +177,6 @@ angular.module('leder.editSourceController', [])
         //clear quoteArray to start again
         $scope.quoteArray = [];
     }
-<<<<<<< HEAD
 
     //update service variable
     $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle, $scope.project.quotes);
@@ -198,25 +186,6 @@ angular.module('leder.editSourceController', [])
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId,$stateParams.noteguid, $scope.highlightedWords)
     .then(function(updatedProject){
       $scope.project = updatedProject;
-=======
-
-    console.log("Before service");
-    console.log($scope.highlightedWords);
-
-    //update service variable
-    $scope.highlightedWords = Quotes.setHighlightedWords($scope.highlightedWords, $scope.noteTitle, $scope.project.quotes);
-    console.log("After service");
-    console.log($scope.highlightedWords);
-
-    //TODO: Get project, get quote array, push each array element individually to quote array, save new quote array
-    //back to the database
-
-    //update project object with new quote array
-    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $scope.highlightedWords)
-    .then(function(updatedProject){
-      $scope.project = updatedProject;
-      console.log($scope.project);
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
     });
  
   };

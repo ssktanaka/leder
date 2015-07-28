@@ -17,13 +17,7 @@
         {{project.title}}
 
         <span class="item-note">
-<<<<<<< HEAD
-          {{project.dateLastModified}} 
-=======
-          {{project.dateLastModified | date: 'shortDate'}}
-          <br/>
-          {{project.dateLastModified | date: 'shortTime'}}
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
+          {{project.dateLastModified | date: 'shortTime'}} {{project.dateLastModified | date: 'shortDate'}} 
         </span>
 
         <ion-option-button class="ion-minus-circled" ng-click="deleteProject(project)">

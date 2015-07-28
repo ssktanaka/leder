@@ -4,10 +4,9 @@ angular.module('leder.projectPageController', [])
 .controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes) {
 
     // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
-<<<<<<< HEAD
-=======
 
->>>>>>> e428bc83ab098190abb30a9043d2575c6d046909
+  
+
   //get current project
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
