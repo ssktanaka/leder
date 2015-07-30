@@ -1,8 +1,8 @@
 <ion-view><ion-nav-title>{{noteTitle}}</ion-nav-title>
 
   <ion-content>
-    <div id="editSource" detect-gestures gesture-type="touch">
-      <span ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{highlighted: word.isHighlighted}"> {{word.text}}
+    <div detect-gestures gesture-type="tap swiperight">
+      <span  ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{highlighted: word.isHighlighted}"> {{word.text}}
       </span>
     </div>
 

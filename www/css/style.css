@@ -1,14 +1,13 @@
 .highlighted {
 	background-color: yellow;
+	padding: 1px 1px 1px 2px;
 }
 .overlay {
  	background-color: rgba(0,0,0,0.1);
 }
-.normal{
-	color:#000000;
-}
 
-#editNote span {
-	padding: 3px;
+ion-content span {
+	font-size: 1.3em;
+	line-height: 1.7em;
 };
 

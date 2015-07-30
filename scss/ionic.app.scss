@@ -15,8 +15,12 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+$font-family-sans-serif:          "IowanOldStyle-Roman", "Helvetica Neue", "Roboto", sans-serif !default;
+$font-family-light-sans-serif:    "IowanOldStyle-Roman", "HelveticaNeue-Light", "Roboto-Light", sans-serif-light !default;
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
+
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";

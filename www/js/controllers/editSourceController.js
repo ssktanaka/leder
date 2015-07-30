@@ -6,7 +6,8 @@ angular.module('leder.editSourceController', [])
     restrict :  'A',
 
     link : function(scope, elem, attrs) {
-      $ionicGesture.on('touch', scope.onTouch, elem);
+      $ionicGesture.on('tap', scope.onTouch, elem);
+      $ionicGesture.on('swiperight', scope.onSwipeRight, elem);
     }
   }
 })
@@ -41,7 +42,6 @@ angular.module('leder.editSourceController', [])
   //   $scope.$apply($scope.sourceNotes);
 
   //  });
-
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
 
@@ -63,6 +63,15 @@ angular.module('leder.editSourceController', [])
     return $scope.words;
   };
 
+  $scope.onSwipeRight = function swipingRight(event) {
+    if (event.target.nodeName == "SPAN"){
+
+        console.log("swipe working");
+        console.log(event.target.innerHTML);
+        event.target.innerHTML =   "<br/><br/>" + event.target.innerHTML;
+    }
+  }
+
   //HIGHLIGHTING FUNCTIONS
 
   //set two variables for first and last word IDs
@@ -70,6 +79,8 @@ angular.module('leder.editSourceController', [])
   $scope.highlightMode = false;
   $scope.firstWordID = null;
   $scope.lastWordID = null;
+
+
 
  //function to set first and last word IDs
   $scope.onTouch = function detectTouch(e) {   
@@ -92,6 +103,9 @@ angular.module('leder.editSourceController', [])
 
         //highlight first word
         $scope.words[$scope.firstWordID].isHighlighted = true;
+        console.log($scope.firstWordID);
+
+        console.log($scope.lastWordID);
 
         //ensure highlighting applies
         $scope.$apply();
@@ -104,6 +118,7 @@ angular.module('leder.editSourceController', [])
 
   };
 
+ 
 
   $scope.applyHighlight = function highlightTest(firstWordID, lastWordID) {
 
