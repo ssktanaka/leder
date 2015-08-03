@@ -1,4 +1,12 @@
 
+.previouslyHighlighted {
+	background-color: #fffcd8;
+}
+/*.pagebreak{
+	content:"\a \a";
+    white-space: pre;
+}*/
+
 .highlighted {
 	background-color: #FFFF00;
 	padding: 1px 1px 1px 2px;
@@ -13,13 +21,7 @@
 
 }
 
-/*.previouslyHighlighted {
-	background-color: #e8f4f8;
-}*/
-/*.pagebreak{
-	content:"\a \a";
-    white-space: pre;
-}*/
+
 
 .listOverlay {
 	background-color: rgba(0,0,0,0.1);

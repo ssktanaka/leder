@@ -68,6 +68,7 @@ ledermodule.service('ProjectService', function($q) {
         //update project object with new note array
         return _db.get(projectid)
         .then(function(doc) {
+            console.log(quoteArray);
             doc.quotes = quoteArray;
             //update last date modified
             doc.dateLastModified = new Date();

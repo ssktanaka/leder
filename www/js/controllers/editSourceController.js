@@ -78,6 +78,7 @@ angular.module('leder.editSourceController', [])
       var obj = {};
       obj.text = sourceText[i];
       obj.isHighlighted = false; 
+      obj.wasHighlighted = false; 
       obj.isFirstWord = false;
       // obj.isPageBreak = false;
       obj.id = i;
@@ -143,14 +144,24 @@ $scope.onSwipeRight = function swipingRight(event) {
     //if nodename is a SPAN element
     if (e.target.nodeName == "SPAN"){
 
-      //if user is in highlight mode, save the ID to the last word
-      if ($scope.highlightMode) {
+      //turn off highlighting if highlighting is on
+      if ($scope.words[e.srcElement.id].isHighlighted) {
+        //turn highlighting off
+        $scope.words[e.srcElement.id].isHighlighted = false;
+        //ensure highlighting applies
+        $scope.$apply();
+      } 
+  
+     //if user is in highlight mode, save the ID to the last word
+      else if ($scope.highlightMode) {
+
         $scope.lastWordID = e.srcElement.id;
         //apply highlighting 
         $scope.applyHighlight($scope.firstWordID, $scope.lastWordID);
       } 
     //if user is not in highlight mode, save the ID to the first word
       else {
+
         $scope.firstWordID = e.srcElement.id;
 
         //set first word setting on
@@ -158,7 +169,6 @@ $scope.onSwipeRight = function swipingRight(event) {
 
         //highlight first word
         $scope.words[$scope.firstWordID].isHighlighted = true;
-
         //ensure highlighting applies
         $scope.$apply();
         //set highlight mode to true so next touch will register as final word
@@ -220,21 +230,17 @@ $scope.onSwipeRight = function swipingRight(event) {
 
   //function to show highlighted words
   $scope.showHighlightedWords = function() {
-    projectPromise.then(function(project) {
-      $scope.project = project;
       if ($scope.project.quotes) {
-        for (var i=0; i<project.quotes.length; i++){
-          if (project.quotes[i].source == $scope.noteTitle) {
-            console.log("Quote..." + project.quotes[i].source + " " + project.quotes[i].text )
-            var startID = project.quotes[i].idStart;
-            var endID = project.quotes[i].idEnd;
-            $scope.applyPreviousHighlighting(startID, endID);
-          }
+        for (var i=0; i<$scope.project.quotes.length; i++){
+            if ($scope.project.quotes[i].source == $scope.noteTitle) {
+              var startID = $scope.project.quotes[i].idStart;
+              var endID = $scope.project.quotes[i].idEnd;
+              $scope.applyPreviousHighlighting(startID, endID);
+            }
          }
       } else {
         //do nothing
       }
-    });
 
   };
 
@@ -244,12 +250,10 @@ $scope.onSwipeRight = function swipingRight(event) {
         //if current element is greater than the ID of the first word and less than the ID of the last word, 
         //then change isHighlighted attribute to true
         if ($scope.words[i].id >= startID && $scope.words[i].id <= endID){
-          $scope.words[i].isHighlighted = true;
+          //turn on past highlighting attribute
+          $scope.words[i].wasHighlighted = true;
         } 
       }
-      //ensure CSS highlighting reflects changed attribute
-      $scope.$apply();    
-
   };
 
 
