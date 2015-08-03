@@ -6,6 +6,7 @@ ledermodule.service('Quotes', function() {
   //highlighted words into an array of quote arrays of objects
 	var highlightedWords = [];
 	var quoteArray = [];
+	var scopeWords = [];
 	// var noteTitle = "";
 
 	return {

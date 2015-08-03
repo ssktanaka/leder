@@ -13,7 +13,7 @@ angular.module('leder.editSourceController', [])
 })
 
 
-.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService) {
+.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService, $document) {
   //set note title
   $scope.noteTitle = $stateParams.notetitle;
   //get note content
@@ -34,14 +34,6 @@ angular.module('leder.editSourceController', [])
     $scope.project = project;
   });
 
-
-  // EvernoteOAuth.getNoteTitle($stateParamsfunction(error, notetitles) {
-  //   //populate page with source notes
-  //   $scope.sourceNotes = notetitles;
-  //   //update sources.html to fill page
-  //   $scope.$apply($scope.sourceNotes);
-
-  //  });
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
 
@@ -57,20 +49,46 @@ angular.module('leder.editSourceController', [])
       var obj = {};
       obj.text = sourceText[i];
       obj.isHighlighted = false; 
+      obj.isFirstWord = false;
       obj.id = i;
       $scope.words.push(obj);
     }
+
     return $scope.words;
   };
 
-  $scope.onSwipeRight = function swipingRight(event) {
-    if (event.target.nodeName == "SPAN"){
 
-        console.log("swipe working");
-        console.log(event.target.innerHTML);
-        event.target.innerHTML =   "<br/><br/>" + event.target.innerHTML;
-    }
-  }
+
+// //array holding paragraph breaks
+$scope.paragraphBreaks = [];
+
+
+// $scope.clearBreaks = function(){
+//   // div.innerHTML.replace(/\&lt;br\&gt;/gi,"\n").replace(/(&lt;([^&gt;]+)&gt;)/gi, "")
+//   console.log($scope.paragraphBreaks);
+//   for (var i = 0; i<$scope.paragraphBreaks.length; i++){
+//     console.log($scope.paragraphBreaks[i]);
+//     $scope.paragraphBreaks[i].splice(0, 2);
+//     console.log($scope.paragraphBreaks[i]);
+//   }
+//   $scope().apply();
+// }
+//set up Swipe Right to paragraph break, Swipe Left to collapse
+
+
+$scope.onSwipeRight = function swipingRight(event) {
+  if (event.target.nodeName == "SPAN"){
+      console.log("swiping right");
+      // $scope.paragraphBreaks.push(event.target.id);
+      // $scope.insertBreaks($scope.paragraphBreaks);
+      event.target.innerHTML = "<br/><br/>" + event.target.innerHTML;
+      //store within angular element
+     $scope.paragraphBreaks.push(angular.element( event.target.innerHTML));
+      //get current object
+      // $scope.words[event.target.id])
+   } 
+}
+
 
   //HIGHLIGHTING FUNCTIONS
 
@@ -101,15 +119,16 @@ angular.module('leder.editSourceController', [])
       else {
         $scope.firstWordID = e.srcElement.id;
 
+        //set first word setting on
+        $scope.words[$scope.firstWordID].isFirstWord = true;
+
         //highlight first word
         $scope.words[$scope.firstWordID].isHighlighted = true;
-        console.log($scope.firstWordID);
-
-        console.log($scope.lastWordID);
 
         //ensure highlighting applies
         $scope.$apply();
         //set highlight mode to true so next touch will register as final word
+
         $scope.highlightMode = true;
       };
 
@@ -121,20 +140,26 @@ angular.module('leder.editSourceController', [])
  
 
   $scope.applyHighlight = function highlightTest(firstWordID, lastWordID) {
+    console.log("firstWordID")
 
+    console.log(firstWordID)
     //iterate through each object in $scope.words
     for (var i = 0; i < $scope.words.length; i++){
       //if current element is greater than the ID of the first word and less than the ID of the last word, 
       //then change isHighlighted attribute to true
       if ($scope.words[i].id >= firstWordID && $scope.words[i].id <= lastWordID){
         $scope.words[i].isHighlighted = true;
+        //set first word setting off
+        $scope.words[$scope.firstWordID].isFirstWord = false;
       } 
     }
     //ensure CSS highlighting reflects changed attribute
     $scope.$apply();
 
+
     //set highlight mode to false so a new touch can register
     $scope.highlightMode = false;
+  
 
   };  
 

@@ -1,13 +1,24 @@
+
 .highlighted {
-	background-color: yellow;
+	background-color: #FFFF00;
 	padding: 1px 1px 1px 2px;
+
 }
+
+
 .overlay {
- 	background-color: rgba(0,0,0,0.1);
+ 	background-color: #ffffb2;
+ 	color: #9d9d9d;
+	padding: 0px;
+}
+
+.listOverlay {
+	background-color: rgba(0,0,0,0.1);
+
 }
 
 ion-content span {
 	font-size: 1.3em;
 	line-height: 1.7em;
-};
 
+};

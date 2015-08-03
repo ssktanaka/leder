@@ -13,8 +13,8 @@
 		 <ion-item 
 		 	ng-repeat="sourceNote in sourceNotes | orderBy: '-created' track by $index" 
 		 	ng-init="sourceNote.touched=false"
-		 	on-touch="sourceNote.touched = !sourceNote.touched"
-	        ng-class="{ overlay : sourceNote.touched }">
+		 	on-tap="sourceNote.touched = !sourceNote.touched"
+	        ng-class="{ listOverlay : sourceNote.touched }">
 		    <h2>{{sourceNote.title}}</h2>
 		    <p>{{sourceNote.created | date: 'mediumDate'}} |  {{sourceNote.contentLength}} words</p>
 		  </ion-item>
