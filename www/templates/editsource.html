@@ -2,15 +2,9 @@
 
   <ion-content>
     <div detect-gestures gesture-type="tap swiperight">
-      <span  ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{'overlay': word.isFirstWord, 'highlighted': word.isHighlighted}"> {{word.text}}
+      <span  ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{'overlay': word.isFirstWord,'highlighted': word.isHighlighted}"> {{word.text}}
       </span>
     </div>
-
-    <button ng-click="clearHighlightedWords()">Clear Highlighting Markup</button>
-    <br/><br/>
-    <button ng-click="parseHighlightedWords()">I'm done. Show me the quotes</button>
-    <br/><br/>
-
     
     <h6 ng-repeat="quote in highlightedWords track by $index"> 
        Quote: 
@@ -18,4 +12,15 @@
     </h6>
 
   </ion-content>
+
+
+  <ion-footer-bar align-title="left" class="bar-positive">
+
+    <div class="button-bar">
+      <a class="button" ng-click="parseHighlightedWords()">Save Quotes</a>
+      <a class="button" ng-click="showHighlightedWords()">Show Markup</a>
+      <a class="button" ng-click="clearHighlightedWords()">Clear Markup</a>
+    </div>
+
+  </ion-footer-bar>
 </ion-view>
