@@ -37,4 +37,8 @@ angular.module('leder.outlineController', [])
     EvernoteOAuth.exportNote(highlightedWords, $scope.project.title); 
   };
 
+  $scope.addListItem = function(contact){
+    console.log("Working");
+    console.log(contact.name);
+  }
 })
