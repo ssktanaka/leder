@@ -36,6 +36,9 @@ angular.module('leder.editSourceController', [])
 
   });
 
+  //setting up markup global variables 
+  $scope.showingMarkup = false;
+  $scope.changeMarkupText = "Show Markup";
 
   // $scope.findStartEnd = function(project) {
   //   console.log(project);
@@ -84,7 +87,9 @@ angular.module('leder.editSourceController', [])
       obj.id = i;
       $scope.words.push(obj);
     }
-
+    //make sure this updates
+    $scope.$apply();
+    
     return $scope.words;
   };
 
@@ -213,51 +218,6 @@ $scope.onSwipeRight = function swipingRight(event) {
   $scope.quoteArray = Quotes.getQuoteArray();
 
 
-  //function to clear highlighted words
-  $scope.clearHighlightedWords = function() {
-    //ensure highlighted words array is empty
-    $scope.highlightedWords = [];
-
-    //iterate through array of quote arrays of objects
-    for (var i = 0; i < $scope.words.length; i++){
-      //if isHighlighted attribute is true, set it to false 
-      if ($scope.words[i].isHighlighted){
-        $scope.words[i].isHighlighted = false;
-      } 
-    };
-
-  };
-
-  //function to show highlighted words
-  $scope.showHighlightedWords = function() {
-      if ($scope.project.quotes) {
-        for (var i=0; i<$scope.project.quotes.length; i++){
-            if ($scope.project.quotes[i].source == $scope.noteTitle) {
-              var startID = $scope.project.quotes[i].idStart;
-              var endID = $scope.project.quotes[i].idEnd;
-              $scope.applyPreviousHighlighting(startID, endID);
-            }
-         }
-      } else {
-        //do nothing
-      }
-
-  };
-
-  $scope.applyPreviousHighlighting = function(startID, endID){
-
-    for (var i = 0; i < $scope.words.length; i++){
-        //if current element is greater than the ID of the first word and less than the ID of the last word, 
-        //then change isHighlighted attribute to true
-        if ($scope.words[i].id >= startID && $scope.words[i].id <= endID){
-          //turn on past highlighting attribute
-          $scope.words[i].wasHighlighted = true;
-        } 
-      }
-  };
-
-
-
   //function to parse highlighted words
   $scope.parseHighlightedWords = function() {
     //ensure highlighted words array is empty
@@ -301,6 +261,76 @@ $scope.onSwipeRight = function swipingRight(event) {
     });
  
   };
+
+
+
+  //function to show highlighted words
+  $scope.changeMarkup = function() {
+      if ($scope.showingMarkup){
+         $scope.clearMarkup();
+      } else {
+         $scope.showMarkup();
+      }
+  };
+
+  //function to clear markup
+  $scope.clearMarkup = function() {
+   for (var i = 0; i < $scope.words.length; i++){
+        // change isHighlighted attribute to false
+          $scope.words[i].wasHighlighted = false;
+    } 
+       
+    $scope.showingMarkup = false;
+    $scope.changeMarkupText = "Show Markup";
+
+  
+  };
+  
+  //function to show highlighted words
+  $scope.showMarkup = function() {
+      if ($scope.project.quotes) {
+        for (var i=0; i<$scope.project.quotes.length; i++){
+            if ($scope.project.quotes[i].source == $scope.noteTitle) {
+              var startID = $scope.project.quotes[i].idStart;
+              var endID = $scope.project.quotes[i].idEnd;
+              $scope.applyPreviousHighlighting(startID, endID);
+            }
+         }
+      } else {
+        //do nothing
+      }
+
+  };
+
+  $scope.applyPreviousHighlighting = function(startID, endID){
+
+    for (var i = 0; i < $scope.words.length; i++){
+        //if current element is greater than the ID of the first word and less than the ID of the last word, 
+        //then change isHighlighted attribute to true
+        if ($scope.words[i].id >= startID && $scope.words[i].id <= endID){
+          //turn on past highlighting attribute
+          $scope.words[i].wasHighlighted = true;
+        } 
+      }
+    $scope.showingMarkup = true;  
+    $scope.changeMarkupText = "Hide Markup";
+  };
+
+  //function to clear highlighted words
+  $scope.clearHighlightedWords = function() {
+    //ensure highlighted words array is empty
+    $scope.highlightedWords = [];
+
+    //iterate through array of quote arrays of objects
+    for (var i = 0; i < $scope.words.length; i++){
+      //if isHighlighted attribute is true, set it to false 
+      if ($scope.words[i].isHighlighted){
+        $scope.words[i].isHighlighted = false;
+      } 
+    };
+
+  };
+
 
 
 })

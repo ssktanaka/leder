@@ -19,6 +19,10 @@
 		    	<span>{{quoteObject.text}} </span>
 
 		    	<!-- button options -->
+		    	 <ion-option-button class="button-info"
+                       ng-click="edit(item)">
+			      Edit
+			    </ion-option-button>
 		    	<!-- swipeable delete -->
 	  		    <ion-delete-button class="ion-minus-circled" on-touch="delete(quoteObject)">
 	  		    </ion-delete-button>
