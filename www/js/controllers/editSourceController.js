@@ -16,12 +16,18 @@ angular.module('leder.editSourceController', [])
 .controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService, $document) {
   //set note title
   $scope.noteTitle = $stateParams.notetitle;
+
+  //set loading icon
+  $scope.loaderShown = true;
+
   //get note content
   EvernoteOAuth.getSingleNoteContent($stateParams.noteguid, function(noteContent) {
       // parse source text into array 
       //set variable $scope.sourceText to string of text
     $scope.sourceText = $scope.parseSourceText(noteContent);
   });
+
+
 
 
   //get project
@@ -90,6 +96,9 @@ angular.module('leder.editSourceController', [])
     //make sure this updates
     $scope.$apply();
     
+    //turn loading icon off
+    $scope.loaderShown = false;
+
     return $scope.words;
   };
 
