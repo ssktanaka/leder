@@ -62,7 +62,7 @@ ledermodule.service('Quotes', function() {
 	    	}
 
     		var object = {};
-			object.source = "You";
+			object.source = "Note to Self";
     		object.text = quoteText;
     		currentProject.quotes.unshift(object);
 

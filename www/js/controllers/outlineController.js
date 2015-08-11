@@ -3,6 +3,7 @@ angular.module('leder.outlineController', [])
 .controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService) {
 
 
+
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = true;
 
@@ -38,7 +39,13 @@ angular.module('leder.outlineController', [])
     EvernoteOAuth.exportNote(highlightedWords, $scope.project.title); 
   };
 
+  $scope.isFormInvalid = function(){
+    return this.form.$invalid;
+  };
+
   $scope.addListItem = function(quote){
-    Quotes.addListItem(quote, $scope.project);
+    Quotes.addListItem(quote.input, $scope.project);
+    //clear quote
+    this.customQuote = null;
   }
 })

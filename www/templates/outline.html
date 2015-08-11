@@ -3,12 +3,13 @@
 	<ion-content>
 
 		<div class="list">
-		   	<form ng-submit="addListItem(quote)">
+		   	<form ng-submit="addListItem(customQuote)" name="customQuoteForm">
 			  <div class="item item-input-inset">
-			  	<input type="text" placeholder="Your own content" ng-model="quote">
 			  	<label class="item-input-wrapper">
+			  		<input type="text" placeholder="Your own content" ng-model="customQuote.input" required> 
 			  	</label>
-			    <button class="button button-small">
+			    <button class="button button-small" ng-disabled="customQuoteForm.$invalid">
+
 			      Add
 			    </button>
 			  </div>
