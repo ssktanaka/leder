@@ -2,6 +2,20 @@
 
 	<ion-content>
 
+		<div class="list">
+		   	<form ng-submit="addListItem(quote)">
+			  <div class="item item-input-inset">
+			  	<input type="text" placeholder="Your own content" ng-model="quote">
+			  	<label class="item-input-wrapper">
+			  	</label>
+			    <button class="button button-small">
+			      Add
+			    </button>
+			  </div>
+			</form>
+		</div>
+
+
     	<ion-toggle ng-model="shouldShowDelete" on-touch="shouldShowReorder = !shouldShowReorder">
   			Show Delete?
 		</ion-toggle>
@@ -44,13 +58,5 @@
 
    </ion-content>
 
-  <ion-footer-bar class="bar-positive">
-	<form ng-submit="addListItem(contact)">
-	  <label class="item item-input">
-	  	<span class="input-label">Add list item</span>
-	  	<input type="text" ng-model="contact.name">
-	  </label>
-	</form>
-  </ion-footer-bar>
 
 </ion-view>

@@ -73,11 +73,14 @@ ledermodule.service('ProjectService', function($q) {
             //update last date modified
             doc.dateLastModified = new Date();
             //update note's date last modified
-            for (var i = 0; i < doc.notes.length; i++){
-                if (doc.notes[i].guid == noteguid) {
-                    doc.notes[i].updated = new Date();
+            if (noteguid !== undefined){
+                console.log("Just keep running")
+                for (var i = 0; i < doc.notes.length; i++){
+                    if (doc.notes[i].guid == noteguid) {
+                        doc.notes[i].updated = new Date();
+                    }
                 }
-            }
+            }    
             return _db.put(doc);
         }).then(function(response) {
           console.log("quoteArray has been updated!");

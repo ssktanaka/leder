@@ -52,6 +52,23 @@ ledermodule.service('Quotes', function() {
 	    	return currentProject.quotes;
 	    },
 
+	    addListItem: function(quoteText, currentProject) {
+	    	//first check if quote array exists in project
+	    	if (currentProject.quotes) {
+	    		//do nothing
+	    	} else {
+	    		//create quote attribute
+	    		currentProject.quotes = [];
+	    	}
+
+    		var object = {};
+			object.source = "You";
+    		object.text = quoteText;
+    		currentProject.quotes.unshift(object);
+
+	    	return currentProject.quotes;
+	    },
+
 	};
 
 });

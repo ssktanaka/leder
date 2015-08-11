@@ -11,6 +11,7 @@ angular.module('leder.outlineController', [])
     //highlighted words into an array of quote arrays of objects
     $scope.highlightedWords = $scope.project.quotes; 
     // $scope.quoteArray = Quotes.getQuoteArray();
+    $scope.$apply();
 
   });
 
@@ -28,7 +29,7 @@ angular.module('leder.outlineController', [])
 
   $scope.saveProject = function(highlightedWords) {
     //update project object with new array
-    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, highlightedWords);
+    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $stateParams.noteguid, highlightedWords);
   };
 
   $scope.exportProject = function(highlightedWords) {
@@ -37,8 +38,7 @@ angular.module('leder.outlineController', [])
     EvernoteOAuth.exportNote(highlightedWords, $scope.project.title); 
   };
 
-  $scope.addListItem = function(contact){
-    console.log("Working");
-    console.log(contact.name);
+  $scope.addListItem = function(quote){
+    Quotes.addListItem(quote, $scope.project);
   }
 })

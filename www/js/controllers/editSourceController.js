@@ -267,6 +267,7 @@ $scope.onSwipeRight = function swipingRight(event) {
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId,$stateParams.noteguid, $scope.highlightedWords)
     .then(function(updatedProject){
       $scope.project = updatedProject;
+      console.log($scope.project)
     });
  
   };
