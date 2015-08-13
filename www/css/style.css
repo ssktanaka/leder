@@ -1,3 +1,8 @@
+.large-icon,
+.large-icon:before {
+	font-size: 44px; 
+	padding: 0px 5px 0px 5px;
+};
 
 .previouslyHighlighted {
 	background-color: #fffcd8;
@@ -33,3 +38,4 @@ ion-content span {
 	line-height: 1.7em;
 
 };
+

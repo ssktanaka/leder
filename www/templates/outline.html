@@ -1,6 +1,15 @@
 <ion-view view-title="Outline">
+	
+	<ion-nav-buttons side="right">
+		<i class="ion-ios-upload-outline large-icon"></i>
+		<i class="ion-ios-compose-outline large-icon"></i>
+	</ion-nav-buttons>
+
 
 	<ion-content>
+
+
+
 
 		<div class="list">
 		   	<form ng-submit="addListItem(customQuote)" name="customQuoteForm">
@@ -9,7 +18,6 @@
 			  		<input type="text" placeholder="Your own content" ng-model="customQuote.input" required> 
 			  	</label>
 			    <button class="button button-small" ng-disabled="customQuoteForm.$invalid">
-
 			      Add
 			    </button>
 			  </div>
@@ -27,7 +35,7 @@
 		      can-swipe="listCanSwipe"
 		      delegate-handle="outline-list">
 
-		    <ion-item ng-repeat="quoteObject in highlightedWords" 
+		    <ion-item ng-repeat="quoteObject in highlightedWords track by $index" 
 	              item="item"
 	              class="item-remove-animate item-text-wrap">
 		    	<h3>{{quoteObject.source}}</h3>
