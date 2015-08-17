@@ -1,16 +1,15 @@
 <ion-view view-title="Outline">
 	
 	<ion-nav-buttons side="right">
-		<i class="ion-ios-upload-outline large-icon"></i>
-		<i class="ion-ios-compose-outline large-icon"></i>
+		<i class="ion-ios-compose-outline large-icon" on-touch="addListItemPopup()"></i>
+		<i class="ion-ios-upload-outline large-icon" on-touch="exportProject(highlightedWords)"></i>
 	</ion-nav-buttons>
 
 
 	<ion-content>
 
 
-
-
+<!-- 
 		<div class="list">
 		   	<form ng-submit="addListItem(customQuote)" name="customQuoteForm">
 			  <div class="item item-input-inset">
@@ -24,7 +23,7 @@
 			</form>
 		</div>
 
-
+ -->
     	<ion-toggle ng-model="shouldShowDelete" on-touch="shouldShowReorder = !shouldShowReorder">
   			Show Delete?
 		</ion-toggle>
