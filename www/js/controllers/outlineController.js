@@ -54,9 +54,9 @@ angular.module('leder.outlineController', [])
 
 
 
-  $scope.isFormInvalid = function(){
-    return this.form.$invalid;
-  };
+  // $scope.isFormInvalid = function(){
+  //   return this.form.$invalid;
+  // };
 
   $scope.addListItem = function(quote){
     Quotes.addListItem(quote.input, $scope.project);
