@@ -49,6 +49,7 @@ ledermodule.service('Quotes', function() {
 	    		object.text = newQuoteTemp.join(" ");
 	    		currentProject.quotes.push(object);
 	    	}
+	    	console.log(currentProject.quotes);
 	    	return currentProject.quotes;
 	    },
 

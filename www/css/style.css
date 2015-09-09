@@ -19,6 +19,7 @@
 }
 
 
+
 .overlay {
  	background-color: #ffffb2;
  	color: #9d9d9d;
@@ -37,5 +38,5 @@ ion-content span {
 	font-size: 1.3em;
 	line-height: 1.7em;
 
-};
+}
 

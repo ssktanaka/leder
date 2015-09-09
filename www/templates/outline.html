@@ -33,12 +33,13 @@
 		      show-reorder="shouldShowReorder"
 		      can-swipe="listCanSwipe"
 		      delegate-handle="outline-list">
-
 		    <ion-item ng-repeat="quoteObject in highlightedWords track by $index" 
 	              item="item"
-	              class="item-remove-animate item-text-wrap">
+	              class="item-remove-animate item-text-wrap"
+	              style="padding-right: 1.7em;">
+
 		    	<h3>{{quoteObject.source}}</h3>
-		    	<span>{{quoteObject.text}} </span>
+		    	<p>{{quoteObject.text}} </p>
 
 		    	<!-- button options -->
 		    	 <ion-option-button class="button-info"
@@ -53,8 +54,9 @@
 			    <ion-reorder-button class="ion-navicon"
                 	on-reorder="reorderItem(quoteObject, $fromIndex, $toIndex)">
 			    </ion-reorder-button>
-
+ 		
     		</ion-item>
+   
 		</ion-list>
 		<button class="button button-block button-outline button-positive" on-touch="saveProject(highlightedWords)">
 		  Save
