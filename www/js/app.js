@@ -8,6 +8,12 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
 
 
 .run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService) {
+   //initialize NoteStore
+  EvernoteOAuth.initializeNoteStore();
+
+  //initialize database
+  ProjectService.initDB();
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,13 +25,6 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
       StatusBar.styleDefault();
     }
     
-    //initialize NoteStore
-    EvernoteOAuth.initializeNoteStore();
-
-    //initialize database
-    ProjectService.initDB();
-
-
   });
 })
 
@@ -39,20 +38,20 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: "/search",
+  .state('app.about', {
+    url: "/about",
     views: {
       'menuContent': {
-        templateUrl: "templates/search.html"
+        templateUrl: "templates/about.html"
       }
     }
   })
 
-  .state('app.browse', {
-    url: "/browse",
+  .state('app.settings', {
+    url: "/settings",
     views: {
       'menuContent': {
-        templateUrl: "templates/browse.html"
+        templateUrl: "templates/settings.html"
       }
     }
   })

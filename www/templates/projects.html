@@ -1,4 +1,6 @@
 <ion-view view-title="Projects">
+
+
   <ion-content>
   
   	<button class="button button-clear button-full button-positive" ng-click="showPopup()">
@@ -6,9 +8,6 @@
 	  </button>
 
     <ion-list>
-<!--       <ion-item ng-repeat="source in sources" href="#/app/projects/{{source.id}}/projectpage">
-        {{source.title}}
-      </ion-item> -->
 
       <ion-item 
         ng-repeat="project in projects | orderBy : '-dateLastModified'" 
