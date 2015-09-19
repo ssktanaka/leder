@@ -9,25 +9,6 @@
 	<ion-content>
 
 
-<!-- 
-		<div class="list">
-		   	<form ng-submit="addListItem(customQuote)" name="customQuoteForm">
-			  <div class="item item-input-inset">
-			  	<label class="item-input-wrapper">
-			  		<input type="text" placeholder="Your own content" ng-model="customQuote.input" required> 
-			  	</label>
-			    <button class="button button-small" ng-disabled="customQuoteForm.$invalid">
-			      Add
-			    </button>
-			  </div>
-			</form>
-		</div>
-
- -->
-    	<ion-toggle ng-model="shouldShowDelete" on-touch="shouldShowReorder = !shouldShowReorder">
-  			Show Delete?
-		</ion-toggle>
-
 	  	<ion-list 
 		      show-delete="shouldShowDelete"
 		      show-reorder="shouldShowReorder"
@@ -42,10 +23,11 @@
 		    	<p>{{quoteObject.text}} </p>
 
 		    	<!-- button options -->
-		    	 <ion-option-button class="button-info"
+<!-- 		    	 <ion-option-button class="button-info"
                        ng-click="edit(item)">
 			      Edit
-			    </ion-option-button>
+			    </ion-option-button> -->
+			    
 		    	<!-- swipeable delete -->
 	  		    <ion-delete-button class="ion-minus-circled" on-touch="delete(quoteObject)">
 	  		    </ion-delete-button>
@@ -58,12 +40,9 @@
     		</ion-item>
    
 		</ion-list>
-		<button class="button button-block button-outline button-positive" on-touch="saveProject(highlightedWords)">
-		  Save
-		</button>
-		<button class="button button-block button-outline button-energized" on-touch="exportProject(highlightedWords)">
-		  Save and Export
-		</button>
+
+	    <button class="button button-clear button-full button-positive" on-touch="showDelete()">{{quoteText}}</button>
+
 
 
    </ion-content>

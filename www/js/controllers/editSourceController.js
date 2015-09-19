@@ -13,33 +13,32 @@ angular.module('leder.editSourceController', [])
 })
 
 
-.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService, $document) {
+.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService, $document, $ionicPopup, $timeout) {
   //set note title
   $scope.noteTitle = $stateParams.notetitle;
 
   //set loading icon
   $scope.loaderShown = true;
 
+  //set buttons to disabled
+  $scope.isDisabled = true;
+
   //get note content
   EvernoteOAuth.getSingleNoteContent($stateParams.noteguid, function(noteContent) {
-      // parse source text into array 
-      //set variable $scope.sourceText to string of text
+    // parse source text into array 
+    //set variable $scope.sourceText to string of text 
     $scope.sourceText = $scope.parseSourceText(noteContent);
   });
 
-
-
-
   //get project
-
   //set up asynchronous project promise
   var projectPromise = ProjectService.getProject($stateParams.ProjectId);
+ 
   // Get all project records from the database.
   projectPromise.then(function(project) {
     $scope.project = project;
     //apply previous highlighting
     // $scope.findStartEnd(project);
-
   });
 
   //setting up markup global variables 
@@ -93,12 +92,12 @@ angular.module('leder.editSourceController', [])
       obj.id = i;
       $scope.words.push(obj);
     }
-    //make sure this updates
-    $scope.$apply();
-    
     //turn loading icon off
     $scope.loaderShown = false;
 
+    //make sure this updates
+    $scope.$apply($scope.loaderShown);
+    
     return $scope.words;
   };
 
@@ -212,6 +211,10 @@ $scope.onSwipeRight = function swipingRight(event) {
       } 
     }
     //ensure CSS highlighting reflects changed attribute
+
+    //allow quote to be saved and cleared
+    $scope.isDisabled = false;
+
     $scope.$apply();
 
 
@@ -267,10 +270,22 @@ $scope.onSwipeRight = function swipingRight(event) {
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId,$stateParams.noteguid, $scope.highlightedWords)
     .then(function(updatedProject){
       $scope.project = updatedProject;
-      console.log($scope.project)
+      $scope.showQuoteConfirmation();  
+      $scope.clearHighlightedWords();
     });
  
   };
+
+    // Triggered on a button click, or some other target
+    $scope.showQuoteConfirmation = function(content) {
+       var alertPopup = $ionicPopup.alert({
+         title: 'Your Quotes Have Been Saved',
+         template: 'The highlighted quotes have been successfully added to your outline.'
+       });
+       alertPopup.then(function(res) {
+         //success
+        });
+     };
 
 
 
@@ -338,6 +353,9 @@ $scope.onSwipeRight = function swipingRight(event) {
         $scope.words[i].isHighlighted = false;
       } 
     };
+    
+    //set buttons to disabled again
+    $scope.isDisabled = true;
 
   };
 

@@ -7,7 +7,11 @@
 <!--     href="#/app/projects/{{project._id}}/projectpage/sources" -->
 	  </div>
     
-    <h4 class="padding">Looks like you need some source notes.</h4>
+    <h4 ng-class="{'ng-show':sourceNotesReminder, 'ng-hide': !sourceNotesReminder}">Looks like you need some source notes.</h4>
+    
+    <button class="button button-clear button-full button-positive" on-touch="checkLogin()">
+      Add Source Notes
+    </button>
 
   	<ion-list>
   	  <ion-item 
@@ -26,9 +30,7 @@
       </ion-item>
   	</ion-list>
 
-  	<button class="button button-clear button-full button-positive" on-touch="checkLogin()">
-    	Add Source Notes
-  	</button>
+
 
   </ion-content>
 </ion-view>

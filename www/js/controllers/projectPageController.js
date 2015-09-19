@@ -5,25 +5,42 @@ angular.module('leder.projectPageController', [])
 
     // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
 
-  
+  $scope.fetchingNotes = true;
+
 
   //get current project
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
+
+    //see if you should remind user to add source notes or not! blank state
+    if ($scope.project.notes.length > 0){
+      $scope.sourceNotesReminder = false;
+    } else {
+      $scope.sourceNotesReminder = true;
+    };
   });
+
 
   $scope.checkLogin = function() {
 	//check if loggedin
+
 	if (EvernoteOAuth.checkLogin()){
     //get project ID and set in url
 
     //open source note modal
     $scope.sourceNoteModal.show();
+
+
        EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
-        //populate page with source notes
         $scope.sourceNotes = notetitles;
+
+        console.log("fetchingNotes is first..." + $scope.fetchingNotes );
+        $scope.fetchingNotes = false;
+        console.log("fetchingNotes is now..." + $scope.fetchingNotes );
+
         //update sources.html to fill page
-        $scope.$apply($scope.sourceNotes);
+        $scope.$apply($scope.sourceNotes, $scope.fetchingNotes);
+        //populate page with source notes
 
        });
     	} else {
@@ -64,6 +81,9 @@ angular.module('leder.projectPageController', [])
         $scope.sourceNotes[i].updated = new Date();
         console.log($scope.sourceNotes[i]);
         sourceArray.push($scope.sourceNotes[i]);
+
+        $scope.sourceNotesReminder = false;
+
       } else {
         //do nothing
       }

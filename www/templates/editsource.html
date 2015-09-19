@@ -1,29 +1,23 @@
 <ion-view><ion-nav-title>{{noteTitle}}</ion-nav-title>
 
   <ion-content>
-    <ion-spinner icon="spiral" ng-class="{'ng-show':loaderShown, 'ng-hide': !loaderShown}">
-    </ion-spinner>
-    
+<!--     <ion-spinner icon="spiral" ng-class="{'ng-show':loaderShown, 'ng-hide': !loaderShown}">
+    </ion-spinner> -->
+    <h4 ng-class="{'ng-show':loaderShown, 'ng-hide': !loaderShown}">Hang tight...
+    </h4>
     <div detect-gestures gesture-type="tap swiperight">
       <span ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{'overlay': word.isFirstWord, 'previouslyHighlighted': word.wasHighlighted, 'highlighted': word.isHighlighted}"> {{word.text}}
       </span>
     </div>
-    
-    <h6 ng-repeat="quote in highlightedWords track by $index"> 
-       Quote: 
-        {{quote.text}}
-    </h6>
-
-
   </ion-content>
 
 
   <ion-footer-bar class="bar-positive">
 
     <div class="button-bar">
-      <a class="button" ng-click="parseHighlightedWords()">Save Quotes</a>
+      <a class="button" ng-click="parseHighlightedWords()" ng-class="{'disabled':isDisabled}">Save Quotes</a>
       <a class="button" ng-click="changeMarkup()">{{changeMarkupText}}</a>
-      <a class="button" ng-click="clearHighlightedWords()">Clear All</a>
+      <a class="button" ng-click="clearHighlightedWords()" ng-class="{'disabled':isDisabled}">Clear All</a>
     </div>
 
   </ion-footer-bar>

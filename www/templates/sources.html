@@ -9,6 +9,7 @@
     	</div>
 	</ion-header-bar>
 	<ion-content> 
+	    <h4 ng-class="{'ng-show':fetchingNotes, 'ng-hide': !fetchingNotes}">Fetching notes...</h4>
 		<ion-list>
 		 <ion-item 
 		 	ng-repeat="sourceNote in sourceNotes | orderBy: '-created' track by $index" 

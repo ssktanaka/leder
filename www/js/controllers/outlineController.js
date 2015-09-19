@@ -2,10 +2,10 @@ angular.module('leder.outlineController', [])
 
 .controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService, $ionicPopup, $timeout) {
 
-
-
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = true;
+  // $scope.listCanSwipe = true;
+  $scope.quoteText = "Delete Quotes";
 
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
@@ -20,16 +20,28 @@ angular.module('leder.outlineController', [])
       //Move the item in the array
     $scope.highlightedWords.splice(fromIndex, 1);
     $scope.highlightedWords.splice(toIndex, 0, item);
+    $scope.saveProject($scope.highlightedWords);
+  };
 
+  $scope.showDelete = function(item) {
+    $scope.shouldShowDelete = !$scope.shouldShowDelete;
+    $scope.shouldShowReorder = !$scope.shouldShowReorder;
+    if ($scope.shouldShowReorder) {
+      $scope.quoteText = "Delete Quotes";
+    } else {
+      $scope.quoteText = "Reorder Quotes";
+    }
   };
 
   $scope.delete = function(item) {
     $scope.highlightedWords.splice($scope.highlightedWords.indexOf(item), 1);
-  };
+    $scope.saveProject($scope.highlightedWords);
 
+  };
 
   $scope.saveProject = function(highlightedWords) {
     //update project object with new array
+    console.log("updating...");
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $stateParams.noteguid, highlightedWords);
   };
 
@@ -46,20 +58,16 @@ angular.module('leder.outlineController', [])
      var alertPopup = $ionicPopup.alert({
        title: 'Success!',
        template: 'Your outline has been exported to your Evernote account.'
-     });
-     alertPopup.then(function(res) {
+       });
+       alertPopup.then(function(res) {
        //success
       });
    };
 
 
-
-  // $scope.isFormInvalid = function(){
-  //   return this.form.$invalid;
-  // };
-
   $scope.addListItem = function(quote){
-    Quotes.addListItem(quote.input, $scope.project);
+    Quotes.addListItem(quote, $scope.project);
+    $scope.saveProject($scope.highlightedWords);
     //clear quote
     this.customQuote = null;
   }
@@ -67,8 +75,10 @@ angular.module('leder.outlineController', [])
   $scope.addListItemPopup = function() {
     $scope.data = {}
      //additem
+    console.log("adding item");
+
     var listPopup = $ionicPopup.show({
-      template: '<input type="text" ng-model="customQuote">',
+      template: '<input type="text" ng-model="data.customQuote" autofocus>',
       title: 'Add a Custom Quote',
       subTitle: 'Whatever you write will be added to the outline',
       scope: $scope,
@@ -78,25 +88,20 @@ angular.module('leder.outlineController', [])
           text: '<b>Add</b>',
           type: 'button-positive',
           onTap: function(e) {
-            if (!$scope.customQuote) {
+            if (!$scope.data.customQuote) {
               //don't allow the user to close unless he enters wifi password
               e.preventDefault();
             } else {
-              console.log("Running");
-              console.log($scope.customQuote);
-              $scope.addListItem($scope.customQuote);
-              return $scope.customQuote;
+              $scope.addListItem($scope.data.customQuote);
+              return $scope.data.customQuote;
             }
           }
         }
       ]
     });
     listPopup.then(function(res) {
-      console.log('Tapped!', res);
-    });
-    $timeout(function() {
-       listPopup.close(); //close the popup after 3 seconds for some reason
-    }, 3000);
+          console.log('Tapped!', res);       
+      });
  };
 
 })

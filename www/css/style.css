@@ -2,10 +2,16 @@
 .large-icon:before {
 	font-size: 36px; 
 	padding: 0px 4px 0px 0px;
-};
+}
+
+.medium-icon,
+.medium-icon:before {
+	font-size: 32px; 
+	padding: 0px 4px 0px 0px;
+}
 
 .previouslyHighlighted {
-	background-color: #fffcd8;
+	background-color: #d8dbff;
 }
 /*.pagebreak{
 	content:"\a \a";
@@ -14,7 +20,6 @@
 
 .highlighted {
 	background-color: #FFFF00;
-	padding: 1px 1px 1px 2px;
 
 }
 
@@ -23,10 +28,7 @@
 .overlay {
  	background-color: #ffffb2;
  	color: #9d9d9d;
-	padding: 0px;
-
 }
-
 
 
 .listOverlay {
@@ -37,6 +39,6 @@
 ion-content span {
 	font-size: 1.3em;
 	line-height: 1.7em;
+	padding: 1px;
 
 }
-

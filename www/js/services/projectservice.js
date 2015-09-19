@@ -47,7 +47,6 @@ ledermodule.service('ProjectService', function($q) {
 
 
     function updateProjectObject(projectID, noteArray) {
-        console.log("updating! note array");
         //update project object with new note array
         return _db.get(projectID)
         .then(function(doc) {
@@ -64,17 +63,14 @@ ledermodule.service('ProjectService', function($q) {
     };
 
     function updateProjectObjectWithQuotes(projectid, noteguid, quoteArray) {
-        console.log("updating! quote array");
         //update project object with new note array
         return _db.get(projectid)
         .then(function(doc) {
-            console.log(quoteArray);
             doc.quotes = quoteArray;
             //update last date modified
             doc.dateLastModified = new Date();
             //update note's date last modified
             if (noteguid !== undefined){
-                console.log("Just keep running")
                 for (var i = 0; i < doc.notes.length; i++){
                     if (doc.notes[i].guid == noteguid) {
                         doc.notes[i].updated = new Date();
