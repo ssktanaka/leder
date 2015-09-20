@@ -421,12 +421,12 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
       },
 
       checkLogin: function() {
-        // var authToken = $localstorage.get('authTokenEvernote');
+        var authToken = $localstorage.get('authTokenEvernote');
 
          //normally, use localstorage to get auth token
         // var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";
         // //delete! for testing purposes.
-        var authToken = "";
+        // var authToken = "";
         this.authToken = authToken;
 
         if (authToken) {
@@ -453,7 +453,14 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
   	    
   	    // OAuth Step 1: Get temporaryrequest token
   	    oauth.request({'method': 'GET', 'url': 'https://sandbox.evernote.com' + '/oauth', 'success': success, 'failure': failure});
-  	  }
+  	  },
+
+      logoutWithEvernote: function() {
+        var clearAuth = "";
+        $localstorage.set("authTokenEvernote", clearAuth);
+        console.log("You're logged out!");
+
+      }
 
     };
 });

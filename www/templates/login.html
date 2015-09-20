@@ -2,7 +2,7 @@
 
   <ion-header-bar>
 
-    <h1 class="title">Login</h1>
+    <h1 class="title">Access Evernote</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
     </div>
@@ -10,14 +10,8 @@
   </ion-header-bar>
   
   <ion-content>
-    <form>
-      <div class="list">
-        <p>Give Leder access to Evernote to populate your app.</p>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit" on-touch="accessEvernote()">Give Access</button>
-        </label>
-      </div>
-    </form>
+        <blockquote>Leder would like to access Evernote. Log into your Evernote account in order to import notes into your story projects.</blockquote>
+        <button class="button button-block button-positive" type="submit" on-touch="accessEvernote()">Login</button>
   </ion-content>
 
 </ion-modal-view>

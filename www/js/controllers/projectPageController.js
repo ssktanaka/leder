@@ -1,7 +1,7 @@
 angular.module('leder.projectPageController', [])
 
 
-.controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes) {
+.controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes, $ionicPopup, $timeout) {
 
     // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
 
@@ -145,9 +145,27 @@ angular.module('leder.projectPageController', [])
      template: 'Leder needs access to your Evernote account in order to add notes to your story project.'
    });
    alertPopup.then(function(res) {
-     console.log('Failed');
+     console.log('User is not logged in');
+     $scope.showAccessPopup();
+    // $scope.login();
    });
  };
+
+ $scope.showAccessPopup = function() {
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'Leder Would Like to Access Evernote',
+     template: 'Import notes from Evernote into your story projects.'
+   });
+   confirmPopup.then(function(res) {
+     if(res) {
+       console.log('You are sure');
+      $scope.accessEvernote();
+     } else {
+       console.log('You are not sure');
+     }
+   });
+ };
+
 
 
 })

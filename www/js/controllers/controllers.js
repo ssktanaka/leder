@@ -1,7 +1,7 @@
 angular.module('leder.controllers', [])
 
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, $ionicPopup, $timeout) {
 
   
   // Form data for the login modal
@@ -28,6 +28,26 @@ angular.module('leder.controllers', [])
   $scope.accessEvernote = function() {
     EvernoteOAuth.loginWithEvernote();
   };
+
+  $scope.logoutEvernote = function() {
+    console.log("logout process has begun");
+    // EvernoteOAuth.logoutWithEvernote();
+    // $scope.confirmLogout();
+    EvernoteOAuth.logoutWithEvernote();
+    $scope.confirmLogout();
+ 
+  };
+
+  // Confirm logged out
+  $scope.confirmLogout = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: 'Logged Out',
+       template: 'You have been logged out of Evernote. Please reconnect to access your notes.'
+     });
+     alertPopup.then(function(res) {
+       console.log("SUCCESSFULLY logged out");
+      });
+   };
 
   //Cleanup the modal when we're done with it!
   $scope.$on('$destroy', function() {
