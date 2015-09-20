@@ -5,6 +5,10 @@ angular.module('leder.outlineController', [])
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = true;
   // $scope.listCanSwipe = true;
+
+  //set blank state
+  $scope.outlineBlankState = true;
+
   $scope.quoteText = "Delete Quotes";
 
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
@@ -12,6 +16,15 @@ angular.module('leder.outlineController', [])
     //highlighted words into an array of quote arrays of objects
     $scope.highlightedWords = $scope.project.quotes; 
     // $scope.quoteArray = Quotes.getQuoteArray();
+
+    //check if blank state should be included
+
+    if ($scope.project.quotes.length > 0){
+      $scope.outlineBlankState = false;
+    } else {
+      $scope.outlineBlankState = true;
+    };
+
     $scope.$apply();
 
   });

@@ -34,9 +34,7 @@ angular.module('leder.projectPageController', [])
        EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
         $scope.sourceNotes = notetitles;
 
-        console.log("fetchingNotes is first..." + $scope.fetchingNotes );
         $scope.fetchingNotes = false;
-        console.log("fetchingNotes is now..." + $scope.fetchingNotes );
 
         //update sources.html to fill page
         $scope.$apply($scope.sourceNotes, $scope.fetchingNotes);
