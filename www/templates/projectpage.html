@@ -7,11 +7,11 @@
 <!--     href="#/app/projects/{{project._id}}/projectpage/sources" -->
 	  </div>
     
-    <blockquote ng-class="{'ng-show':sourceNotesReminder, 'ng-hide': !sourceNotesReminder}">
-    <p class="text-center">Looks like you need some source notes.</p>
+    <h4 ng-class="{'ng-show':sourceNotesReminder, 'ng-hide': !sourceNotesReminder}" class="text-center small">
+    Looks like you need some source notes.
 <!--     <p class="text-center"><dfn>Leder needs access to your Evernote account in order to add notes and edit your notes.</dfn></p>
  -->
-    </blockquote>
+    </h4>
     
     <button class="button button-clear button-full button-positive" on-touch="checkLogin()">
       Add Source Notes

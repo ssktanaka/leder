@@ -7,11 +7,11 @@
 
 
 	<ion-content>
-		<blockquote ng-class="{'ng-show':outlineBlankState, 'ng-hide': !outlineBlankState}">
-			<p class="text-center"><dfn>I love deadlines. I like the whooshing sound they make as they fly by.
+		<h4 ng-class="{'ng-show':outlineBlankState, 'ng-hide': !outlineBlankState}" class="text-center">
+			<dfn>I love deadlines. I like the whooshing sound they make as they fly by.
 			</br>
-			—Douglas Adams</dfn></p>
-		</blockquote>
+			—Douglas Adams</dfn>
+		</h4>
 
 
 	  	<ion-list 
@@ -46,7 +46,7 @@
    
 		</ion-list>
 
-	    <button class="button button-clear button-full button-positive" on-touch="showDelete()">{{quoteText}}</button>
+	    <button ng-class="{'ng-show':!outlineBlankState, 'ng-hide': outlineBlankState}" class="button button-clear button-full button-positive" on-touch="showDelete()">{{quoteText}}</button>
 
 
 

@@ -1,7 +1,7 @@
 angular.module('leder.projectController', [])
 
 
-.controller('ProjectsCtrl', function($scope, $stateParams, $ionicPopup, $timeout, $state, $ionicModal, ProjectService) {
+.controller('ProjectsCtrl', function($scope, $stateParams, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, EvernoteOAuth) {
   // $scope.sources = Sources.all();
 
 
@@ -10,15 +10,6 @@ angular.module('leder.projectController', [])
 		 $scope.projects = projects;
 	});
 
-	// $scope.focusMe = function($timeout) {
-	//   return {
-	//     link: function(scope, element, attrs) {
-	//       $timeout(function() {
-	//         element[0].focus(); 
-	//       });
-	//     }
-	//   }
-	// };
 
   //get project name from user
   $scope.showPopup = function() {
@@ -64,9 +55,10 @@ angular.module('leder.projectController', [])
 	  //   });
    // };
 
-	 $scope.showsSettings = function() {
+	 $scope.showSettings = function() {
 	    //open source note modal
-	    $scope.settingsModal.show();   
+	    $scope.settingsModal.show();  
+	    $scope.determineText(); 
 	  };
 
 	  // Create the edit note modal that we will use later
