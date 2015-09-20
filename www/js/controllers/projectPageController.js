@@ -141,8 +141,8 @@ angular.module('leder.projectPageController', [])
 
  $scope.showAlert = function() {
    var alertPopup = $ionicPopup.alert({
-     title: 'Need Evernote Access',
-     template: 'Leder needs access to your Evernote account in order to add notes. Login using the lefthand menu.'
+     title: 'Allow Evernote Access',
+     template: 'Leder needs access to your Evernote account in order to add notes to your story project.'
    });
    alertPopup.then(function(res) {
      console.log('Failed');

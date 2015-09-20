@@ -424,10 +424,9 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         // var authToken = $localstorage.get('authTokenEvernote');
 
          //normally, use localstorage to get auth token
-        var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";
-  
+        // var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";
         // //delete! for testing purposes.
-        // var authToken = "";
+        var authToken = "";
         this.authToken = authToken;
 
         if (authToken) {
@@ -443,18 +442,18 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         return authToken; 
       },
 
-	  loginWithEvernote: function() {
-	    options = {
-	        consumerKey: "ssktanaka-8134",
-	        consumerSecret: "ccd528cbed56377d",
-	        callbackUrl : "http://localhost:8100/#/app/oauth", // this filename doesn't matter in this example. eventually redirect to correct part in app
-	        signatureMethod : "HMAC-SHA1",
-	    };
-	    oauth = OAuth(options);
-	    
-	    // OAuth Step 1: Get temporaryrequest token
-	    oauth.request({'method': 'GET', 'url': 'https://sandbox.evernote.com' + '/oauth', 'success': success, 'failure': failure});
-	  }
+  	  loginWithEvernote: function() {
+  	    options = {
+  	        consumerKey: "ssktanaka-8134",
+  	        consumerSecret: "ccd528cbed56377d",
+  	        callbackUrl : "http://localhost:8100/#/app/oauth", // this filename doesn't matter in this example. eventually redirect to correct part in app
+  	        signatureMethod : "HMAC-SHA1",
+  	    };
+  	    oauth = OAuth(options);
+  	    
+  	    // OAuth Step 1: Get temporaryrequest token
+  	    oauth.request({'method': 'GET', 'url': 'https://sandbox.evernote.com' + '/oauth', 'success': success, 'failure': failure});
+  	  }
 
     };
 });
