@@ -25,7 +25,7 @@ angular.module('leder.projectController', [])
 	      { text: 'Cancel' },
 	      {
 	        text: '<b>Save</b>',
-	        type: 'button-positive',
+	        type: 'button-royal',
 	        onTap: function(e) {
 	          if (!$scope.data.project) {
 	            //don't allow the user to close unless he enters project name

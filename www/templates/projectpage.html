@@ -7,10 +7,9 @@
 <!--     href="#/app/projects/{{project._id}}/projectpage/sources" -->
 	  </div>
     
-    <h4 ng-class="{'ng-show':sourceNotesReminder, 'ng-hide': !sourceNotesReminder}" class="text-center small">
-    Looks like you need some source notes.
-<!--     <p class="text-center"><dfn>Leder needs access to your Evernote account in order to add notes and edit your notes.</dfn></p>
- -->
+    <h4 ng-class="{'ng-show':sourceNotesReminder, 'ng-hide': !sourceNotesReminder}" class="text-center blank-state"><dfn>
+    You know what you're missing?</br> Notes. Lots and lots of notes.
+    </dfn>
     </h4>
     
     <button class="button button-clear button-full button-positive" on-touch="checkLogin()">
