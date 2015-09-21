@@ -1,7 +1,7 @@
 angular.module('leder.projectPageController', [])
 
 
-.controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes, $ionicPopup, $timeout) {
+.controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes) {
 
     // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
 
@@ -37,7 +37,7 @@ angular.module('leder.projectPageController', [])
         $scope.fetchingNotes = false;
 
         //update sources.html to fill page
-        $scope.$apply($scope.sourceNotes, $scope.fetchingNotes);
+        $scope.$digest($scope.sourceNotes, $scope.fetchingNotes);
         //populate page with source notes
 
        });

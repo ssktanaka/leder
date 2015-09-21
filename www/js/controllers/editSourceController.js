@@ -45,31 +45,6 @@ angular.module('leder.editSourceController', [])
   $scope.showingMarkup = false;
   $scope.changeMarkupText = "Show Markup";
 
-  // $scope.findStartEnd = function(project) {
-  //   console.log(project);
-  //   for (var i=0; i<project.quotes.length; i++){
-  //     if (project.quotes[i].source == $scope.noteTitle) {
-  //       console.log("Quote..." + project.quotes[i].source + " " + project.quotes[i].text )
-  //       var startID = project.quotes[i].idStart;
-  //       var endID = project.quotes[i].idEnd;
-  //       $scope.applyPreviousHighlighting(startID, endID);
-  //     }
-  //   }
-  // };
-
-  // $scope.applyPreviousHighlighting = function(startID, endID){
-
-  //   for (var i = 0; i < $scope.words.length; i++){
-  //       //if current element is greater than the ID of the first word and less than the ID of the last word, 
-  //       //then change wasHighlighted attribute to true
-  //       if ($scope.words[i].id >= startID && $scope.words[i].id <= endID){
-  //         $scope.words[i].wasHighlighted = true;
-  //       } 
-  //     }
-  //     //ensure CSS highlighting reflects changed attribute
-  //     $scope.$apply();    
-
-  // };
 
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
@@ -96,7 +71,7 @@ angular.module('leder.editSourceController', [])
     $scope.loaderShown = false;
 
     //make sure this updates
-    $scope.$apply($scope.loaderShown);
+    $scope.$digest($scope.loaderShown);
     
     return $scope.words;
   };
@@ -126,14 +101,7 @@ $scope.onSwipeRight = function swipingRight(event) {
       // $scope.paragraphBreaks.push(event.target.id);
       // $scope.insertBreaks($scope.paragraphBreaks);
       event.target.innerHTML = "<br/><br/>" + event.target.innerHTML;
-      //store within angular element
-     // $scope.paragraphBreaks.push(angular.element( event.target.innerHTML));
-     // $scope.words[event.target.id].isPageBreak = true;
 
-     //  //ensure highlighting applies
-     //  $scope.$apply();
-      //get current object
-      // $scope.words[event.target.id])
    } 
 }
 
@@ -162,7 +130,7 @@ $scope.onSwipeRight = function swipingRight(event) {
         //turn highlighting off
         $scope.words[e.srcElement.id].isHighlighted = false;
         //ensure highlighting applies
-        $scope.$apply();
+        $scope.$digest();
       } 
   
      //if user is in highlight mode, save the ID to the last word
@@ -183,7 +151,7 @@ $scope.onSwipeRight = function swipingRight(event) {
         //highlight first word
         $scope.words[$scope.firstWordID].isHighlighted = true;
         //ensure highlighting applies
-        $scope.$apply();
+        $scope.$digest();
         //set highlight mode to true so next touch will register as final word
 
         $scope.highlightMode = true;
@@ -215,7 +183,7 @@ $scope.onSwipeRight = function swipingRight(event) {
     //allow quote to be saved and cleared
     $scope.isDisabled = false;
 
-    $scope.$apply();
+    $scope.$digest();
 
 
     //set highlight mode to false so a new touch can register

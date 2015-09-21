@@ -42,3 +42,7 @@ ion-content span {
 	padding: 1px;
 
 }
+
+.popup-body {
+  text-align: center;
+}

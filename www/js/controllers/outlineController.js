@@ -25,7 +25,7 @@ angular.module('leder.outlineController', [])
       $scope.outlineBlankState = true;
     };
 
-    $scope.$apply();
+    $scope.$digest();
 
   });
 

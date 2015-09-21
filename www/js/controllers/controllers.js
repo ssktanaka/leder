@@ -26,40 +26,26 @@ angular.module('leder.controllers', [])
 
   $scope.determineText = function(){
       if (EvernoteOAuth.checkLogin()){
-        console.log("we are logged in");
         $scope.loggedIn = true;
-        $scope.evernoteText = "Log Out of Evernote";
+        $scope.evernoteStatus = "You are connected to Evernote.";
       } else {
-        console.log("we are not logged in :(");
         $scope.loggedIn = false;
-        $scope.evernoteText = "Log Into Evernote";
+        $scope.evernoteStatus = "You are not connected to Evernote.";
       }
   };
 
 
-  $scope.determineAccess = function(){
-    if ($scope.loggedIn){
-      $scope.logoutEvernote();
-    } else {
-       $scope.accessEvernote();
-    }
-  };
-
   // Perform the login action when the user submits the login form
   $scope.accessEvernote = function() {
-    EvernoteOAuth.loginWithEvernote();
-    $scope.loggedIn = true;
-    $scope.evernoteText = "Log Out of Evernote";
+   EvernoteOAuth.loginWithEvernote();
   };
 
   $scope.logoutEvernote = function() {
-    console.log("logout process has begun");
-    // EvernoteOAuth.logoutWithEvernote();
-    // $scope.confirmLogout();
+
     EvernoteOAuth.logoutWithEvernote();
+
     $scope.confirmLogout();
-    $scope.loggedIn = false;
-    $scope.evernoteText = "Log Into Evernote";
+    
   };
 
   // Confirm logged out
@@ -69,7 +55,7 @@ angular.module('leder.controllers', [])
        template: 'You have been logged out of Evernote. Please reconnect to access your notes.'
      });
      alertPopup.then(function(res) {
-       console.log("SUCCESSFULLY logged out");
+       $scope.determineText();
       });
    };
 
