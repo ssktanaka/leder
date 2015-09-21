@@ -19,7 +19,7 @@ angular.module('leder.projectController', [])
 	  var myPopup = $ionicPopup.show({
 	    template: '<input type="text" ng-model="data.project" autofocus>',
 	    title: 'Create New Project',
-	    subTitle: 'Enter a name for this project.',
+	    subTitle: 'Enter a name for this story project.',
 	    scope: $scope,
 	    buttons: [
 	      { text: 'Cancel' },

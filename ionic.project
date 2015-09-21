@@ -1,5 +1,5 @@
 {
-  "name": "myApp",
+  "name": "leder",
   "app_id": "d0e74198",
   "gulpStartupTasks": [
     "sass",

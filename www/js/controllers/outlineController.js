@@ -93,7 +93,7 @@ angular.module('leder.outlineController', [])
     var listPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="data.customQuote" autofocus>',
       title: 'Add a Custom Quote',
-      subTitle: 'Whatever you write will be added to the outline',
+      subTitle: 'Whatever you write will be added to the outline.',
       scope: $scope,
       buttons: [
         { text: 'Cancel' },
