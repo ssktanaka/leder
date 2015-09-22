@@ -70,7 +70,7 @@ angular.module('leder.editSourceController', [])
     //turn loading icon off
     $scope.loaderShown = false;
 
-    //make sure this updates
+    //make sure this digest updates
     $scope.$digest($scope.loaderShown);
     
     return $scope.words;

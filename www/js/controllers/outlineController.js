@@ -21,12 +21,14 @@ angular.module('leder.outlineController', [])
 
     if ($scope.project.quotes.length > 0){
       $scope.outlineBlankState = false;
+      //moved this digest in
+      $scope.$digest();
     } else {
       $scope.outlineBlankState = true;
     };
 
 
-    $scope.$digest();
+    
 
   });
 
