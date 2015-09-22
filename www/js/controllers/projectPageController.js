@@ -37,8 +37,7 @@ angular.module('leder.projectPageController', [])
         $scope.fetchingNotes = false;
 
         //update sources.html to fill page
-        $scope.$digest($scope.sourceNotes, $scope.fetchingNotes);
-        //populate page with source notes
+        $scope.$digest($scope.sourceNotes);
 
        });
     	} else {
