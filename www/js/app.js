@@ -22,7 +22,10 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      // StatusBar.styleDefault();
+
+      $cordovaStatusBar.style(1) //Light
+
     }
     
   });
