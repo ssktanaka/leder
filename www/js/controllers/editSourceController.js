@@ -247,8 +247,8 @@ $scope.onSwipeRight = function swipingRight(event) {
     // Triggered on a button click, or some other target
     $scope.showQuoteConfirmation = function(content) {
        var alertPopup = $ionicPopup.alert({
-         title: 'Your Quotes Have Been Saved',
-         template: 'The highlighted quotes have been successfully added to your outline.'
+         title: 'Your Selection Has Been Saved',
+         template: 'The highlighted selection has been successfully added to your outline.'
        });
        alertPopup.then(function(res) {
          //success

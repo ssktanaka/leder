@@ -9,7 +9,7 @@ angular.module('leder.outlineController', [])
   //set blank state
   $scope.outlineBlankState = true;
 
-  $scope.quoteText = "Delete Quotes";
+  $scope.quoteText = "Edit";
 
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
@@ -41,9 +41,9 @@ angular.module('leder.outlineController', [])
     $scope.shouldShowDelete = !$scope.shouldShowDelete;
     $scope.shouldShowReorder = !$scope.shouldShowReorder;
     if ($scope.shouldShowReorder) {
-      $scope.quoteText = "Delete Quotes";
+      $scope.quoteText = "Edit";
     } else {
-      $scope.quoteText = "Reorder Quotes";
+      $scope.quoteText = "Done";
     }
   };
 
@@ -93,7 +93,7 @@ angular.module('leder.outlineController', [])
 
     var listPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="data.customQuote" autofocus>',
-      title: 'Add a Custom Quote',
+      title: 'Add a Note to Self',
       subTitle: 'Whatever you write will be added to the outline.',
       scope: $scope,
       buttons: [

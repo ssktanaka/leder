@@ -1,7 +1,7 @@
 .large-icon,
 .large-icon:before {
 	font-size: 36px; 
-	padding: 0px 4px 0px 0px;
+	padding: 0px 3px 0px 8px;
 }
 
 .medium-icon,
@@ -54,4 +54,8 @@ ion-content span {
 	padding-right: 2em;
 	padding-bottom:.7em;
 	line-height: 1.7em;
+}
+
+.right-side i {
+    float: right;
 }

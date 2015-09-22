@@ -23,8 +23,13 @@
 			 	ng-init="sourceNote.touched=false"
 			 	on-tap="sourceNote.touched = !sourceNote.touched"
 		        ng-class="{ listOverlay : sourceNote.touched }">
-			    <h2>{{sourceNote.title}}</h2>
+			    <h2>{{sourceNote.title}}	    		
+			    </h2>
+
 			    <p>{{sourceNote.created | date: 'mediumDate'}} |  {{sourceNote.contentLength}} words</p>
+			    
+<!-- 			    <i ng-class="{'ng-show':sourceNote.touched, 'ng-hide': !sourceNote.touched}" class="ion-checkmark-round right-side"></i>
+ -->
 			 </ion-item>
 		</ion-list>
   
