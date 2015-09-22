@@ -10,6 +10,10 @@
 	padding: 0px 4px 0px 0px;
 }
 
+.ion-email::before {
+    content: url('../img/lederlogo.png');
+}
+
 .previouslyHighlighted {
 	background-color: #d8dbff;
 }
@@ -58,4 +62,8 @@ ion-content span {
 
 .right-side i {
     float: right;
+}
+
+.evernote-color {
+	background-color:#6FB536;
 }
