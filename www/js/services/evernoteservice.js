@@ -2,6 +2,8 @@ var evernotemodule = angular.module('leder.evernoteService', [])
 
 evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, $timeout) {
 
+  //TODO: Update Evernote with real API key
+  
     //these will change once app is deployed
 	var evernoteHostName = 'https://sandbox.evernote.com';
 	var internalCallback = 'http://localhost:8100/#/app/oauth';
