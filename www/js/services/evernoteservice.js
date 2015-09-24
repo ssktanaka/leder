@@ -189,8 +189,13 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         console.log(self.authToken);
         var noteTitleArray = [];
 
-        //filter by ascending date
+        //filter by descending date
         var filter = new NoteFilter;
+        //filter by descending date
+        filter.ascending = false;
+
+       //filter by last updated (created = 1, updated = 2)
+        filter.order = 2;
 
         //set parameters
         var resultSpec = new NotesMetadataResultSpec;
@@ -200,7 +205,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         resultSpec.includeNotebookGuid = true;
           
         //filter to first 50 notes
-        self.noteStore.findNotesMetadata(self.authToken, filter, 0, 50, resultSpec, function (noteMetadata, error) {
+        self.noteStore.findNotesMetadata(self.authToken, filter, 0, 100, resultSpec, function (noteMetadata, error) {
             if (error) {
                 console.log("we have an error");
                 callback(error);
@@ -372,20 +377,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             // // text = text.replace(/(\s+)/gm," ");
       },
 
-        //deprecated because Arrray!!!
-      // getNoteContentAsString: function(noteContentArray){
-      //       var textArray = [];
-      //       for (i=0; i<noteContentArray.length; i++){
-      //           var text = noteContentArray[i];
-      //           text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
-      //           text = text.replace(/(<(li)>)/ig," - ");
-      //           text = text.replace(/(<([^>]+)>)/ig,"");
-      //           text = text.replace(/(\r\n|\n|\r)/gm," ");
-      //           text = text.replace(/(\s+)/gm," ");
-      //           textArray.push(text);
-      //       };
-      //       return textArray;
-      //   },
 
       exportNote: function(highlightedWordsArray, projectTitle){
         var self = this;
@@ -476,7 +467,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
   	  },
 
       logoutWithEvernote: function() {
-        var clearAuth = null;
+        var clearAuth = "";
         $localstorage.set("authTokenEvernote", clearAuth);
         console.log("You're logged out!");
 
