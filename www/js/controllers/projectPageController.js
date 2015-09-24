@@ -23,15 +23,17 @@ angular.module('leder.projectPageController', [])
 
   $scope.checkLogin = function() {
 	//check if loggedin
-
+  console.log("checking login");
 	if (EvernoteOAuth.checkLogin()){
     //get project ID and set in url
-
+       console.log("we are logged in");
     //open source note modal
     $scope.sourceNoteModal.show();
 
 
        EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
+          console.log("got notes");
+          console.log(notetitles);
         $scope.sourceNotes = notetitles;
 
         $scope.fetchingNotes = false;
@@ -97,14 +99,17 @@ angular.module('leder.projectPageController', [])
   //clear highlighting so list is fresh again
   $scope.closeSourceNote = function() {
     $scope.sourceNoteModal.hide();
-    for (var i=0; i < $scope.sourceNotes.length; i++) {
-      //if the "touched" attribute of the div is true
-      if ($scope.sourceNotes[i].touched) {
-        $scope.sourceNotes[i].touched = false;
-      } else {
-        //do nothing
+      //if source notes exist
+      if ($scope.sourceNotes){
+        for (var i=0; i < $scope.sourceNotes.length; i++) {
+          //if the "touched" attribute of the div is true
+          if ($scope.sourceNotes[i].touched) {
+            $scope.sourceNotes[i].touched = false;
+          } else {
+            //do nothing
+          }
+        }
       }
-    };
   };
 
   $scope.deleteNote = function(note){
