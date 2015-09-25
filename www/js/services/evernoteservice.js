@@ -380,9 +380,9 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 
         var stringArray = [];
         for (i=0; i<highlightedWordsArray.length; i++){
-          stringArray.push("<h6>");
+          stringArray.push("<h4>");
           stringArray.push(highlightedWordsArray[i].source);
-          stringArray.push("</h6><p>");
+          stringArray.push("</h4><p>");
           stringArray.push(highlightedWordsArray[i].text);
           stringArray.push("</p>");
         }

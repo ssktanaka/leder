@@ -38,12 +38,6 @@ angular.module('leder.controllers', [])
   // Perform the login action when the user submits the login form
   $scope.accessEvernote = function() {
     EvernoteOAuth.loginWithEvernote();
-    
-   // EvernoteOAuth.loginWithEvernote().then(function(res) {
-   //     console.log(res);
-   //    });
-
-   console.log("loggedin");
   };
 
   $scope.logoutEvernote = function() {
