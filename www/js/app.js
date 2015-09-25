@@ -14,7 +14,9 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
 
   //initialize database
   ProjectService.initDB();
-  
+
+  var offline = false;
+
   //check when device goes offline
   document.addEventListener("offline", onOffline, false);
 
@@ -24,7 +26,7 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
           // content: "The internet is disconnected on your device."
       })
       .then(function(result) {
-          //do nothing
+          offline = true;
       });
   };
 

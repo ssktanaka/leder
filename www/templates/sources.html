@@ -18,15 +18,17 @@
 				Import notes into your story project.
 			</div>
 
+			<p ng-class="{'ng-show':offline, 'ng-hide': !offline}">Something's wrong. You are offline.</p>
+
 			 <ion-item 
-			 	ng-repeat="sourceNote in sourceNotes | orderBy: '-created' track by $index" 
+			 	ng-repeat="sourceNote in sourceNotes | orderBy: '-updated' track by $index" 
 			 	ng-init="sourceNote.touched=false"
 			 	on-tap="sourceNote.touched = !sourceNote.touched"
 		        ng-class="{ listOverlay : sourceNote.touched }">
 			    <h2>{{sourceNote.title}}	    		
 			    </h2>
 
-			    <p>{{sourceNote.created | date: 'shortDate'}} |  {{sourceNote.contentLength}} words</p>
+			    <p>{{sourceNote.updated | date: 'shortDate'}} |  {{sourceNote.contentLength}} words</p>
 			    
 <!-- 			    <i ng-class="{'ng-show':sourceNote.touched, 'ng-hide': !sourceNote.touched}" class="ion-checkmark-round right-side"></i>
  -->

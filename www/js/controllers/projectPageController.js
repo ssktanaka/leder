@@ -26,14 +26,15 @@ angular.module('leder.projectPageController', [])
   console.log("checking login");
 	if (EvernoteOAuth.checkLogin()){
     //get project ID and set in url
-       console.log("we are logged in");
+    console.log("we are logged in");
     //open source note modal
     $scope.sourceNoteModal.show();
 
-
-       EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
-          console.log("got notes");
-          console.log(notetitles);
+    EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
+      if (error) {
+        console.log("something's wrong");
+      } else {
+        console.log("got notes");
         $scope.sourceNotes = notetitles;
 
         $scope.fetchingNotes = false;
@@ -41,11 +42,12 @@ angular.module('leder.projectPageController', [])
         //update sources.html to fill page
         $scope.$digest($scope.sourceNotes);
 
-       });
-    	} else {
-        //remind users that htey need to log into evernote
-    		$scope.showAlert();
-    	}
+      }
+    });
+  } else {
+      //remind users that htey need to log into evernote
+  		$scope.showAlert();
+  	}
   };
 
   // Create the edit note modal that we will use later
@@ -78,7 +80,6 @@ angular.module('leder.projectPageController', [])
 
         //add last date modified in 'updated' field
         $scope.sourceNotes[i].updated = new Date();
-        console.log($scope.sourceNotes[i]);
         sourceArray.push($scope.sourceNotes[i]);
 
         $scope.sourceNotesReminder = false;

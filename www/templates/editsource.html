@@ -3,8 +3,8 @@
   <ion-content>
 <!--     <ion-spinner icon="spiral" ng-class="{'ng-show':loaderShown, 'ng-hide': !loaderShown}">
     </ion-spinner> -->
-    <h4 ng-class="{'ng-show':loaderShown, 'ng-hide': !loaderShown}"><ion-spinner class="spinner-royal">Hang tight...
-    </h4>
+    <ion-spinner ng-class="{'ng-show':loaderShown, 'ng-hide': !loaderShown}" class="spinner-royal">
+    </ion-spinner>
     <div detect-gestures gesture-type="tap swiperight">
       <span ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{'overlay': word.isFirstWord, 'previouslyHighlighted': word.wasHighlighted, 'highlighted': word.isHighlighted}"> {{word.text}}
       </span>

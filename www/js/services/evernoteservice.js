@@ -1,8 +1,6 @@
 var evernotemodule = angular.module('leder.evernoteService', [])
 
 evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, $timeout) {
-
-  //TODO: Update Evernote with real API key
   
     //these will change once app is deployed
 	// var evernoteHostName = 'https://sandbox.evernote.com';
@@ -116,7 +114,8 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
              //list notebooks to test
 	        noteStore.listNotebooks($localstorage.get('authTokenEvernote'), function (notebooks) {
                 console.log('success!');
-                console.log(notebooks);   
+                console.log(notebooks);
+                return true;   
             },
          	    function onerror(error) {
          	    console.log('errror :(');
@@ -185,8 +184,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         console.log("Getting all note titles...");
         //save a reference to self
         var self = this;
-        console.log("This is our self's authtoken in the getAllNoteTitles function");
-        console.log(self.authToken);
         var noteTitleArray = [];
 
         //filter by descending date
@@ -202,6 +199,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         resultSpec.includeTitle  = true;
         resultSpec.includeContentLength = true;
         resultSpec.includeCreated = true;
+        resultSpec.includeUpdated = true;
         resultSpec.includeNotebookGuid = true;
           
         //filter to first 50 notes
@@ -212,8 +210,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             }
             else {
             //log the number of notes found in the default notebook
-                console.log("think we're successful?");
-                console.log(noteMetadata);
+                console.log("successful note gathering");
                 callback(null, noteMetadata.notes);
             }
         });  
