@@ -7,12 +7,26 @@
 angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.outlineController', 'leder.services', 'leder.evernoteService', 'leder.projectService', 'ionic.utils'])
 
 
-.run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService) {
+
+.run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService, $ionicPopup, $timeout) {
    //initialize NoteStore
   EvernoteOAuth.initializeNoteStore();
 
   //initialize database
   ProjectService.initDB();
+  
+  //check when device goes offline
+  document.addEventListener("offline", onOffline, false);
+
+  function onOffline() {
+      $ionicPopup.alert({
+          title: "Turn Off Airplane Mode or Use Wi-Fi to Access Data",
+          // content: "The internet is disconnected on your device."
+      })
+      .then(function(result) {
+          //do nothing
+      });
+  };
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,12 +37,12 @@ angular.module('leder', ['ionic', 'leder.controllers', 'leder.editSourceControll
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       // StatusBar.styleDefault();
-
       $cordovaStatusBar.style(1) //Light
+    };
 
-    }
-    
   });
+
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

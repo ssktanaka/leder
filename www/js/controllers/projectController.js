@@ -4,7 +4,6 @@ angular.module('leder.projectController', [])
 .controller('ProjectsCtrl', function($scope, $stateParams, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, EvernoteOAuth) {
   // $scope.sources = Sources.all();
 
-
 	// Get all project records from the database.
 	ProjectService.getAllProjects().then(function(projects) {
 		 $scope.projects = projects;
