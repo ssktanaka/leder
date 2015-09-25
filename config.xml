@@ -16,9 +16,40 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="KeyboardDisplayRequiresUserAction" value="false" />
   <preference name="SplashScreenDelay" value="3000"/>
-  <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+
+  <feature name="Keyboard">
+        <param name="ios-package" value="IonicKeyboard" onload="true" />
   </feature>
+  <feature name="InAppBrowser">
+      <param name="ios-package" value="CDVInAppBrowser" /> 
+  </feature>
+
+  <feature name="NetworkStatus">
+      <param name="ios-package" value="CDVConnection" />
+  </feature>
+
+  <feature name="SplashScreen">
+  <param name="ios-package" value="CDVSplashScreen"/>
+  <param name="onload" value="true"/>
+</feature>
+
+ <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" />
+    <param name="onload" value="true" />
+</feature>
+
+  <feature name="SQLitePlugin">
+      <param name="ios-package" value="SQLitePlugin" />
+  </feature>
+
+    <feature name="Console">
+      <param name="ios-package" value="CDVLogger"/>
+    </feature>
+
+    <feature name="Device">
+    <param name="ios-package" value="CDVDevice"/>
+</feature>
+
   <platform name="ios">
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>
     <icon src="resources/ios/icon/icon@2x.png" width="114" height="114"/>
