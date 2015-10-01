@@ -202,7 +202,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         resultSpec.includeUpdated = true;
         resultSpec.includeNotebookGuid = true;
           
-        //filter to first 50 notes
+        //filter to first 100 notes
         self.noteStore.findNotesMetadata(self.authToken, filter, 0, 100, resultSpec, function (noteMetadata, error) {
             if (error) {
                 console.log("we have an error");
@@ -260,36 +260,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         return notebookGUIDSarray;
       },
 
-      // getNoteMetaData: function (notebookGUIDSarray, callback) {
-      //   var self = this;
-
-
-      //   var filter = new NoteFilter();
-      //   filter.ascending = true;
-
-      //   var resultSpec = new NotesMetadataResultSpec();
-      //   resultSpec.includeTitle  = true;
-      //   resultSpec.includeContentLength = true;
-      //   resultSpec.includeCreated = true;
-      //   resultSpec.includeNotebookGuid = true;
-
-      //   var noteMetaDataArray = [];
-
-      //   notebookGUIDSarray.forEach(function(currentValue, index, array){
-      //       filter.notebookGuid = currentValue;
-      //       self.noteStore.findNotesMetadata(self.authToken, filter, 0, 10, resultSpec, function (noteMetadata) {
-      //           noteMetaDataArray.push(noteMetadata);
-      //           if (index == notebookGUIDSarray.length-1) {
-      //               callback(null, noteMetaDataArray);
-      //           }
-      //       },
-      //       function onerror(error) {
-      //           callback(error);
-      //       });    
-      //   })
-
-      // },
-
       getNoteGUIDS: function(noteMetaDataArray) {
         var noteGUIDarray = [];
 
@@ -302,35 +272,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
       
         return noteGUIDarray;
       },
-
-      //deprecated because Array!!!
-      // getNoteContent: function(noteGUIDarray, callback) {
-      //   var self = this;
-
-      //   var allNotesArray = [];
-      //   var counter = 1;
-      //   noteGUIDarray.forEach(function(currentValue, index, array) {
-      //       self.noteStore.getNoteContent(self.authToken, currentValue, function (noteContent) {              
-      //           if (counter == noteGUIDarray.length){
-      //               allNotesArray.push(noteContent);;
-      //               callback(null, allNotesArray);
-      //           }
-      //           allNotesArray.push(noteContent);
-      //           counter = counter + 1;
-
-      //       },
-      //       function onerror(error) {
-      //           if (error.errorCode == Errors.EDAMErrorCode.RATE_LIMIT_REACHED) {
-      //               console.log("Rate limit reached");
-      //               console.log("Retry your request in" + e.rateLimitDuration);
-      //           };
-      //           console.log('Error- ' + JSON.stringify(error));
-      //           callback(error);
-      //       });        
-
-      //   });
-         
-      // },
 
        getSingleNoteContent: function(noteGUID, callback) {
             var self = this;
@@ -358,20 +299,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             text = text.replace(/(\r\n|\n|\r)/gm," ");
             text = text.replace(/(\s+)/gm," ");
             return text;
-
-            //IF I DO DECIDE TO SPLIT BY LINE
-            // // added in break
-            // text = text.replace(/(<br[^>]*>)/gi,"\n");
-
-            // text = text.replace(/(<\/(div|ui|li)>)/ig,"\n");
-
-            // text = text.replace(/(<(li)>)/ig," - ");
-            // text = text.replace(/(<([^>]+)>)/ig,"");
-
-            // //changed to new line, not space
-            // text = text.replace(/(\r\n|\n|\r)/gm,"\n");
-            // //took this out
-            // // text = text.replace(/(\s+)/gm," ");
       },
 
 
@@ -410,9 +337,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         // Attempt to create note in Evernote account
         self.noteStore.createNote(self.authToken, ourNote, function(note, error) {
           if (error) {
-        //     // Something was wrong with the note data
-        //     // See EDAMErrorCode enumeration for error code explanation
-        //     // http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
               callback(error);
           } else {
             callback(note);
@@ -460,7 +384,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
   	    // OAuth Step 1: Get temporaryrequest token
   	    // oauth.request({'method': 'GET', 'url': 'https://sandbox.evernote.com' + '/oauth', 'success': success, 'failure': failure});
         oauth.request({'method': 'GET', 'url': 'https://www.evernote.com' + '/oauth', 'success': success, 'failure': failure});
-
+      
   	  },
 
       logoutWithEvernote: function() {

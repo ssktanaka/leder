@@ -1,7 +1,7 @@
 angular.module('leder.controllers', [])
 
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, $ionicPopup, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $ionicActionSheet) {
 
   
   // Form data for the login modal
@@ -38,6 +38,7 @@ angular.module('leder.controllers', [])
   // Perform the login action when the user submits the login form
   $scope.accessEvernote = function() {
     EvernoteOAuth.loginWithEvernote();
+
   };
 
   $scope.logoutEvernote = function() {
@@ -74,7 +75,24 @@ angular.module('leder.controllers', [])
     // Execute action
   });
 
-
+  $scope.showTextSize = function() {
+     // Show the action sheet
+     var hideSheet = $ionicActionSheet.show({
+       buttons: [
+         { text: 'Small' },
+         { text: 'Medium' },
+         { text: 'Large' },  
+       ],
+       titleText: 'Select a text size',
+       cancelText: 'Cancel',
+       cancel: function() {
+            // add cancel code..
+          },
+       buttonClicked: function(index) {
+         return true;
+       }
+     });
+  };
 
 
 })
@@ -82,8 +100,8 @@ angular.module('leder.controllers', [])
 
 
 
-.controller('AuthCtrl', function($scope, EvernoteOAuth){
-    console.log('in auth ctrl, yo DOES THIS EVEN DO ANYTHING', $scope)
-})
+// .controller('AuthCtrl', function($scope, EvernoteOAuth){
+//     console.log('in auth ctrl, yo DOES THIS EVEN DO ANYTHING', $scope)
+// })
 
 

@@ -28,6 +28,8 @@ angular.module('leder.editSourceController', [])
     // parse source text into array 
     //set variable $scope.sourceText to string of text 
     $scope.sourceText = $scope.parseSourceText(noteContent);
+
+
   });
 
   //get project

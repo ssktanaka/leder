@@ -18,7 +18,12 @@ angular.module('leder.outlineController', [])
     // $scope.quoteArray = Quotes.getQuoteArray();
 
     //check if blank state should be included
+    $scope.checkBlankState();
+    
+  });
 
+  $scope.checkBlankState = function() {
+    //check if blank state should be included
     if ($scope.project.quotes.length > 0){
       $scope.outlineBlankState = false;
       //moved this digest in
@@ -28,9 +33,7 @@ angular.module('leder.outlineController', [])
     };
 
 
-    
-
-  });
+  };
 
   $scope.reorderItem = function(item, fromIndex, toIndex) {
       //Move the item in the array
@@ -58,7 +61,11 @@ angular.module('leder.outlineController', [])
   $scope.saveProject = function(highlightedWords) {
     //update project object with new array
     console.log("updating...");
-    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $stateParams.noteguid, highlightedWords);
+    ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $stateParams.noteguid, highlightedWords).then(function(project) {
+      //check if blank state should be included
+      $scope.checkBlankState();
+    });
+
   };
 
   $scope.exportProject = function(highlightedWords) {
@@ -86,6 +93,7 @@ angular.module('leder.outlineController', [])
     $scope.saveProject($scope.highlightedWords);
     //clear quote
     this.customQuote = null;
+
   }
 
   $scope.addListItemPopup = function() {

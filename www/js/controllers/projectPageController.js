@@ -94,7 +94,7 @@ angular.module('leder.projectPageController', [])
       }
     };
 
-    //update project object with cnew source array
+    //update project object with new source array
     ProjectService.updateProjectObject($stateParams.ProjectId, sourceArray)
     .then(function(updatedProject){$scope.project = updatedProject});
  
@@ -115,7 +115,7 @@ angular.module('leder.projectPageController', [])
             //do nothing
           }
         }
-      }
+      };  
   };
 
   $scope.deleteNote = function(note){
