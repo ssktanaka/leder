@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.lederapp.leder" version="0.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.lederapp.leder" version="0.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Leder</name>
   <description>
-       An outlining tool for journalists
+       An Outlining Tool for Journalists
     </description>
   <author email="sanette.tanaka@gmail" href="http://sanettetanaka.com/">
       Sanette Tanaka
