@@ -76,7 +76,7 @@ ledermodule.service('ProjectService', function($q) {
                         doc.notes[i].updated = new Date();
                     }
                 }
-            }    
+            }
             return _db.put(doc);
         }).then(function(response) {
           console.log("quoteArray has been updated!");
