@@ -11,7 +11,7 @@
 }
 
 .ion-email::before {
-    content: url('../img/lederlogo.png');
+    content: url('../img/lederlogo.svg');
 }
 
 .previouslyHighlighted {
