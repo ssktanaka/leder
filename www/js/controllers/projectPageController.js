@@ -22,6 +22,7 @@ angular.module('leder.projectPageController', [])
 
 
   $scope.checkLogin = function() {
+  $scope.loadingError = false;
 	//check if loggedin
   console.log("checking login");
 	if (EvernoteOAuth.checkLogin()){
@@ -36,6 +37,10 @@ angular.module('leder.projectPageController', [])
       } else {
         console.log("got notes");
         $scope.sourceNotes = notetitles;
+        if (!$scope.sourceNotes) {
+          console.log("something is definitely wrong");
+          $scope.loadingError = true;
+        }
 
         $scope.fetchingNotes = false;
 
