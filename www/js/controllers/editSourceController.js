@@ -45,7 +45,7 @@ angular.module('leder.editSourceController', [])
 
   //setting up markup global variables 
   $scope.showingMarkup = false;
-  $scope.changeMarkupText = "Show Markup";
+  $scope.changeMarkupText = "Show";
 
 
   //split string of text into array of strings
@@ -276,7 +276,7 @@ $scope.onSwipeRight = function swipingRight(event) {
     } 
        
     $scope.showingMarkup = false;
-    $scope.changeMarkupText = "Show Markup";
+    $scope.changeMarkupText = "Show";
 
   
   };
@@ -308,7 +308,7 @@ $scope.onSwipeRight = function swipingRight(event) {
         } 
       }
     $scope.showingMarkup = true;  
-    $scope.changeMarkupText = "Hide Markup";
+    $scope.changeMarkupText = "Hide";
   };
 
   //function to clear highlighted words
