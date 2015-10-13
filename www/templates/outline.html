@@ -18,11 +18,15 @@
 		      show-delete="shouldShowDelete"
 		      show-reorder="shouldShowReorder"
 		      can-swipe="listCanSwipe"
-		      delegate-handle="outline-list">
+		      delegate-handle="outline-list"
+		      >
 		    <ion-item ng-repeat="quoteObject in highlightedWords track by $index" 
 	              item="item"
+			      on-hold="showActionSheet(quoteObject)"
 	              class="item-remove-animate item-text-wrap"
-	              style="padding-right: 1.7em;">
+	              style="padding-right: 1.7em;"
+	              ng-class="{'item-colored': flagged}"
+	              >
 
 		    	<h3>{{quoteObject.source}}</h3>
 		    	<p>{{quoteObject.text}} </p>

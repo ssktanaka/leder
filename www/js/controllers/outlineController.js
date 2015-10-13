@@ -1,6 +1,6 @@
 angular.module('leder.outlineController', [])
 
-.controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService, $ionicPopup, $timeout) {
+.controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService, $ionicPopup, $timeout, $ionicActionSheet) {
 
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = true;
@@ -127,5 +127,31 @@ angular.module('leder.outlineController', [])
           console.log('Tapped!', res);       
       });
  };
+
+  $scope.showActionSheet = function(item) {
+     // Show the action sheet
+     var hideSheet = $ionicActionSheet.show({
+       buttons: [
+         { text: 'Flag Quote' },
+         { text: 'Rename Quote' },
+       ],
+       titleText: 'Quote Titled "' + item.source + '"',
+       cancelText: 'Cancel',
+       cancel: function() {
+            // add cancel code..
+          },
+       buttonClicked: function(index) {
+          if (index == 0) {
+            $scope.flagged = true;
+          } else {
+            //call function rename quote
+          }
+         return true;
+       }
+     });
+  };
+
+
+
 
 })
