@@ -63,8 +63,13 @@ ledermodule.service('Quotes', function() {
 	    	}
 
     		var object = {};
-			object.source = "Note to Self";
-    		object.text = quoteText;
+    		if (quoteText.customSource){
+				object.source = quoteText.customSource;
+    		} else {
+    			object.source = "Note to Self";
+    		};
+    		object.text = quoteText.customQuote;
+    		object.flagged = false;
     		currentProject.quotes.unshift(object);
 
 	    	return currentProject.quotes;

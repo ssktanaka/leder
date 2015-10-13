@@ -25,10 +25,9 @@
 			      on-hold="showActionSheet(quoteObject)"
 	              class="item-remove-animate item-text-wrap"
 	              style="padding-right: 1.7em;"
-	              ng-class="{'item-colored': flagged}"
 	              >
 
-		    	<h3>{{quoteObject.source}}</h3>
+		    	<h3><i ng-class="{'ng-show':quoteObject.flagged, 'ng-hide': !quoteObject.flagged}"class="ion-flag royal">&nbsp;&nbsp;</i>{{quoteObject.source}} </h3>
 		    	<p>{{quoteObject.text}} </p>
 
 		    	<!-- button options -->

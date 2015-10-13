@@ -99,11 +99,10 @@ angular.module('leder.outlineController', [])
   $scope.addListItemPopup = function() {
     $scope.data = {}
      //additem
-    console.log("adding item");
 
     var listPopup = $ionicPopup.show({
-      template: '<input type="text" ng-model="data.customQuote" autofocus>',
-      title: 'Add a Note to Self',
+      template: '<input type="text" ng-model="data.customSource" placeholder="Note to Self"></br><input type="text" ng-model="data.customQuote" autofocus>',
+      title: 'Add a Custom Quote',
       subTitle: 'Whatever you write will be added to the outline.',
       scope: $scope,
       buttons: [
@@ -113,10 +112,10 @@ angular.module('leder.outlineController', [])
           type: 'button-positive',
           onTap: function(e) {
             if (!$scope.data.customQuote) {
-              //don't allow the user to close unless he enters wifi password
+              //don't allow the user to close unless he enters something
               e.preventDefault();
             } else {
-              $scope.addListItem($scope.data.customQuote);
+              $scope.addListItem($scope.data);
               return $scope.data.customQuote;
             }
           }
@@ -130,10 +129,11 @@ angular.module('leder.outlineController', [])
 
   $scope.showActionSheet = function(item) {
      // Show the action sheet
+     $scope.markup = "lala";
      var hideSheet = $ionicActionSheet.show({
        buttons: [
-         { text: 'Flag Quote' },
-         { text: 'Rename Quote' },
+         { text: 'Flag' },
+         { text: 'Rename' },
        ],
        titleText: 'Quote Titled "' + item.source + '"',
        cancelText: 'Cancel',
@@ -141,15 +141,54 @@ angular.module('leder.outlineController', [])
             // add cancel code..
           },
        buttonClicked: function(index) {
+          //if flag or unflag quote is selected
           if (index == 0) {
-            $scope.flagged = true;
-          } else {
+            item.flagged = !item.flagged;
+
+          } 
+          //if rename is selected
+          else if (index == 1) {
             //call function rename quote
-          }
-         return true;
+            $scope.renameQuote(item);
+          };
+          //update database
+          $scope.saveProject($scope.highlightedWords);
+          return true;
        }
      });
   };
+
+   $scope.renameQuote = function(item) {
+      $scope.data = {}
+
+      var renamePopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.customQuote" autofocus>',
+        title: 'Rename Quote Title',
+        subTitle: 'Write a new title to replace "' + item.source + '."',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Rename</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if (!$scope.data.customQuote) {
+                //don't allow the user to close unless he enters something
+                e.preventDefault();
+              } else {
+                item.source = $scope.data.customQuote;
+                //update database
+                $scope.saveProject($scope.highlightedWords);
+                return true;
+              }
+            }
+          }
+        ]
+      });
+      renamePopup.then(function(res) {
+            console.log('Tapped!', res);       
+        });
+   };
 
 
 
