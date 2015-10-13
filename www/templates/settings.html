@@ -10,30 +10,26 @@
 			<div class="item item-divider"></div>
 
 			<li class="item item-toggle">
-			     Sync on Wi-Fi Only
+			     Use Large Text
 				<label class="toggle toggle-balanced">
-			        <input type="checkbox">
+			        <input type="checkbox" ng-model="value" ng-change="largeTextChange(value)">
 			        <div class="track">
 			        	<div class="handle"></div>
 			        </div>
 			    </label>
 			</li>
 
-			<a class="item" on-touch="showTextSize()">
-			    Text Size
-			    <span class="item-note">
-			      Medium
-			    </span>
-		  	</a>
-
 			<div class="item item-divider"></div>
 
         	<a class="item" href="#" onclick="window.open('http://www.lederapp.com', '_system', 'location=yes'); return false;">
-                FAQ
+                Introduction
             </a>
-			
         	<a class="item" href="#" onclick="window.open('http://www.lederapp.com', '_system', 'location=yes'); return false;">
-                About & Privacy
+                About Leder
+            </a>
+
+        	<a class="item" href="#" onclick="window.open('http://www.lederapp.com', '_system', 'location=yes'); return false;">
+                Privacy Policy
             </a>
 
         	<a class="item" href="#" onclick="window.open('http://www.lederapp.com', '_system', 'location=yes'); return false;">

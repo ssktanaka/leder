@@ -41,12 +41,18 @@
 
 }
 
-ion-content span {
-	font-size: 1.4em;
+.normal-text {
+	font-size: 1.35em;
 	line-height: 1.6em;
 	padding: 1.4px .5px 1.4px .7px;
-
 }
+
+.large-text {
+	font-size: 1.6em;
+	line-height: 1.6em;
+	padding: 1.4px .5px 1.4px .7px;
+}
+
 
 .popup-body {
   text-align: center;
