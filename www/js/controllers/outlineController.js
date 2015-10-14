@@ -1,6 +1,6 @@
 angular.module('leder.outlineController', [])
 
-.controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService, $ionicPopup, $timeout, $ionicActionSheet) {
+.controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService, $ionicPopup, $timeout, $ionicActionSheet, $cordovaClipboard) {
 
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = true;
@@ -134,6 +134,7 @@ angular.module('leder.outlineController', [])
        buttons: [
          { text: 'Flag' },
          { text: 'Rename' },
+         { text: 'Copy Quote Text'},
        ],
        titleText: 'Quote Titled "' + item.source + '"',
        cancelText: 'Cancel',
@@ -150,6 +151,11 @@ angular.module('leder.outlineController', [])
           else if (index == 1) {
             //call function rename quote
             $scope.renameQuote(item);
+          }
+          //if copy text is selected
+          else if (index == 2) {
+            //copy text
+           $scope.copyText(item.source + ": " + item.text);
           };
           //update database
           $scope.saveProject($scope.highlightedWords);
@@ -189,6 +195,14 @@ angular.module('leder.outlineController', [])
             console.log('Tapped!', res);       
         });
    };
+
+  $scope.copyText = function(value) {
+      $cordovaClipboard.copy(value).then(function() {
+          console.log("Copied text");
+      }, function() {
+          console.error("There was an error copying");
+      });
+  };
 
 
 
