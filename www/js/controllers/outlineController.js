@@ -134,7 +134,7 @@ angular.module('leder.outlineController', [])
        buttons: [
          { text: 'Flag' },
          { text: 'Rename' },
-         { text: 'Copy Quote Text'},
+         { text: 'Copy Text'},
        ],
        titleText: 'Quote Titled "' + item.source + '"',
        cancelText: 'Cancel',
