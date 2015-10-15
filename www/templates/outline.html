@@ -29,12 +29,6 @@
 
 		    	<h3><i ng-class="{'ng-show':quoteObject.flagged, 'ng-hide': !quoteObject.flagged}"class="ion-flag royal">&nbsp;&nbsp;</i>{{quoteObject.source}} </h3>
 		    	<p>{{quoteObject.text}} </p>
-
-		    	<!-- button options -->
-<!-- 		    	 <ion-option-button class="button-info"
-                       ng-click="edit(item)">
-			      Edit
-			    </ion-option-button> -->
 			    
 		    	<!-- swipeable delete -->
 	  		    <ion-delete-button class="ion-minus-circled" on-touch="delete(quoteObject)">
