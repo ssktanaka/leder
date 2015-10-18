@@ -302,7 +302,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
       },
 
 
-      exportNote: function(highlightedWordsArray, projectTitle){
+      exportNote: function(highlightedWordsArray, projectTitle, cb){
         var self = this;
 
         var stringArray = [];
@@ -314,11 +314,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
           stringArray.push("</p>");
         }
         stringArray = stringArray.join(" ");
-        self.makeNote(projectTitle, stringArray, function(result){
-
-        });
-
-
+        self.makeNote(projectTitle, stringArray, cb);
       },
 
       makeNote: function(noteTitle, noteBody, callback) {
@@ -335,11 +331,11 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         ourNote.content = nBody;
        
         // Attempt to create note in Evernote account
-        self.noteStore.createNote(self.authToken, ourNote, function(note, error) {
-          if (error) {
-              callback(error);
+        self.noteStore.createNote(self.authToken, ourNote, function(result) {
+          if (result && result.guid) {
+              callback(null, result);
           } else {
-            callback(note);
+            callback(result);
           }
         });
        

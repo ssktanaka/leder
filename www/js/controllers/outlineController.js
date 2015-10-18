@@ -71,9 +71,18 @@ angular.module('leder.outlineController', [])
   $scope.exportProject = function(highlightedWords) {
     //update project object with new array
     $scope.saveProject(highlightedWords);
-    EvernoteOAuth.exportNote(highlightedWords, $scope.project.title); 
-    //call show confirmationpopup
-    $scope.showExportConfirmation();
+
+    EvernoteOAuth.exportNote(highlightedWords, $scope.project.title, function(err, result) {
+      if (err) {
+        $scope.showExportFail();
+      } else {
+        //call show confirmationpopup
+        $scope.showExportConfirmation();
+      }
+
+    });
+
+
   };
 
   // Triggered on a button click, or some other target
@@ -81,6 +90,17 @@ angular.module('leder.outlineController', [])
      var alertPopup = $ionicPopup.alert({
        title: 'Success!',
        template: 'Your outline has been exported to your Evernote account.'
+       });
+       alertPopup.then(function(res) {
+       //success
+      });
+   };
+
+  // Triggered on a button click, or some other target
+  $scope.showExportFail = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: "Something's Wrong",
+       template: 'We were unable to export your outline to Evernote. Check your internet connection and try again.'
        });
        alertPopup.then(function(res) {
        //success
@@ -132,7 +152,7 @@ angular.module('leder.outlineController', [])
      $scope.markup = "lala";
      var hideSheet = $ionicActionSheet.show({
        buttons: [
-         { text: 'Flag' },
+         { text: '<i class="ion-flag royal"></i>' },
          { text: 'Rename' },
          { text: 'Copy Text'},
        ],
