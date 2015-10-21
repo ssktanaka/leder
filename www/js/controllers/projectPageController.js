@@ -28,8 +28,11 @@ angular.module('leder.projectPageController', [])
 	if (EvernoteOAuth.checkLogin()){
     //get project ID and set in url
     console.log("we are logged in");
-    //open source note modal
-    $scope.sourceNoteModal.show();
+
+    if ($scope.sourceNoteModal._isShown != true) {
+       //open source note modal
+      $scope.sourceNoteModal.show();     
+    }
 
     EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
       if (error) {
@@ -62,8 +65,6 @@ angular.module('leder.projectPageController', [])
     }).then(function(modal) {
     $scope.sourceNoteModal = modal;
   });
-
-
 
   //function save source notes is called when user clicks "import notes"
   $scope.saveSourceNotes = function() {

@@ -76,7 +76,6 @@ angular.module('leder.outlineController', [])
       if (err) {
         $scope.showExportFail();
       } else {
-        //call show confirmationpopup
         $scope.showExportConfirmation();
       }
 
