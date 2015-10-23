@@ -59,30 +59,11 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
     controller: 'AppCtrl'
   })
 
-  .state('app.about', {
-    url: "/about",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/about.html"
-      }
-    }
-  })
-
   .state('app.settings', {
     url: "/settings",
     views: {
       'menuContent': {
         templateUrl: "templates/settings.html"
-      }
-    }
-  })
-
-  .state('app.oauth', {
-    url: "/oauth",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/oauth.html",
-        controller: 'AuthCtrl'
       }
     }
   })

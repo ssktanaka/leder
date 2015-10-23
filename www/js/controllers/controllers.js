@@ -87,10 +87,3 @@ angular.module('leder.controllers', [])
 })
 
 
-
-
-// .controller('AuthCtrl', function($scope, EvernoteOAuth){
-//     console.log('in auth ctrl, yo DOES THIS EVEN DO ANYTHING', $scope)
-// })
-
-
