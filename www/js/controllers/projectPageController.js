@@ -3,16 +3,13 @@ angular.module('leder.projectPageController', [])
 
 .controller('ProjectPageCtrl', function($scope, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, Quotes) {
 
-    // $state.go('app.projectSources', { ProjectId: $stateParams.ProjectId});
-
   $scope.fetchingNotes = true;
-
 
   //get current project
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
 
-    //see if you should remind user to add source notes or not! blank state
+    //see if you should remind user to add source notes or not! empty state
     if ($scope.project.notes.length > 0){
       $scope.sourceNotesReminder = false;
     } else {
@@ -20,42 +17,37 @@ angular.module('leder.projectPageController', [])
     };
   });
 
-
   $scope.checkLogin = function() {
-  $scope.loadingError = false;
-	//check if loggedin
-  console.log("checking login");
-	if (EvernoteOAuth.checkLogin()){
-    //get project ID and set in url
-    console.log("we are logged in");
+    $scope.loadingError = false;
 
-    if ($scope.sourceNoteModal._isShown != true) {
-       //open source note modal
-      $scope.sourceNoteModal.show();     
-    }
-
-    EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
-      if (error) {
-        console.log("something's wrong");
-      } else {
-        console.log("got notes");
-        $scope.sourceNotes = notetitles;
-        if (!$scope.sourceNotes) {
-          console.log("something is definitely wrong");
-          $scope.loadingError = true;
-        }
-
-        $scope.fetchingNotes = false;
-
-        //update sources.html to fill page
-        $scope.$digest($scope.sourceNotes);
-
+  	//check if loggedin
+  	if (EvernoteOAuth.checkLogin()){
+      //get project ID and set in url
+      if ($scope.sourceNoteModal._isShown != true) {
+         //open source note modal
+        $scope.sourceNoteModal.show();     
       }
-    });
-  } else {
-      //remind users that htey need to log into evernote
-  		$scope.showAlert();
-  	}
+
+      EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
+        if (error) {
+          console.log("something's wrong");
+        } else {
+          $scope.sourceNotes = notetitles;
+          if (!$scope.sourceNotes) {
+            console.log("something is definitely wrong");
+            $scope.loadingError = true;
+          }
+
+          $scope.fetchingNotes = false;
+
+          //update sources.html to fill page
+          $scope.$digest($scope.sourceNotes);
+        }
+      });
+    } else {
+        //remind users that htey need to log into evernote
+    		$scope.showAlert();
+    	}
   };
 
   // Create the edit note modal that we will use later
@@ -70,15 +62,12 @@ angular.module('leder.projectPageController', [])
   $scope.saveSourceNotes = function() {
     //get current state of project notes
     var sourceArray = $scope.project.notes;
-    console.log($scope.project.notes);
 
     for (var i=0; i < $scope.sourceNotes.length; i++) {
       //if the "touched" attribute of the div is true
       if ($scope.sourceNotes[i].touched) {
-
         for (var prop in $scope.project.notes) {
           if($scope.project.notes[prop].guid == $scope.sourceNotes[i].guid) {
-            console.log("We got a match! ");
             console.log($scope.project.notes[prop].guid);
             console.log($scope.sourceNotes[i].guid);
           } 
@@ -101,7 +90,7 @@ angular.module('leder.projectPageController', [])
  
     //close note modal and clear highlighting
     $scope.closeSourceNote(); 
-  }
+  };
 
   //clear highlighting so list is fresh again
   $scope.closeSourceNote = function() {
@@ -120,7 +109,6 @@ angular.module('leder.projectPageController', [])
   };
 
   $scope.deleteNote = function(note){
-
     for (var i = 0; i<$scope.project.notes.length; i++) {
       //iterate through note array of the project.
       //if note GUID matches the guid of ith element of the array, remove it
@@ -139,12 +127,10 @@ angular.module('leder.projectPageController', [])
     $scope.sourceNoteModal.remove();
   });
 
-  // Execute action on hide modal
   $scope.$on('sourceNoteModal.hidden', function() {
     // Execute action
   });
 
-  // Execute action on remove modal
   $scope.$on('sourceNoteModal.removed', function() {
     // Execute action
   });
@@ -156,9 +142,7 @@ angular.module('leder.projectPageController', [])
      template: 'Leder needs access to your Evernote account in order to add notes to your story project.'
    });
    alertPopup.then(function(res) {
-     console.log('User is not logged in');
      $scope.showAccessPopup();
-    // $scope.login();
    });
  };
 

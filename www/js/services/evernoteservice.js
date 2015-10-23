@@ -2,7 +2,6 @@ var evernotemodule = angular.module('leder.evernoteService', [])
 
 evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, $timeout) {
   
-    //these will change once app is deployed
 	// var evernoteHostName = 'https://sandbox.evernote.com';
   var evernoteHostName = 'https://www.evernote.com';
 	var internalCallback = 'http://localhost:8100/#/app/oauth';
@@ -24,7 +23,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
                 console.log("GET SECRET TOKEN");
                 console.log($localstorage.get('oauth_token_secret'));
 
-                // localStorage.setItem("oauth_token_secret", y[1]);
             }
             else if(y[0] === 'oauth_callback_confirmed') {
                 isCallBackConfirmed = true;
@@ -160,19 +158,16 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         var self = this;
         //get notebooks, pass callback 
         this.getNotebooks(function(error, notebooks) {
-            // TODO what if error?
 
             //get all notebook GUIDS
             var guidsArray = self.getNotebookGUIDS(notebooks);
 
             //get notemetadata, pass callback
             self.getNoteMetaData(guidsArray, function(error, noteMetaDataArray){
-                // TODO what if error?
                 //get all note GUIDS
                 var noteGuidsArray = self.getNoteGUIDS(noteMetaDataArray);
                 //get all note content in ENML
                 self.getNoteContent(noteGuidsArray, function(error, noteContent) {
-                    // TODO what if error?
                     var noteContentAsString = self.getNoteContentAsString(noteContent);
                 });
             });

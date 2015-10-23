@@ -4,7 +4,6 @@ angular.module('leder.outlineController', [])
 
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = true;
-  // $scope.listCanSwipe = true;
 
   //set blank state
   $scope.outlineBlankState = true;
@@ -13,30 +12,27 @@ angular.module('leder.outlineController', [])
 
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
+
     //highlighted words into an array of quote arrays of objects
     $scope.highlightedWords = $scope.project.quotes; 
-    // $scope.quoteArray = Quotes.getQuoteArray();
 
     //check if blank state should be included
-    $scope.checkBlankState();
-    
+    $scope.checkBlankState();    
   });
 
   $scope.checkBlankState = function() {
     //check if blank state should be included
     if ($scope.project.quotes.length > 0){
       $scope.outlineBlankState = false;
-      //moved this digest in
+      //update blank slate status
       $scope.$digest();
     } else {
       $scope.outlineBlankState = true;
     };
-
-
   };
 
   $scope.reorderItem = function(item, fromIndex, toIndex) {
-      //Move the item in the array
+    //Move the item in the array
     $scope.highlightedWords.splice(fromIndex, 1);
     $scope.highlightedWords.splice(toIndex, 0, item);
     $scope.saveProject($scope.highlightedWords);
@@ -55,7 +51,6 @@ angular.module('leder.outlineController', [])
   $scope.delete = function(item) {
     $scope.highlightedWords.splice($scope.highlightedWords.indexOf(item), 1);
     $scope.saveProject($scope.highlightedWords);
-
   };
 
   $scope.saveProject = function(highlightedWords) {
@@ -65,7 +60,6 @@ angular.module('leder.outlineController', [])
       //check if blank state should be included
       $scope.checkBlankState();
     });
-
   };
 
   $scope.exportProject = function(highlightedWords) {
@@ -78,10 +72,7 @@ angular.module('leder.outlineController', [])
       } else {
         $scope.showExportConfirmation();
       }
-
     });
-
-
   };
 
   // Triggered on a button click, or some other target
@@ -112,8 +103,7 @@ angular.module('leder.outlineController', [])
     $scope.saveProject($scope.highlightedWords);
     //clear quote
     this.customQuote = null;
-
-  }
+  };
 
   $scope.addListItemPopup = function() {
     $scope.data = {}
@@ -183,7 +173,7 @@ angular.module('leder.outlineController', [])
      });
   };
 
-   $scope.renameQuote = function(item) {
+  $scope.renameQuote = function(item) {
       $scope.data = {}
 
       var renamePopup = $ionicPopup.show({
@@ -222,8 +212,6 @@ angular.module('leder.outlineController', [])
           console.error("There was an error copying");
       });
   };
-
-
 
 
 })

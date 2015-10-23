@@ -17,18 +17,12 @@
 .previouslyHighlighted {
 	background-color: #d8dbff;
 }
-/*.pagebreak{
-	content:"\a \a";
-    white-space: pre;
-}*/
 
 .highlighted {
 	background-color: #FFFF00;
 	padding: 1.4px .5px 1.8px .7px;
 
 }
-
-
 
 .overlay {
  	background-color: #ffffb2;
@@ -53,7 +47,6 @@
 	padding: 1.4px .5px 1.4px .7px;
 }
 
-
 .popup-body {
   text-align: center;
 }
@@ -67,7 +60,6 @@
 	line-height: 1.7em;
 }
 
-
 .right-side {
     float: right;
 }
@@ -75,8 +67,4 @@
 .small-padding {
 	margin: 0em 1.1em 0em 1.1em;
 }
-
-/*.item-colored {
-    background-color: #91A3B2;
-}*/
 

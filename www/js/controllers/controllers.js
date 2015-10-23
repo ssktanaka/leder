@@ -1,8 +1,6 @@
 angular.module('leder.controllers', [])
 
-
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, $ionicPopup, $timeout) {
-
   
   // Form data for the login modal
   $scope.loginData = {};
@@ -34,19 +32,14 @@ angular.module('leder.controllers', [])
       }
   };
 
-
   // Perform the login action when the user submits the login form
   $scope.accessEvernote = function() {
     EvernoteOAuth.loginWithEvernote();
-
   };
 
   $scope.logoutEvernote = function() {
-
     EvernoteOAuth.logoutWithEvernote();
-
     $scope.confirmLogout();
-    
   };
 
   // Confirm logged out
