@@ -42,7 +42,7 @@ angular.module('leder.editSourceController', [])
 
   //split string of text into array of strings
   $scope.parseSourceText = function(sourceText) {
-    //split by new line or comma
+    //split by white space
     var sourceText = sourceText.split(" ");
 
     //declare empty array to hold word objects

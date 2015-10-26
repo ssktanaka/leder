@@ -5,22 +5,17 @@ ledermodule.service('ProjectService', function($q) {
 
     var _db;    
 
-    // We'll need this later.
     var _projects;
 
     var project;
 
     return {
         initDB: initDB,
-
-        // We'll add these later.
         getAllProjects: getAllProjects,
         getProject: getProject,
         addProject: addProject,
         updateProjectObject: updateProjectObject,
         updateProjectObjectWithQuotes: updateProjectObjectWithQuotes,
-
-        // updateBirthday: updateBirthday,
         deleteProject: deleteProject
     };
 
@@ -35,7 +30,7 @@ ledermodule.service('ProjectService', function($q) {
 		_db.post({
 		  title: project,
 		  dateCreated: new Date(),
-    		  dateLastModified: new Date(),
+    	  dateLastModified: new Date(),
 		  notes: [],
 		  quotes: []
 		}).then(function (response) {

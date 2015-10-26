@@ -30,7 +30,6 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
       });
   };
 
-  
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -39,8 +38,6 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      // StatusBar.styleDefault();
       $cordovaStatusBar.style(1) //Light
     };
 

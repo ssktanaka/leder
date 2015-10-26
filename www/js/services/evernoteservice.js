@@ -240,12 +240,13 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             callback(null, notebooks);
         },
             function onerror(error) {
-            console.log('errror :(');
             console.log(error);
             callback(error);
         });
 
       },
+
+      
 
       getNotebookGUIDS: function (notebooksArray){
         var notebookGUIDSarray = [];
@@ -338,24 +339,11 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 
       checkLogin: function() {
         var authToken = $localstorage.get('authTokenEvernote');
-
-         //normally, use localstorage to get auth token
-        // var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";
-        
-        //NEW TESTING AUTH TOKEN
-        // var authToken = "S=s204:U=17be0a2:E=1575623d70f:C=14ffe72a778:P=185:A=ssktanaka-8134:V=2:H=91a259db75b7ac92374a0509bc755a14";
-        // $localstorage.set("authTokenEvernote", authToken);
-
-        // //delete! for testing purposes.
-        // var authToken = "";
-        // this.authToken = authToken;
-
         if (authToken) {
             return true;
         } else {
             return false;
         }
-
       },
 
       // getAuthTokenTESTING: function() {
