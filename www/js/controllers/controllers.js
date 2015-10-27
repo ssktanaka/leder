@@ -1,6 +1,6 @@
 angular.module('leder.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, $ionicPopup, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, $ionicPopup, $timeout, $localstorage) {
   
   // Form data for the login modal
   $scope.loginData = {};
@@ -74,6 +74,12 @@ angular.module('leder.controllers', [])
     } else if (value == false) {
       $scope.largeText = false;
     };
+  };
+
+  $scope.rerunIntro = function(){
+      $localstorage.set('repeat_visitor', false);  
+      console.log("repeat visitor is false");
+      console.log($localstorage.get('repeat_visitor'));
   };
 
 

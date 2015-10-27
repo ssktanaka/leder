@@ -143,7 +143,7 @@ angular.module('leder.projectPageController', [])
  $scope.showAccessPopup = function() {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Leder Would Like to Access Evernote',
-     template: 'Import notes from Evernote into your story projects.'
+     template: 'Import notes from Evernote into your story project.'
    });
    confirmPopup.then(function(res) {
      if(res) {
