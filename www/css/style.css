@@ -68,9 +68,11 @@
 	margin: 0em 1.1em 0em 1.1em;
 }
 
+
 .slider { 
 	height: 100%; 
 	text-align: center; 
+	background-color: #041f37;
 }
 
 .scroll { 
