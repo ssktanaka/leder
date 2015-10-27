@@ -9,6 +9,7 @@ angular.module('leder.projectPageController', [])
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
 
+    
     //see if you should remind user to add source notes or not! empty state
     if ($scope.project.notes.length > 0){
       $scope.sourceNotesReminder = false;

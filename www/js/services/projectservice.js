@@ -14,6 +14,7 @@ ledermodule.service('ProjectService', function($q) {
         getAllProjects: getAllProjects,
         getProject: getProject,
         addProject: addProject,
+        addFirstProject: addFirstProject,
         updateProjectObject: updateProjectObject,
         updateProjectObjectWithQuotes: updateProjectObjectWithQuotes,
         deleteProject: deleteProject
@@ -40,6 +41,27 @@ ledermodule.service('ProjectService', function($q) {
 		});
     };
 
+    //create sample notes!
+    //I'm a note!
+    //I'm a note, too.
+    //Here you can import notes from your Evernote account
+    //You can edit each note by selecting it
+    //For now, click on any of these sample notes to try it out. 
+    function addFirstProject(project) {
+
+        _db.post({
+          title: project,
+          dateCreated: new Date(),
+          dateLastModified: new Date(),
+          notes: ["I'm a sample"],
+          quotes: []
+        }).then(function (response) {
+          console.log("The project has been put");
+        }).catch(function (err) {
+          console.log(err);
+        });
+    };
+
 
     function updateProjectObject(projectID, noteArray) {
         //update project object with new note array
@@ -47,6 +69,7 @@ ledermodule.service('ProjectService', function($q) {
         .then(function(doc) {
             doc.notes = noteArray;
             //update last date modified
+            console.log(doc);
             doc.dateLastModified = new Date();
             return _db.put(doc);
         }).then(function(response) {

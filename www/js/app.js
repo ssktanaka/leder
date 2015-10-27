@@ -4,11 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.outlineController', 'leder.introController', 'leder.services', 'leder.evernoteService', 'leder.projectService', 'ionic.utils'])
+angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editSourceController', 'leder.projectController', 'leder.projectPageController', 'leder.outlineController', 'leder.introController', 'leder.services', 'leder.onboardService', 'leder.evernoteService', 'leder.projectService', 'ionic.utils'])
 
 
 
-.run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService, $ionicPopup, $timeout, $state) {
+.run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService, OnboardService, $ionicPopup, $timeout, $state) {
    //initialize NoteStore
   EvernoteOAuth.initializeNoteStore();
 
@@ -32,6 +32,9 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
 
 
 
+
+
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -42,15 +45,8 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
       $cordovaStatusBar.style(1) //Light
     };
 
-      //if first time
-
-
-  if($localstorage.get('repeat_visitor')) {
-      console.log($localstorage.get('repeat_visitor'));
-      $state.go('app.projects'); //go to sign up view.
-  } else {
-      $state.go('app.intro');  //if not first time go to sign in view.
-  };
+  //     //check if firsttime
+  // OnboardService.checkFirstTime();
 
   });
 
