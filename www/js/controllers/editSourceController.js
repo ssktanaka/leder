@@ -32,7 +32,7 @@ angular.module('leder.editSourceController', [])
 
     //check for sample project
     if ($stateParams.noteguid == "SAMPLENOTE") {
-      var text = "Highlight a selection of text by touching the first word and last word of the quote you want to save. Don't drag your finger across the text or attempt to highlight in iOS fashion—just lightly tap the first word and then the last word of your desired quote. You can repeat this process and highlight as many quotes as you want. Just be sure to hit the Save button below to save your markup!";
+      var text = "Great! This is your note's content (e.g. whatever text is in the body of your Evernote note). You can highlight quotes from this note to copy into your outline. HIGHLIGHT A SELECTION OF TEXT BY LIGHTLY TAPPING THE FIRST WORD AND THEN TAPPING THE LAST WORD OF THE QUOTE YOU WISH TO COPY. (Don't drag your finger across the text or press and hold a single word; just tap the first and last words.) Repeat this process and highlight as many quotes as you want. DON'T FORGET TO HIT THE 'SAVE' BUTTON TO SAVE YOUR HIGHLIGHTED QUOTES. When you are finished, go back to your story project and select the 'Outline' tab.";
       $scope.sourceText = $scope.parseSourceText(text);
     } 
 

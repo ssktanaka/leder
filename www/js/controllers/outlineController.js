@@ -67,7 +67,7 @@ angular.module('leder.outlineController', [])
     $scope.saveProject(highlightedWords);
 
     EvernoteOAuth.exportNote(highlightedWords, $scope.project.title, function(err, result) {
-      if (err && ($scope.project.title == "Hi, I'm Your First Story Project")) {
+      if (err && ($scope.project.title == "Hi, I'm A Story Project")) {
         $scope.showTutorialCompleted();
       } else if (err) {
         $scope.showExportFail();
@@ -100,7 +100,7 @@ angular.module('leder.outlineController', [])
   $scope.showTutorialCompleted = function() {
      var alertPopup = $ionicPopup.alert({
        title: "Nice Job!",
-       template: 'If this was a real project, your outline would be exported to your Evernote account. Hopefully this project has helped you become better acquainted with Leder. Good luck and have fun!'
+       template: 'At this point, normally your outline would be exported to your Evernote account, but alas, this is just a tutorial—and you aced it. Hopefully you feel a bit more comfortable with Leder. Now go create your own story project!'
        });
        alertPopup.then(function(res) {
           $state.go('app.projects');

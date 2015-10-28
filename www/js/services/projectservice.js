@@ -55,51 +55,63 @@ ledermodule.service('ProjectService', function($q) {
           dateLastModified: new Date(),
           notes: [
                     {
-                        title: "I'm one of your notes.",
+                        title: "I'm a note.",
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "You can import more notes from your Evernote account",
+                        title: "Usually, a note is a copy",
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "by selecting 'Add Source Notes' above.",
+                        title: "of one of your Evernote notes.",
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "For now, though, choose one of these sample notes.",
+                        title: "You can import more notes",
+                        guid: "SAMPLENOTE"
+                    },
+                    {
+                        title: "by tapping 'Add Source Notes' above.",
+                        guid: "SAMPLENOTE"
+                    },
+                    {
+                        title: "But for now, tap one of these sample notes",
+                        guid: "SAMPLENOTE"
+                    },
+                    {
+                        title: "to get started.",
                         guid: "SAMPLENOTE"
                     }
           ],
           quotes: [
                     {
-                        source: "Nice job! You should be able to see all of your selected quotes.",
-                        text: "If you don't see any of your selections, go back to the previous page and choose a sample note to highlight.",
+                        source: "Nice job! All of your previously highlighted quotes should be copied in here.",
+                        text: "If you don't see any of your selections, go back to the previous page and choose a sample note to highlight. Don't forget to 'Save' your highlighted quotes!",
                         flagged: false
                     },
                     {
-                        source: "Now, Step 1",
-                        text: "Drag and drop using the three-bar icon on the right.",
+                        source: "Step 1: Rearrange Your Quotes",
+                        text: "Rearranging quotes by touching the three-bar icon on the right and dragging the quote to the appropriate spot.",
                         flagged: false
                     },
                     {
-                        source: "Step 2",
-                        text: "Long press the three-bar icon to bring up options, like flagging a quote, renaming the title, and copying the text.",
+                        source: "Step 2: Customize Your Quotes",
+                        text: "Press and hold the three-bar icon to bring up options, like flagging a quote, renaming the title, and copying the text.",
                         flagged: false
                     },
                     {
-                        source: "Step 3",
-                        text: "Delete a quote from the outline by hitting the Edit button below.",
+                        source: "Step 3: Delete Quotes",
+                        text: "Delete a quote from the outline by hitting the 'Edit' button below. Press 'Done' to return to the default view.",
                         flagged: false
                     },
                     {
-                        source: "Step 4",
-                        text: "Add your own quote using the compose icon above.",
+                        source: "Step 4: Add a Custom Quote",
+                        text: "Add your own quote by touching the compose icon above.",
                         flagged: false
                     },
                     {
-                        source: "Step 5",
-                        text: "Once you are happy with your outline, tap the Upload button above to export your outline.",
+                        source: "Step 5: Export Your Outline",
+                        text: "Once you are happy with your outline, tap the upload icon above to export your outline.",
                         flagged: false
                     },
 
