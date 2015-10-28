@@ -1,6 +1,6 @@
 angular.module('leder.outlineController', [])
 
-.controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService, $ionicPopup, $timeout, $ionicActionSheet, $cordovaClipboard) {
+.controller('OutlineCtrl', function($scope, Quotes, $stateParams, $ionicListDelegate, EvernoteOAuth, $rootScope, $q, ProjectService, $ionicPopup, $timeout, $ionicActionSheet, $cordovaClipboard, $state, $ionicHistory) {
 
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = true;
@@ -67,7 +67,9 @@ angular.module('leder.outlineController', [])
     $scope.saveProject(highlightedWords);
 
     EvernoteOAuth.exportNote(highlightedWords, $scope.project.title, function(err, result) {
-      if (err) {
+      if (err && ($scope.project.title == "Hi, I'm Your First Story Project")) {
+        $scope.showTutorialCompleted();
+      } else if (err) {
         $scope.showExportFail();
       } else {
         $scope.showExportConfirmation();
@@ -75,7 +77,6 @@ angular.module('leder.outlineController', [])
     });
   };
 
-  // Triggered on a button click, or some other target
   $scope.showExportConfirmation = function() {
      var alertPopup = $ionicPopup.alert({
        title: 'Success!',
@@ -86,7 +87,6 @@ angular.module('leder.outlineController', [])
       });
    };
 
-  // Triggered on a button click, or some other target
   $scope.showExportFail = function() {
      var alertPopup = $ionicPopup.alert({
        title: "Something's Wrong",
@@ -97,6 +97,19 @@ angular.module('leder.outlineController', [])
       });
    };
 
+  $scope.showTutorialCompleted = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: "Nice Job!",
+       template: 'If this was a real project, your outline would be exported to your Evernote account. Hopefully this project has helped you become better acquainted with Leder. Good luck and have fun!'
+       });
+       alertPopup.then(function(res) {
+          $state.go('app.projects');
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+
+      });
+   };
 
   $scope.addListItem = function(quote){
     Quotes.addListItem(quote, $scope.project);

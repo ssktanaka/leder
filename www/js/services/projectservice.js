@@ -53,8 +53,57 @@ ledermodule.service('ProjectService', function($q) {
           title: project,
           dateCreated: new Date(),
           dateLastModified: new Date(),
-          notes: ["I'm a sample"],
-          quotes: []
+          notes: [
+                    {
+                        title: "I'm one of your notes.",
+                        guid: "SAMPLENOTE"
+                    },
+                    {
+                        title: "You can import more notes from your Evernote account",
+                        guid: "SAMPLENOTE"
+                    },
+                    {
+                        title: "by selecting 'Add Source Notes' above.",
+                        guid: "SAMPLENOTE"
+                    },
+                    {
+                        title: "For now, though, choose one of these sample notes.",
+                        guid: "SAMPLENOTE"
+                    }
+          ],
+          quotes: [
+                    {
+                        source: "Nice job! You should be able to see all of your selected quotes.",
+                        text: "If you don't see any of your selections, go back to the previous page and choose a sample note to highlight.",
+                        flagged: false
+                    },
+                    {
+                        source: "Now, Step 1",
+                        text: "Drag and drop using the three-bar icon on the right.",
+                        flagged: false
+                    },
+                    {
+                        source: "Step 2",
+                        text: "Long press the three-bar icon to bring up options, like flagging a quote, renaming the title, and copying the text.",
+                        flagged: false
+                    },
+                    {
+                        source: "Step 3",
+                        text: "Delete a quote from the outline by hitting the Edit button below.",
+                        flagged: false
+                    },
+                    {
+                        source: "Step 4",
+                        text: "Add your own quote using the compose icon above.",
+                        flagged: false
+                    },
+                    {
+                        source: "Step 5",
+                        text: "Once you are happy with your outline, tap the Upload button above to export your outline.",
+                        flagged: false
+                    },
+
+          ]
         }).then(function (response) {
           console.log("The project has been put");
         }).catch(function (err) {

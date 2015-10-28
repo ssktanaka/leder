@@ -28,6 +28,16 @@ angular.module('leder.editSourceController', [])
     $scope.sourceText = $scope.parseSourceText(noteContent);
   });
 
+  $timeout(function() {
+
+    //check for sample project
+    if ($stateParams.noteguid == "SAMPLENOTE") {
+      var text = "Highlight a selection of text by touching the first word and last word of the quote you want to save. Don't drag your finger across the text or attempt to highlight in iOS fashion—just lightly tap the first word and then the last word of your desired quote. You can repeat this process and highlight as many quotes as you want. Just be sure to hit the Save button below to save your markup!";
+      $scope.sourceText = $scope.parseSourceText(text);
+    } 
+
+  });
+
   //get project; set up asynchronous project promise
   var projectPromise = ProjectService.getProject($stateParams.ProjectId);
  
@@ -67,6 +77,7 @@ angular.module('leder.editSourceController', [])
     
     return $scope.words;
   };
+
 
 //array holding paragraph breaks
 $scope.paragraphBreaks = [];

@@ -9,6 +9,11 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
 
 
 .run(function($ionicPlatform, $localstorage, EvernoteOAuth, ProjectService, $ionicPopup, $timeout, $state) {
+  //initialize NoteStore
+  EvernoteOAuth.initializeNoteStore();
+
+  //initialize database
+  ProjectService.initDB();
 
   //show user intro if hasn't seen it
   var didTutorial = $localstorage.get('didTutorial');
@@ -16,13 +21,10 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
       $state.go('app.projects');
   } else {
       $state.go('app.intro');
+      ProjectService.addFirstProject("Hi, I'm Your First Story Project");
   };
 
-  //initialize NoteStore
-  EvernoteOAuth.initializeNoteStore();
 
-  //initialize database
-  ProjectService.initDB();
 
   var offline = false;
 
