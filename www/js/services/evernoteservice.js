@@ -192,7 +192,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         //set parameters
         var resultSpec = new NotesMetadataResultSpec;
         resultSpec.includeTitle  = true;
-        resultSpec.includeContentLength = true;
         resultSpec.includeCreated = true;
         resultSpec.includeUpdated = true;
         resultSpec.includeNotebookGuid = true;

@@ -34,9 +34,10 @@
 			    <i ng-class="{'ng-show':sourceNote.touched, 'ng-hide': !sourceNote.touched}" class="ion-checkmark-round right-side"></i>		
 			    </h2>
 
-			    <p>{{sourceNote.updated | date: 'shortDate'}} |  {{sourceNote.contentLength}} words
+			    <p>
+			    {{sourceNote.updated | date: 'shortTime'}} {{sourceNote.updated | date: 'shortDate'}} 
+
 			    </p>			    
-			    
 			    
 
 			 </ion-item>
