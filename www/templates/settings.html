@@ -35,11 +35,10 @@
         	<a class="item" href="#" onclick="window.open('http://www.lederapp.com', '_system', 'location=yes'); return false;">
                 Give Feedback
             </a>
-
-   			<a class="item" href="#" on-touch="rerunIntro();">
-                Rerun Intro
-            </a>
-                     
+			<button class="button button-clear button-full button-stable" on-touch="toIntro();">
+			  Rerun Intro
+			</button>
+         
 			<div class="item item-divider">
 			    </br>
 				<p class="small">{{evernoteStatus}}</p>
@@ -48,6 +47,9 @@
 			<button ng-class="{'ng-show':loggedIn, 'ng-hide': !loggedIn}" class="button button-clear button-full button-assertive" on-touch="logoutEvernote();">
 			  Disconnect Leder from Evernote
 			</button>
+
+
+
 			<div class="item item-divider">
 			</br></br></br></br></br></br></br></br></br></br></br></br>
 			</div>

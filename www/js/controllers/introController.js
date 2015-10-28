@@ -1,21 +1,23 @@
 angular.module('leder.introController', [])
 
-.controller('IntroCtrl', function($scope, $state, $ionicHistory, $ionicViewService, $localstorage) {
+.controller('IntroCtrl', function($scope, $state, $ionicHistory, $localstorage) {
  
-  $scope.navigateHome = function() {
-
-  	$localstorage.set('hasVisited', true);	
-     console.log("Person has visited");
-
-    $state.transitionTo('app.projects');
-	$ionicHistory.nextViewOptions({
+ $ionicHistory.nextViewOptions({
 	   disableBack: true
-	});
+});
 
-	
+  $scope.startApp = function() {
+	    $state.go('app.projects');
 
+	    // Set a flag that we finished the tutorial
+	    $localstorage.set('didTutorial', true);
   };
 
+
+
+
+
+	
 })
 
 

@@ -1,7 +1,6 @@
 angular.module('leder.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, ProjectService, $ionicPopup, $timeout, $localstorage) {
-
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, ProjectService, $ionicPopup, $timeout, $localstorage, $state) {
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -77,11 +76,6 @@ angular.module('leder.controllers', [])
     };
   };
 
-  $scope.rerunIntro = function(){
-      $localstorage.set('hasVisited', false);  
-      console.log("we haven't visited");
-      console.log($localstorage.get('hasVisited'));
-  };
 
 
 })

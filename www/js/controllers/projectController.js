@@ -1,7 +1,7 @@
 angular.module('leder.projectController', [])
 
 
-.controller('ProjectsCtrl', function($scope, $stateParams, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, EvernoteOAuth) {
+.controller('ProjectsCtrl', function($scope, $stateParams, $ionicPopup, $timeout, $state, $ionicModal, ProjectService, EvernoteOAuth, $localstorage) {
 
 	// Get all project records from the database.
 	ProjectService.getAllProjects().then(function(projects) {
@@ -79,5 +79,11 @@ angular.module('leder.projectController', [])
 	$scope.deleteProject = function(project) {
 	    ProjectService.deleteProject(project);           
 	};
+
+	$scope.toIntro = function() {
+      $scope.closeSettings();
+      $localstorage.set('didTutorial', false);
+      $state.go('app.intro');
+    };
 	
 })
