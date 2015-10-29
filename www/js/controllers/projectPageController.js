@@ -131,7 +131,7 @@ angular.module('leder.projectPageController', [])
  $scope.showAlert = function() {
    var alertPopup = $ionicPopup.alert({
      title: 'Allow Evernote Access',
-     template: 'Leder needs access to your Evernote account in order to add notes to your story project.'
+     template: 'Leder needs access to your Evernote account in order to add notes to your project.'
    });
    alertPopup.then(function(res) {
      $scope.showAccessPopup();
@@ -141,7 +141,7 @@ angular.module('leder.projectPageController', [])
  $scope.showAccessPopup = function() {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Leder Would Like to Access Evernote',
-     template: 'Import notes from Evernote into your story project.'
+     template: 'Import notes from Evernote into your project.'
    });
    confirmPopup.then(function(res) {
      if(res) {
