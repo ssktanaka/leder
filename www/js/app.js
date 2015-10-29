@@ -21,7 +21,7 @@ angular.module('leder', ['ionic', 'ngCordova', 'leder.controllers', 'leder.editS
       $state.go('app.projects');
   } else {
       $state.go('app.intro');
-      ProjectService.addFirstProject("Hi, I'm A Story Project");
+      ProjectService.addFirstProject("Hi, I'm A Project");
   };
 
 

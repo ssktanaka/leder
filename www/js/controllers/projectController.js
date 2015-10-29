@@ -15,7 +15,7 @@ angular.module('leder.projectController', [])
 	    var myPopup = $ionicPopup.show({
 		    template: '<input type="text" ng-model="data.project" autofocus>',
 		    title: 'Create New Project',
-		    subTitle: 'Enter a name for this story project.',
+		    subTitle: 'Enter a name for this project.',
 		    scope: $scope,
 		    buttons: [
 		      { text: 'Cancel' },
@@ -84,7 +84,7 @@ angular.module('leder.projectController', [])
       $scope.closeSettings();
       $localstorage.set('didTutorial', false);
       $state.go('app.intro');
-      ProjectService.addFirstProject("Hi, I'm A Story Project");
+      ProjectService.addFirstProject("Hi, I'm A Project");
 
     };
 	

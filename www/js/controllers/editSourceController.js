@@ -12,7 +12,7 @@ angular.module('leder.editSourceController', [])
   }
 })
 
-.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService, $document, $ionicPopup, $timeout) {
+.controller('EditSourceCtrl', function($scope, Quotes, $stateParams, EvernoteOAuth, ProjectService, $document, $ionicPopup, $timeout, $ionicPlatform, $state) {
   //set note title
   $scope.noteTitle = $stateParams.notetitle;
 
@@ -32,7 +32,7 @@ angular.module('leder.editSourceController', [])
 
     //check for sample project
     if ($stateParams.noteguid == "SAMPLENOTE") {
-      var text = "Great! This is your note's content (e.g. whatever text is in the body of your Evernote note). You can highlight quotes from this note to copy into your outline. HIGHLIGHT A SELECTION OF TEXT BY LIGHTLY TAPPING THE FIRST WORD AND THEN TAPPING THE LAST WORD OF THE QUOTE YOU WISH TO COPY. (Don't drag your finger across the text or press and hold a single word; just tap the first and last words.) Repeat this process and highlight as many quotes as you want. DON'T FORGET TO HIT THE 'SAVE' BUTTON TO SAVE YOUR HIGHLIGHTED QUOTES. When you are finished, go back to your story project and select the 'Outline' tab.";
+      var text = "This is the content of your note. You can highlight portions of this note to include in your outline. To highlight, tap the first word and last word of the selection of text you wish to copy. (Don't drag your finger across the note or press and hold a single word; just tap the first and last words.) Repeat this process as much as you want. When you are finished, hit the 'Save' button below. Go back to your project and select the 'Outline' tab to see your newly highlighted selections.";
       $scope.sourceText = $scope.parseSourceText(text);
     } 
 

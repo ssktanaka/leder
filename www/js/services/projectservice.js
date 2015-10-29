@@ -71,7 +71,7 @@ ledermodule.service('ProjectService', function($q) {
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "by tapping 'Add Source Notes' above.",
+                        title: "by tapping 'Add Notes' above.",
                         guid: "SAMPLENOTE"
                     },
                     {
@@ -85,28 +85,28 @@ ledermodule.service('ProjectService', function($q) {
           ],
           quotes: [
                     {
-                        source: "Nice job! All of your previously highlighted quotes should be copied in here.",
-                        text: "If you don't see any of your selections, go back to the previous page and choose a sample note to highlight. Don't forget to 'Save' your highlighted quotes!",
+                        source: "Nice job! All of your previously highlighted selections should be copied in here.",
+                        text: "If you don't see any of your selections, go back to the previous page and choose a sample note to highlight. Don't forget to 'Save' your selections!",
                         flagged: false
                     },
                     {
-                        source: "Step 1: Rearrange Your Quotes",
+                        source: "Step 1: Rearrange Your Selections",
                         text: "Rearranging quotes by touching the three-bar icon on the right and dragging the quote to the appropriate spot.",
                         flagged: false
                     },
                     {
-                        source: "Step 2: Customize Your Quotes",
-                        text: "Press and hold the three-bar icon to bring up options, like flagging a quote, renaming the title, and copying the text.",
+                        source: "Step 2: Customize Your Selections",
+                        text: "Press and hold the three-bar icon to bring up options, like flagging text, renaming the title, and copying the text.",
                         flagged: false
                     },
                     {
-                        source: "Step 3: Delete Quotes",
-                        text: "Delete a quote from the outline by hitting the 'Edit' button below. Press 'Done' to return to the default view.",
+                        source: "Step 3: Delete Selections",
+                        text: "Delete a selection from the outline by hitting the 'Edit' button below. Press 'Done' to return to the default view.",
                         flagged: false
                     },
                     {
-                        source: "Step 4: Add a Custom Quote",
-                        text: "Add your own quote by touching the compose icon above.",
+                        source: "Step 4: Add Custom Text",
+                        text: "Add your own text by touching the compose icon above.",
                         flagged: false
                     },
                     {

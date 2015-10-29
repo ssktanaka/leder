@@ -67,7 +67,7 @@ angular.module('leder.outlineController', [])
     $scope.saveProject(highlightedWords);
 
     EvernoteOAuth.exportNote(highlightedWords, $scope.project.title, function(err, result) {
-      if (err && ($scope.project.title == "Hi, I'm A Story Project")) {
+      if ($scope.project.title == "Hi, I'm A Project") {
         $scope.showTutorialCompleted();
       } else if (err) {
         $scope.showExportFail();
@@ -99,8 +99,8 @@ angular.module('leder.outlineController', [])
 
   $scope.showTutorialCompleted = function() {
      var alertPopup = $ionicPopup.alert({
-       title: "Nice Job!",
-       template: 'At this point, normally your outline would be exported to your Evernote account, but alas, this is just a tutorial—and you aced it. Hopefully you feel a bit more comfortable with Leder. Now go create your own story project!'
+       title: "Way to Go!",
+       template: 'Usually at this point, your outline would be exported to Evernote, but alas, this is just a tutorial—and you aced it. Hopefully you feel a bit more comfortable with Leder. Now go create and edit your own project!'
        });
        alertPopup.then(function(res) {
           $state.go('app.projects');
@@ -124,7 +124,7 @@ angular.module('leder.outlineController', [])
 
     var listPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="data.customSource" placeholder="Note to Self"></br><input type="text" ng-model="data.customQuote" autofocus>',
-      title: 'Add a Custom Quote',
+      title: 'Add Custom Text',
       subTitle: 'Whatever you write will be added to the outline.',
       scope: $scope,
       buttons: [
@@ -158,7 +158,7 @@ angular.module('leder.outlineController', [])
          { text: 'Rename' },
          { text: 'Copy Text'},
        ],
-       titleText: 'Quote Titled "' + item.source + '"',
+       titleText: 'Selection Titled "' + item.source + '"',
        cancelText: 'Cancel',
        cancel: function() {
             // add cancel code..
@@ -191,7 +191,7 @@ angular.module('leder.outlineController', [])
 
       var renamePopup = $ionicPopup.show({
         template: '<input type="text" ng-model="data.customQuote" autofocus>',
-        title: 'Rename Quote Title',
+        title: 'Rename Selection Title',
         subTitle: 'Write a new title to replace "' + item.source + '."',
         scope: $scope,
         buttons: [

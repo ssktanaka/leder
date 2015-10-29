@@ -23,11 +23,8 @@ angular.module('leder.projectPageController', [])
 
   	//check if loggedin
   	if (EvernoteOAuth.checkLogin()){
-      //get project ID and set in url
-      if ($scope.sourceNoteModal._isShown != true) {
-         //open source note modal
-        $scope.sourceNoteModal.show();     
-      }
+       //open source note modal
+      $scope.sourceNoteModal.show();     
 
       EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
         if (error) {
