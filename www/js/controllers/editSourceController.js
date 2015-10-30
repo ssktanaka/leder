@@ -32,7 +32,7 @@ angular.module('leder.editSourceController', [])
 
     //check for sample project
     if ($stateParams.noteguid == "SAMPLENOTE") {
-      var text = "This is the content of your note. You can highlight portions of this note to include in your outline. To highlight, tap the first word and last word of the selection of text you wish to copy. (Don't drag your finger across the note or press and hold a single word; just tap the first and last words.) Repeat this process as much as you want. When you are finished, hit the 'Save' button below. Go back to your project and select the 'Outline' tab to see your newly highlighted selections.";
+      var text = "This is the content of your note. You can highlight portions of this note to include as quotes in your outline. To highlight, tap the first word and last word of the selection of text you wish to copy. (Don't drag your finger across the note or press and hold a single word; just tap the first and last words.) Tap any highlighted word to remove the markup. Repeat this process as much as you want. When you are finished, hit the 'Save' button below. Go back to your project and select the 'Outline' tab to see your newly highlighted quote.";
       $scope.sourceText = $scope.parseSourceText(text);
     } 
 

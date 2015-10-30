@@ -124,7 +124,7 @@ angular.module('leder.outlineController', [])
 
     var listPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="data.customSource" placeholder="Note to Self"></br><input type="text" ng-model="data.customQuote" autofocus>',
-      title: 'Add Custom Text',
+      title: 'Add a Custom Quote',
       subTitle: 'Whatever you write will be added to the outline.',
       scope: $scope,
       buttons: [
@@ -155,10 +155,10 @@ angular.module('leder.outlineController', [])
      var hideSheet = $ionicActionSheet.show({
        buttons: [
          { text: '<i class="ion-flag royal"></i>' },
-         { text: 'Rename' },
+         { text: 'Rename Quote Title' },
          { text: 'Copy Text'},
        ],
-       titleText: 'Selection Titled "' + item.source + '"',
+       titleText: 'Quote Titled "' + item.source + '"',
        cancelText: 'Cancel',
        cancel: function() {
             // add cancel code..

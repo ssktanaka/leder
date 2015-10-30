@@ -22,8 +22,12 @@
         {{project.title}}
 
         <span class="item-note">
-          {{project.dateLastModified | date: 'shortTime'}} {{project.dateLastModified | date: 'shortDate'}} 
+          {{project.dateLastModified | date: 'shortTime'}} {{project.dateLastModified | date: 'shortDate'}} </br>
+          {{project.notes.length}} notes | {{project.quotes.length}} quotes
+     
         </span>
+    
+        
 
         <ion-option-button class="ion-minus-circled" ng-click="deleteProject(project)">
           Delete

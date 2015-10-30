@@ -85,7 +85,6 @@ angular.module('leder.projectController', [])
       $localstorage.set('didTutorial', false);
       $state.go('app.intro');
       ProjectService.addFirstProject("Hi, I'm A Project");
-
     };
 	
 })

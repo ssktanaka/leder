@@ -63,46 +63,46 @@ ledermodule.service('ProjectService', function($q) {
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "(Usually, a note is a copy",
+                        title: "(Usually, notes are copies",
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "of one of your Evernote notes.",
+                        title: "of your Evernote notes.",
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "You can import more notes",
+                        title: "You can import more",
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "by tapping 'Add Notes' above.)",
+                        title: "by tapping 'Add Notes')",
                         guid: "SAMPLENOTE"
                     }
           ],
           quotes: [
                     {
-                        source: "Nice job! All of your previously highlighted selections should be copied in here.",
-                        text: "If you don't see any of your selections, go back to the previous page and choose a sample note to highlight. Don't forget to 'Save' your selections!",
+                        source: "Nice job! All of your previously highlighted quotes should be in here.",
+                        text: "If you don't see any of your quotes, go back to the previous page and choose a sample note to highlight. Don't forget to 'Save' your quotes!",
                         flagged: false
                     },
                     {
-                        source: "Step 1: Rearrange Your Selections",
-                        text: "Touch the three-bar icon on the right and drag the item to the appropriate spot.",
+                        source: "Step 1: Rearrange Your Quotes",
+                        text: "Touch the three-bar icon on the right and drag the quote to the appropriate spot.",
                         flagged: false
                     },
                     {
-                        source: "Step 2: Customize Your Selections",
-                        text: "Touch and hold the three-bar icon to bring up options, like flagging text, renaming the title, and copying the text.",
+                        source: "Step 2: Customize Your Quotes",
+                        text: "Touch and hold the three-bar icon to bring up options, like flagging the quote, renaming the title, and copying the text.",
                         flagged: false
                     },
                     {
-                        source: "Step 3: Delete Selections",
-                        text: "Delete a selection from the outline by hitting the 'Edit' button below. Press 'Done' to return to the default view.",
+                        source: "Step 3: Delete Quotes",
+                        text: "Delete a quote from the outline by hitting the 'Edit' button below. Press 'Done' to return to the default view.",
                         flagged: false
                     },
                     {
-                        source: "Step 4: Add Custom Text",
-                        text: "Add your own text by touching the compose icon above.",
+                        source: "Step 4: Add a Custom Quote",
+                        text: "Add your own quote by touching the compose icon above.",
                         flagged: false
                     },
                     {
