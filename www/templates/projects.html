@@ -23,7 +23,12 @@
 
         <span class="item-note">
           {{project.dateLastModified | date: 'shortTime'}} {{project.dateLastModified | date: 'shortDate'}} </br>
-          {{project.notes.length}} notes | {{project.quotes.length}} quotes
+          {{project.notes.length}} 
+          <span ng-if="project.notes.length == 1">note</span>
+          <span ng-if="project.notes.length != 1">notes</span>
+          | {{project.quotes.length}} 
+          <span ng-if="project.quotes.length == 1">quote</span>
+          <span ng-if="project.quotes.length != 1">quotes</span>
      
         </span>
     
