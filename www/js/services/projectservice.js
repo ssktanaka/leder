@@ -55,11 +55,15 @@ ledermodule.service('ProjectService', function($q) {
           dateLastModified: new Date(),
           notes: [
                     {
-                        title: "I'm a note.",
+                        title: "These are notes.",
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "Usually, a note is a copy",
+                        title: "Tap a note to get started.",
+                        guid: "SAMPLENOTE"
+                    },
+                    {
+                        title: "(Usually, a note is a copy",
                         guid: "SAMPLENOTE"
                     },
                     {
@@ -71,15 +75,7 @@ ledermodule.service('ProjectService', function($q) {
                         guid: "SAMPLENOTE"
                     },
                     {
-                        title: "by tapping 'Add Notes' above.",
-                        guid: "SAMPLENOTE"
-                    },
-                    {
-                        title: "But for now, tap one of these sample notes",
-                        guid: "SAMPLENOTE"
-                    },
-                    {
-                        title: "to get started.",
+                        title: "by tapping 'Add Notes' above.)",
                         guid: "SAMPLENOTE"
                     }
           ],
@@ -91,12 +87,12 @@ ledermodule.service('ProjectService', function($q) {
                     },
                     {
                         source: "Step 1: Rearrange Your Selections",
-                        text: "Rearranging quotes by touching the three-bar icon on the right and dragging the quote to the appropriate spot.",
+                        text: "Touch the three-bar icon on the right and drag the item to the appropriate spot.",
                         flagged: false
                     },
                     {
                         source: "Step 2: Customize Your Selections",
-                        text: "Press and hold the three-bar icon to bring up options, like flagging text, renaming the title, and copying the text.",
+                        text: "Touch and hold the three-bar icon to bring up options, like flagging text, renaming the title, and copying the text.",
                         flagged: false
                     },
                     {
