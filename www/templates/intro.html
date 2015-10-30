@@ -1,9 +1,11 @@
 <ion-view view-title="Intro to Leder" hide-nav-bar="true" >
-  
+
   <ion-content>
 	<ion-slide-box >
 		<!-- Slide page one -->
-    <ion-slide>
+
+ 
+      <ion-slide>
           <img style="width: 100%" src="img/onboard1.png">
       </ion-slide>
 
@@ -27,6 +29,15 @@
       </ion-slide>
 
       <ion-slide>
+          <img style="width:60%" src="img/onboard6.png">
+          <p class="large-text stable" style="line-height:1.3em; padding: 30px 30px;">Connect to Evernote so you can copy and highlight your notes.</p>
+          <div class="button-bar" >
+        <a class="button button-full button-positive" on-touch="accessEvernote()">Access Evernote</a>
+        <a class="button button-full button-outline button-stable" on-touch="startApp()">Not Now</a>
+        </div>
+      </ion-slide>
+
+  <!--     <ion-slide>
         <h2>Import notes</h2>
         <p>
          Create story projects and import your notes. 
@@ -37,18 +48,14 @@
       </ion-slide>
 
   
-  		<!-- Slide page three -->
-  		<ion-slide>
+  		< Slide page three -->
+<!--   		<ion-slide>
     		<h2>you'll need to connect to evernote!</h2>
     		<p>
      		 Connect...
     		</p>
-	        <div class="button-bar" >
-		    <a class="button button-outline button-positive">Access Evernote</a>
-		    <a class="button button-outline" href="#/app/projects/{{project._id}}/projectpage/outline">Not Now</a>
-		  </div>
 
-  		</ion-slide>
+  		</ion-slide>  -->
   <!-- More slides here... -->
 	</ion-slide-box>
 
@@ -56,8 +63,6 @@
 
   	</ion-content>
 
-<!-- 	<ion-footer-bar class="bar-dark">
-	</ion-footer-bar> -->
 
 </ion-view>
 

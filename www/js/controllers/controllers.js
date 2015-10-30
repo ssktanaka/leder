@@ -35,6 +35,13 @@ angular.module('leder.controllers', [])
   // Perform the login action when the user submits the login form
   $scope.accessEvernote = function() {
     EvernoteOAuth.loginWithEvernote();
+    if ($state.current.name = 'app.intro') {
+      console.log("working")
+      $timeout(function() {
+           $state.go('app.projects'); //go to projects after a second
+        }, 1500);
+    };
+
   };
 
   $scope.logoutEvernote = function() {
