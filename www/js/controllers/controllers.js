@@ -12,7 +12,7 @@ angular.module('leder.controllers', [])
     $scope.modal = modal;
   });
 
-  // Triggered in the login modal to close it
+  // Close modal
   $scope.closeLogin = function() {
     $scope.modal.hide();
   };
