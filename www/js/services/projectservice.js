@@ -56,27 +56,21 @@ ledermodule.service('ProjectService', function($q) {
           notes: [
                     {
                         title: "These are notes.",
-                        guid: "SAMPLENOTE"
                     },
                     {
                         title: "Tap a note to get started.",
-                        guid: "SAMPLENOTE"
                     },
                     {
                         title: "(Usually, notes are copies",
-                        guid: "SAMPLENOTE"
                     },
                     {
                         title: "of your Evernote notes.",
-                        guid: "SAMPLENOTE"
                     },
                     {
                         title: "You can import more",
-                        guid: "SAMPLENOTE"
                     },
                     {
                         title: "by tapping 'Add Notes')",
-                        guid: "SAMPLENOTE"
                     }
           ],
           quotes: [
