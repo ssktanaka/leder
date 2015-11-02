@@ -2,9 +2,6 @@ angular.module('leder.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, ProjectService, $ionicPopup, $timeout, $localstorage, $state) {
 
-  // Form data for the login modal
-  $scope.loginData = {};
-
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
