@@ -120,7 +120,6 @@ ledermodule.service('ProjectService', function($q) {
         .then(function(doc) {
             doc.notes = noteArray;
             //update last date modified
-            console.log(doc);
             doc.dateLastModified = new Date();
             return _db.put(doc);
         }).then(function(response) {
