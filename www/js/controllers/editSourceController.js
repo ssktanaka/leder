@@ -7,7 +7,6 @@ angular.module('leder.editSourceController', [])
 
     link : function(scope, elem, attrs) {
       $ionicGesture.on('tap', scope.onTouch, elem);
-      $ionicGesture.on('swiperight', scope.onSwipeRight, elem);
     }
   }
 })
@@ -76,19 +75,6 @@ angular.module('leder.editSourceController', [])
     
     return $scope.words;
   };
-
-
-//array holding paragraph breaks
-$scope.paragraphBreaks = [];
-
-
-//set up Swipe Right to paragraph break
-$scope.onSwipeRight = function swipingRight(event) {
-  if (event.target.nodeName == "SPAN"){
-      event.target.innerHTML = "<br/><br/>" + event.target.innerHTML;
-   } 
-}
-
 
 //HIGHLIGHTING FUNCTIONS
 

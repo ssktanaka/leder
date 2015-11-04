@@ -5,7 +5,7 @@
     </ion-spinner>
 
     <div class="small-padding">
-      <div detect-gestures gesture-type="tap swiperight">
+      <div detect-gestures gesture-type="tap">
         <span ng-attr-id="{{word.id}}" ng-repeat="word in words track by $index" ng-class="{'overlay': word.isFirstWord, 'previouslyHighlighted': word.wasHighlighted, 'highlighted': word.isHighlighted, 'normal-text': !largeText, 'large-text': largeText}"> {{word.text}}
         </span>
       </div>
