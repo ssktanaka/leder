@@ -151,7 +151,6 @@ angular.module('leder.outlineController', [])
 
   $scope.showActionSheet = function(item) {
      // Show the action sheet
-     $scope.markup = "lala";
      var hideSheet = $ionicActionSheet.show({
        buttons: [
          { text: '<i class="ion-flag royal"></i>' },
@@ -181,9 +180,13 @@ angular.module('leder.outlineController', [])
           };
           //update database
           $scope.saveProject($scope.highlightedWords);
+
+          //reset copy
+
           return true;
        }
      });
+
   };
 
   $scope.renameQuote = function(item) {
@@ -220,7 +223,7 @@ angular.module('leder.outlineController', [])
 
   $scope.copyText = function(value) {
       $cordovaClipboard.copy(value).then(function() {
-          console.log("Copied text");
+          //copied
       }, function() {
           console.error("There was an error copying");
       });

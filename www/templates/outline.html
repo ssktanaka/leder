@@ -7,12 +7,12 @@
 
 
 	<ion-content>
+
 		<h4 ng-class="{'ng-show':outlineBlankState, 'ng-hide': !outlineBlankState}" class="text-center blank-state">
 			<dfn>I love deadlines. I like the whooshing sound they make as they fly by.
 			</br>
 			—Douglas Adams</dfn>
 		</h4>
-
 
 	  	<ion-list 
 		      show-delete="shouldShowDelete"
@@ -26,6 +26,8 @@
 	              class="item-remove-animate item-text-wrap"
 	              style="padding-right: 1.7em;"
 	              >
+
+
 
 		    	<h3><i ng-class="{'ng-show':quoteObject.flagged, 'ng-hide': !quoteObject.flagged}"class="ion-flag royal">&nbsp;&nbsp;</i>{{quoteObject.source}} </h3>
 		    	<p>{{quoteObject.text}} </p>
@@ -44,10 +46,6 @@
 		</ion-list>
 
 	    <button ng-class="{'ng-show':!outlineBlankState, 'ng-hide': outlineBlankState}" class="button button-clear button-full button-positive" on-touch="showDelete()">{{quoteText}}</button>
-
-
-
-   </ion-content>
 
 
 </ion-view>

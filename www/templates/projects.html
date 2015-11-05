@@ -15,6 +15,7 @@
 	  </button>
     <ion-list>
 
+
       <ion-item 
         ng-repeat="project in projects | orderBy : '-dateLastModified'" 
         href="#/app/projects/{{project._id}}/projectpage">
