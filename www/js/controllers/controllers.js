@@ -2,7 +2,7 @@ angular.module('leder.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $stateParams, EvernoteOAuth, ProjectService, $ionicPopup, $timeout, $localstorage, $state) {
 
-  // Create the login modal that we will use later
+  // Create the login Evernote modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
@@ -20,25 +20,23 @@ angular.module('leder.controllers', [])
   };
 
   $scope.determineText = function(){
-      if (EvernoteOAuth.checkLogin()){
-        $scope.loggedIn = true;
-        $scope.evernoteStatus = "You are connected to Evernote.";
-      } else {
-        $scope.loggedIn = false;
-        $scope.evernoteStatus = "You are not connected to Evernote.";
-      }
+    if (EvernoteOAuth.checkLogin()){
+      $scope.loggedIn = true;
+      $scope.evernoteStatus = "You are connected to Evernote.";
+    } else {
+      $scope.loggedIn = false;
+      $scope.evernoteStatus = "You are not connected to Evernote.";
+    }
   };
 
-  // Perform the login action when the user submits the login form
+  // Perform the login action when the user submits the  form
   $scope.accessEvernote = function() {
     EvernoteOAuth.loginWithEvernote();
-    if ($state.current.name = 'app.intro') {
-      console.log("working")
+    if ($state.current.name == 'app.intro') {
       $timeout(function() {
-           $state.go('app.projects'); //go to projects after a second
+           $state.go('app.projects'); //go to projects after a second and a half
         }, 1500);
     };
-
   };
 
   $scope.logoutEvernote = function() {
@@ -79,8 +77,6 @@ angular.module('leder.controllers', [])
       $scope.largeText = false;
     };
   };
-
-
 
 })
 

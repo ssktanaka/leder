@@ -9,7 +9,6 @@ angular.module('leder.projectPageController', [])
   ProjectService.getProject($stateParams.ProjectId).then(function(project) {
     $scope.project = project;
 
-    
     //see if you should remind user to add source notes or not! empty state
     if ($scope.project.notes.length > 0){
       $scope.sourceNotesReminder = false;
@@ -28,11 +27,10 @@ angular.module('leder.projectPageController', [])
 
       EvernoteOAuth.getAllNoteTitles(function(error, notetitles) {
         if (error) {
-          console.log("something's wrong");
+          console.log(error);
         } else {
           $scope.sourceNotes = notetitles;
           if (!$scope.sourceNotes) {
-            console.log("something is definitely wrong");
             $scope.loadingError = true;
           }
 
@@ -145,14 +143,11 @@ angular.module('leder.projectPageController', [])
    });
    confirmPopup.then(function(res) {
      if(res) {
-       console.log('You are sure');
       $scope.accessEvernote();
      } else {
-       console.log('You are not sure');
+       console.log('Access denied');
      }
    });
  };
-
-
 
 })

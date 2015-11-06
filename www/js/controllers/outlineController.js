@@ -55,7 +55,6 @@ angular.module('leder.outlineController', [])
 
   $scope.saveProject = function(highlightedWords) {
     //update project object with new array
-    console.log("updating...");
     ProjectService.updateProjectObjectWithQuotes($stateParams.ProjectId, $stateParams.noteguid, highlightedWords).then(function(project) {
       //check if blank state should be included
       $scope.checkBlankState();

@@ -41,14 +41,7 @@ ledermodule.service('ProjectService', function($q) {
 		});
     };
 
-    //create sample notes!
-    //I'm a note!
-    //I'm a note, too.
-    //Here you can import notes from your Evernote account
-    //You can edit each note by selecting it
-    //For now, click on any of these sample notes to try it out. 
     function addFirstProject(project) {
-
         _db.post({
           title: project,
           dateCreated: new Date(),
@@ -123,7 +116,6 @@ ledermodule.service('ProjectService', function($q) {
             doc.dateLastModified = new Date();
             return _db.put(doc);
         }).then(function(response) {
-          console.log("NoteArray has been updated!");
           return _db.get(projectID);
         }).catch(function (err) {
           console.log(err);
@@ -147,7 +139,6 @@ ledermodule.service('ProjectService', function($q) {
             }
             return _db.put(doc);
         }).then(function(response) {
-          console.log("quoteArray has been updated!");
           return _db.get(projectid);
         }).catch(function (err) {
           console.log(err);
@@ -160,14 +151,10 @@ ledermodule.service('ProjectService', function($q) {
     };
 
     function getAllProjects() {
-
         if (!_projects) {
             return $q.when(_db.allDocs({ include_docs: true}))
                       .then(function(docs) {
 
-                        // Each row has a .doc object and we just want to send an 
-                        // array of birthday objects back to the calling controller,
-                        // so let's map the array to contain just the .doc objects.
                         _projects = docs.rows.map(function(row) {
                             // Dates are not automatically converted from a string.
                             row.doc.Date = new Date(row.doc.Date);
@@ -217,7 +204,6 @@ ledermodule.service('ProjectService', function($q) {
       }
       return low;
     }
-
 
 
 });

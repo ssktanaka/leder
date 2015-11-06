@@ -18,11 +18,8 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             }
             else if(y[0] === 'oauth_token_secret') {
                 this.oauth_token_secret = y[1];
-
+                //setting secret token
                 $localstorage.set('oauth_token_secret', y[1]);
-                console.log("GET SECRET TOKEN");
-                console.log($localstorage.get('oauth_token_secret'));
-
             }
             else if(y[0] === 'oauth_callback_confirmed') {
                 isCallBackConfirmed = true;
@@ -39,7 +36,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
                 function(event) {
                     var loc = event.url;
                     
-                    // if we have been redirected back to our own callback url
+           // if we have been redirected back to our own callback url
 					if (loc.indexOf(internalCallback) >= 0) {
                        	var index, verifier = '';
                         var got_oauth = '';
@@ -60,8 +57,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 	                    oauth.setVerifier(verifier);
 
                       oauth.setAccessToken([got_oauth, $localstorage.get('oauth_token_secret')]);
-
-	                    // oauth.setAccessToken([got_oauth, localStorage.getItem("oauth_token_secret")]);
 	 
 	                    var getData = {'oauth_verifier':verifier};
 	                    ref.close();
@@ -75,7 +70,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             );
         } else {
 
-            // Step 4 : Get the final token
+      // Step 4 : Get the final token
 			var getQueryParams = function(queryParams) {
 				var i, query_array,
 			    query_array_length, key_value, decode = OAuth.urlDecode,querystring = {};
@@ -93,12 +88,9 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 			}
 
 
-	        var querystring = getQueryParams(data.text);
+	          var querystring = getQueryParams(data.text);
+            //setting query string
             $localstorage.setObject("querystring", querystring);
-            console.log("querystring");
-            console.log($localstorage.getObject('querystring'));
-             // authtokenevernote = S=s1:U=90553:E=155a472a89b:C=14e4cc17a28:P=185:A=ssktanaka-8134:V=2:H=49da0dfacc9a2491eec0c0c3b69c2f38
-            //querystring = {"oauth_token":"S=s1:U=90553:E=155b6887ef9:C=14e5ed75070:P=185:A=ssktanaka-8134:V=2:H=b48d8ce04303a3ac9e6086077c142dc3","oauth_token_secret":"","edam_shard":"s1","edam_userId":"591187","edam_expires":"1467646246649","edam_noteStoreUrl":"https://sandbox.evernote.com/shard/s1/notestore","edam_webApiUrlPrefix":"https://sandbox.evernote.com/shard/s1/"}
             var noteStoreURL = querystring.edam_noteStoreUrl;
             var noteStoreTransport = new Thrift.BinaryHttpTransport(noteStoreURL);
             var noteStoreProtocol = new Thrift.BinaryProtocol(noteStoreTransport);
@@ -106,13 +98,9 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             var authTokenEvernote = querystring.oauth_token; 
 
             $localstorage.set("authTokenEvernote", authTokenEvernote);
-            console.log("authToken");
-            console.log($localstorage.get('authTokenEvernote'));
-
              //list notebooks to test
 	        noteStore.listNotebooks($localstorage.get('authTokenEvernote'), function (notebooks) {
                 console.log('success!');
-                console.log(notebooks);
                 return true;   
             },
          	    function onerror(error) {
@@ -132,10 +120,8 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 	return {	
 
       initializeNoteStore: function() {
-        //normally, use localstorage to get querystring
+        //get querystring
         var querystring = $localstorage.getObject('querystring');
-        // var querystring = {"oauth_token":"S=s1:U=90553:E=155b6887ef9:C=14e5ed75070:P=185:A=ssktanaka-8134:V=2:H=b48d8ce04303a3ac9e6086077c142dc3","oauth_token_secret":"","edam_shard":"s1","edam_userId":"591187","edam_expires":"1467646246649","edam_noteStoreUrl":"https://sandbox.evernote.com/shard/s1/notestore","edam_webApiUrlPrefix":"https://sandbox.evernote.com/shard/s1/"};
-        // var querystring = {"oauth_token":"S=s204:U=17be0a2:E=1575623d70f:C=14ffe72a778:P=185:A=ssktanaka-8134:V=2:H=91a259db75b7ac92374a0509bc755a14","oauth_token_secret":"","edam_shard":"s1","edam_userId":"591187","edam_expires":"1467646246649","edam_noteStoreUrl":"https://www.evernote.com/shard/s1/notestore","edam_webApiUrlPrefix":"https://www.evernote.com/shard/s1/"};
      
         //initializing notestore...
         var noteStoreURL = querystring.edam_noteStoreUrl;
@@ -146,8 +132,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         //save notestore
         this.noteStore = noteStore;
 
-         //normally, use localstorage to get auth token
-        // var authToken = "S=s204:U=17be0a2:E=1575623d70f:C=14ffe72a778:P=185:A=ssktanaka-8134:V=2:H=91a259db75b7ac92374a0509bc755a14";
+        //get auth token
         var authToken = $localstorage.get('authTokenEvernote');
         this.authToken = authToken;
 
@@ -176,7 +161,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
 
     getAllNoteTitles: function(callback) {
 
-        console.log("Getting all note titles...");
         //save a reference to self
         var self = this;
         var noteTitleArray = [];
@@ -199,12 +183,10 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         //filter to first 100 notes
         self.noteStore.findNotesMetadata(self.authToken, filter, 0, 100, resultSpec, function (noteMetadata, error) {
             if (error) {
-                console.log("we have an error");
                 callback(error);
             }
             else {
-            //log the number of notes found in the default notebook
-                console.log("successful note gathering");
+                //log the number of notes found in the default notebook
                 callback(null, noteMetadata.notes);
             }
         });  
@@ -239,13 +221,10 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             callback(null, notebooks);
         },
             function onerror(error) {
-            console.log(error);
             callback(error);
         });
 
       },
-
-      
 
       getNotebookGUIDS: function (notebooksArray){
         var notebookGUIDSarray = [];
@@ -264,7 +243,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             };
         });
 
-      
         return noteGUIDarray;
       },
 
@@ -344,11 +322,6 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
             return false;
         }
       },
-
-      // getAuthTokenTESTING: function() {
-      //   // var authToken = "S=s1:U=90553:E=155a48b6862:C=14e4cda3a18:P=185:A=ssktanaka-8134:V=2:H=5764ef25dfbf6f3ee15636e48512c685";
-      //   return authToken; 
-      // },
 
   	  loginWithEvernote: function() {
   	    options = {

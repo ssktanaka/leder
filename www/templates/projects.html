@@ -15,7 +15,6 @@
 	  </button>
     <ion-list>
 
-
       <ion-item 
         ng-repeat="project in projects | orderBy : '-dateLastModified'" 
         href="#/app/projects/{{project._id}}/projectpage">
@@ -32,8 +31,6 @@
           <span ng-if="project.quotes.length != 1">quotes</span>
      
         </span>
-    
-        
 
         <ion-option-button class="ion-minus-circled" ng-click="deleteProject(project)">
           Delete
@@ -43,12 +40,10 @@
 
     </ion-list>
 
-
   </ion-content>
 
-        <ion-footer-bar class="bar-dark">
-
-        </ion-footer-bar>
+  <ion-footer-bar class="bar-dark">
+  </ion-footer-bar>
 
 </ion-view>
 

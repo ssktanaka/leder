@@ -7,7 +7,6 @@ ledermodule.service('Quotes', function() {
 	var highlightedWords = [];
 	var quoteArray = [];
 	var scopeWords = [];
-	// var noteTitle = "";
 
 	return {
 
@@ -49,7 +48,6 @@ ledermodule.service('Quotes', function() {
 	    		object.text = newQuoteTemp.join(" ");
 	    		currentProject.quotes.push(object);
 	    	}
-	    	console.log(currentProject.quotes);
 	    	return currentProject.quotes;
 	    },
 
