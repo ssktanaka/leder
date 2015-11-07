@@ -29,7 +29,7 @@ angular.module('leder.controllers', [])
     }
   };
 
-  // Perform the login action when the user submits the  form
+  // Perform login
   $scope.accessEvernote = function() {
     EvernoteOAuth.loginWithEvernote();
     if ($state.current.name == 'app.intro') {
