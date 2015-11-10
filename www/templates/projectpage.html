@@ -5,17 +5,28 @@
 	    <a class="button button-positive">Notes</a>
 	    <a class="button button-outline button-positive" href="#/app/projects/{{project._id}}/projectpage/outline">Outline</a>
 	  </div>
-    
+<!--     <a class="button button-block button-outline button-positive slight-padding" href="#/app/projects/{{project._id}}/projectpage/outline">
+      Go to Outline
+    </a> -->  
+
     <h4 ng-class="{'ng-show':sourceNotesReminder, 'ng-hide': !sourceNotesReminder}" class="text-center blank-state"><dfn>
     You know what you're missing?</br> Notes. Lots and lots of notes.
     </dfn>
     </h4>
-    
+
+
     <button class="button button-clear button-full button-positive" on-touch="checkLogin()">
       Add Notes
     </button>
 
+
   	<ion-list>
+<!-- 
+      <div class="item item-divider" ng-show="project.notes.length">
+        Your Notes
+      </div>
+ -->
+
   	  <ion-item 
         ng-repeat="note in project.notes | orderBy : '-updated'" 
         href="#/app/projects/{{project._id}}/projectpage/{{note.guid}}/{{note.title}}/editsource" >

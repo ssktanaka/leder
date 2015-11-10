@@ -68,6 +68,11 @@
 	margin: 0em 1.1em 0em 1.1em;
 }
 
+.slight-padding {
+	margin: 0px 12px;
+}
+
+
 .slider { 
 	height: 100%; 
 	text-align: center; 
