@@ -82,3 +82,13 @@
 .scroll { 
 	height: 100% 
 }
+
+.fixed-text {
+	left:0px;
+    bottom:0px;
+    width:100%;
+	height: auto;
+	padding: 2% 0;
+   	position: fixed;
+	text-align: center;
+}
