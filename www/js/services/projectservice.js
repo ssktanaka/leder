@@ -74,12 +74,12 @@ ledermodule.service('ProjectService', function($q) {
                     },
                     {
                         source: "Step 1: Rearrange Your Quotes",
-                        text: "Touch the three-bar icon on the right and drag the quote to the appropriate spot.",
+                        text: "Touch the icon on the right and drag the quote to the appropriate spot.",
                         flagged: false
                     },
                     {
                         source: "Step 2: Customize Your Quotes",
-                        text: "Touch and hold the three-bar icon to bring up options, like flagging the quote, renaming the title, and copying the text.",
+                        text: "Touch and hold the icon on the right to bring up options, like flagging the quote, renaming the title, and copying the text.",
                         flagged: false
                     },
                     {
