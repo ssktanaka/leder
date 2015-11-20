@@ -5,7 +5,7 @@
      	 	<button class="button button-clear button-light"  on-touch="closeSettings()">Done</button>
     	</div>
 	</ion-header-bar>
-	<ion-content scroll="false"> 	  
+	<ion-content class="tan-background"> 	  
 		<div class="list">
 			<div class="item item-divider"></div>
 
@@ -23,6 +23,7 @@
 			    </br>
 				<p class="small">Support</p>
 			</div>
+
         	<a class="item" href="#" on-touch="toIntro();">
                 Rerun Introduction
             </a>
@@ -52,15 +53,7 @@
 			<button ng-class="{'ng-show':loggedIn, 'ng-hide': !loggedIn}" class="button button-clear button-full button-assertive" on-touch="logoutEvernote();">
 			  Disconnect Leder from Evernote
 			</button>
-
-
-			<div class="item item-divider">
-			</br>
-			<p class="fixed-text">Copyright © Leder App | Sanette Tanaka 2015</p>
-			</br></br></br></br></br></br></br></br></br></br></br>
-			</div>
-
 		</div>
-
+		<p class="fixed-text">Copyright © Leder App | Sanette Tanaka 2015</p>
 	</ion-content>
 </ion-modal-view>
