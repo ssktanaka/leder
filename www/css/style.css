@@ -116,6 +116,9 @@
 	#onboard1_750 { display: none; }
 	#onboard1_1242 { display: block; }
 
+	#onboard2_320 { display: none; }
+	#onboard2 { display: block; }
+
 	#onboard6 { width: 50%; }
 
 }
@@ -129,7 +132,19 @@
 	#onboard1_750 { display: block; }
 	#onboard1_1242 { display: none; }
 
-	#onboard6 { width: 50%; }
+	#onboard2_320 { display: none; }
+	#onboard2 { display: block; }
+
+	#onboard3_320 { display: none; }
+	#onboard3 { display: block; }
+
+	#onboard4_320 { display: none; }
+	#onboard4 { display: block; }
+
+	#onboard5_320 { display: none; }
+	#onboard5 { display: block; }
+
+	#onboard6 { width: 50%; padding-top: 2em;}	
 }
 
 
@@ -140,7 +155,19 @@
 	#onboard1_750 { display: none; }
 	#onboard1_1242 { display: none; }
 
-	#onboard6 { width: 40%; }
+	#onboard2_320 { display: none; }
+	#onboard2 { display: block; }
+
+	#onboard3_320 { display: none; }
+	#onboard3 { display: block; }
+
+	#onboard4_320 { display: none; }
+	#onboard4 { display: block; }
+
+	#onboard5_320 { display: none; }
+	#onboard5 { display: block; }
+
+	#onboard6 { width: 40%; padding-top: 2em;}	
 }
 
 
@@ -153,7 +180,20 @@
 	#onboard1_750 { display: none; }
 	#onboard1_1242 { display: none; }
 
-	#onboard6 { width: 25%; }	
+	#onboard2_320 { display: block; }
+	#onboard2 { display: none; }
+
+	#onboard3_320 { display: block; }
+	#onboard3 { display: none; }
+
+	#onboard4_320 { display: block; }
+	#onboard4 { display: none; }
+
+	#onboard5_320 { display: block; }
+	#onboard5 { display: none; }
+
+
+	#onboard6 { width: 25%; padding-top: 2em;}	
 
 }
 
