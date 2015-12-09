@@ -1,6 +1,7 @@
 angular.module('ionic.utils', [])
 
 .factory('$localstorage', ['$window', function($window) {
+  //set up local storage functions
   return {
     set: function(key, value) {
       $window.localStorage[key] = value;
