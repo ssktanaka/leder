@@ -17,11 +17,13 @@ angular.module('leder.projectPageController', [])
     };
   });
 
+
   $scope.checkLogin = function() {
     $scope.loadingError = false;
 
-  	//check if loggedin
-  	if (EvernoteOAuth.checkLogin()){
+
+    //check if loggedin
+    if (EvernoteOAuth.checkLogin()){
        //open source note modal
       $scope.sourceNoteModal.show();     
 
@@ -29,6 +31,7 @@ angular.module('leder.projectPageController', [])
         if (error) {
           console.log(error);
         } else {
+          console.log("success");
           $scope.sourceNotes = notetitles;
           if (!$scope.sourceNotes) {
             $scope.loadingError = true;
@@ -40,10 +43,11 @@ angular.module('leder.projectPageController', [])
           $scope.$digest($scope.sourceNotes);
         }
       });
+
     } else {
-        //remind users that htey need to log into evernote
-    		$scope.showAlert();
-    	}
+        //remind users that they need to log into evernote
+        $scope.showAlert();
+      }
   };
 
   // Create the edit note modal that we will use later

@@ -164,6 +164,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         //save a reference to self
         var self = this;
         var noteTitleArray = [];
+        var authToken = $localstorage.get('authTokenEvernote');
 
         //filter by descending date
         var filter = new NoteFilter;
@@ -181,7 +182,7 @@ evernotemodule.service('EvernoteOAuth', function($localstorage, $rootScope, $q, 
         resultSpec.includeNotebookGuid = true;
           
         //filter to first 100 notes
-        self.noteStore.findNotesMetadata(self.authToken, filter, 0, 100, resultSpec, function (noteMetadata, error) {
+        self.noteStore.findNotesMetadata(authToken, filter, 0, 100, resultSpec, function (noteMetadata, error) {
             if (error) {
                 callback(error);
             }
